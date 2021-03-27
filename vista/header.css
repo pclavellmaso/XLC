@@ -85,6 +85,11 @@ h1 h2 {
     width: 100%;
 }
 
+.stickyUser {
+    position: fixed!important;
+    top: 80px;
+}
+
 .navbar {
     display: flex;
     flex-direction: row;
@@ -93,10 +98,6 @@ h1 h2 {
     background-color: rgb(248, 222, 183);
     line-height: 50px;
     z-index: 2;
-
-    /* bottom: 0;
-      position: absolute;
-      width: 100%; */
 }
 
 .navbar_item.usuari {
@@ -118,11 +119,32 @@ h1 h2 {
 }
 
 .dialeg_usuari {
-    opacity:0;
-    margin-left: auto;
-    transition: 0.4s;
+
+    right: 0px;
+    position: absolute;
+    z-index: 1;
+    background-color: #969c9a;
+    display: none;
+    border-radius: 10px;
 }
 
-.logout:hover {
-    color: red;
+.perfil, .logout {
+    transition: 0.4s;
+    font-size: 14px;
+    border-radius: 10px;
+    padding: 18px;
 }
+
+.perfil:hover, .logout:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+    font-size: 16px;
+}
+
+.perfil:hover>a {
+    color: white;
+}
+
+.logout:hover>a {
+    color: rgba(255, 0, 0, 0.6)
+}
+

@@ -1,3 +1,5 @@
+
+
 jQuery(document).ready(function () {
 
     /*************************/
@@ -5,12 +7,16 @@ jQuery(document).ready(function () {
     var navbar = jQuery('.navbar');
     var sticky = navbar.offset().top;
 
+    var modal_user = jQuery('.dialeg_usuari');
+
     jQuery(document).on('scroll', function () {
 
         if (window.pageYOffset >= sticky) {
             navbar.addClass("sticky");
+            modal_user.addClass("stickyUser");
         } else {
             navbar.removeClass("sticky");
+            modal_user.removeClass("stickyUser");
         }
     });
 
@@ -36,14 +42,14 @@ jQuery(document).ready(function () {
 
     /*************************/
 
-    jQuery(document).on('click', function () {
 
-        //copiar versio s&c
-        jQuery(".usuari").click(function () {
-            jQuery(".dialeg_usuari").css('opacity', '1')
-        });
-        //stop propagation
 
-    });
+
+
+
+});
+
+jQuery(".usuari").click(function () {
+    jQuery(".dialeg_usuari").toggle(3000);
 
 });

@@ -7,7 +7,7 @@
     <title>Xarxa Local de Comerços</title>
 
     <!--JQuery Core-->
-    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!--JQuery UI-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
     <!--JQuery Validate-->
@@ -88,8 +88,8 @@
 
             <div class="dialeg_usuari">
 
-                <div><a href="index.php?accio=perfil">Pàgina perfil</a></div>
-                <div><a class="logout" href="index.php?accio=logout">Tancar sessió</a></div>
+                <div class="perfil"><a href="index.php?accio=perfil">Pàgina perfil</a></div>
+                <div class="logout"><a href="index.php?accio=logout">Tancar sessió</a></div>
 
             </div>
 
