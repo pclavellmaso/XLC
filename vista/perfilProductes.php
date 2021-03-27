@@ -10,6 +10,7 @@
         display: flex;
         flex-wrap: wrap;
         /* WTF POLLAS PQ NO TE SPACE BEWTEEN NI CENTER NI NAAA?!?*/
+        /* Es fa amb el justify content no amb flex-direction retarded de merda */
         flex-direction: space-between;
     }
 

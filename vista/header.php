@@ -70,7 +70,7 @@
 
             <div class="navbar_item usuari">
 
-                <?php
+                <?php 
 
                     //si hi ha una sessió iniciada
                     if (isset($_SESSION['nom'])) { echo $_SESSION['nom']; } else {

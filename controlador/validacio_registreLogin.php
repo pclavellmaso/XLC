@@ -91,6 +91,7 @@
             $_SESSION['nom'] = $info_usuari[0]['nom'];
             $_SESSION['tipus_usuari'] = $info_usuari[0]['tipus'];
             $_SESSION['usuari_id'] = $info_usuari[0]['id'];
+            $_SESSION['usuari_correu'] = $info_usuari[0]['correu'];
             
             header('location: index.php');
         

@@ -6,6 +6,14 @@
 
         <div id="leftFlex">
 
+            <?php
+                
+                if(isset($_SESSION['pass_err']) && $_SESSION['pass_err'] == 'yes') {
+
+                    echo '<p style="color: red;">Error a l\'actualitzar la contrasenya: Contrasenya actual invàlida</p>';
+                }
+            ?>
+
             <p id="dades_personals" class="menu_item">Dades personals</p>
 
             <?php if(isset($_SESSION['tipus_usuari']) and $_SESSION['tipus_usuari'] == 'negoci') { ?>

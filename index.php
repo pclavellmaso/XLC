@@ -47,6 +47,10 @@ switch ($accio) {
         include('vista/perfilPersonal.php');
         break;
 
+    case 'act_dadesPersonals':
+        include('controlador/act_dadesPersonals.php');
+        break;
+
     case 'perfil_negoci':
         include('vista/perfilNegoci.php');
         break;
