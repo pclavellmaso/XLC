@@ -44,38 +44,5 @@
     $_SESSION['usuari_correu'] = $correu;
     
     header('location: /XLC/index.php?accio=perfil');
-        //Si camps contrasenyes buits i camps nom/correu no modificats(mirar com)
-            //Fer el canvi en el boto per EDITAR
         
-        //Si camp nom esta modificat(mirar com)
-            //$nom = input...
-            //$modificacions = true 
-
-        //Si camp correu esta modificat(mirar com) && (format correu vàlid)
-            //$correu = input... 
-            //$modificacions = true
-
-        //Si camp contrasenya_actual != buit
-            //Si $contrasenya_nova == $confirma_contrasenya_nova
-                //Si md5(contrasenya_actual) == $info_consulta['contrasenya']
-                    //Fer update a la bd $bd->query($update)
-                //ERROR CONTRASENYA ACTUAL ERRONEA
-            //ERROR LES CONTRASENYES NO COINCIDEIXEN
-        //
-
-        //if(isset algun dels 3 blocs (nom, correu, contrasenyes))
-
-        //Controlar si hi ha text en els camps de les contrasenyes
-
-            //Fer consulta contrasenya usuari WHERE nom = $_SESSION['nom']
-            //Fer md5(passworActual) == 
-                //Si coincideix, mirar si les altres dues son iguals
-                    //Si ho són, 
-                    //Si no ho son validar-ho en directe amb jquery validate plugin
-                //Si no, redirigir mateixa pagina amb missatge error o controlar-ho
-                // d'alguna altra manera mes comode
-        // 
-
-        
-
 ?>

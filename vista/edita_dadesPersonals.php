@@ -20,7 +20,7 @@
 
 <div>
 
-    <form action="/XLC/index.php?accio=act_dadesPersonals" method="post">
+    <form class="act_dades" action="/XLC/index.php?accio=act_dadesPersonals" method="post">
 
 
         <h4>Nom d'usuari</h4><br>
@@ -33,7 +33,7 @@
         <input class="inputPass" type="text" name="passAct" value="" placeholder="***********">
 
         <h4>Contrasenya nova</h4><br>
-        <input class="inputPass1" type="text" name="pass1" value="">
+        <input class="inputPass1" id="pass1_id" type="text" name="pass1" value="">
         <h4>Repeteix la contrasenya nova</h4><br>
 
         <input class="inputPass2" type="text" name="pass2" value="">
@@ -44,3 +44,24 @@
 
 </div>
     
+<script>
+
+    jQuery(document).ready(function(){
+
+
+        // Validació contrasenyes noves iguals i camps requerits
+        jQuery(".act_dades").validate({
+            rules: {
+                pass2: { equalTo: "#pass1_id" },
+            },
+            messages: {
+                pass2: "Les contrasenyes no coincideixen."
+            }
+	    });
+
+
+
+    })
+
+
+</script>
