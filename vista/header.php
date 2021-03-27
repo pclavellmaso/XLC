@@ -49,6 +49,11 @@
 
         </div>
 
+        <div><?php
+            echo 'Log Session: ';
+            print_r($_SESSION);
+        ?></div>
+
         <div class="navbar">
 
             <div class="navbar_item"><a href="index.php">Inici</a></div>
@@ -62,11 +67,6 @@
 
             <div class="navbar_item"><a href="index.php?accio=mur_promos">Mur de Promocions</a></div>
             <div class="navbar_item"><a href="index.php?accio=sobre_projecte">Sobre el Projecte</a></div>
-
-            <?php
-                echo 'Log Session: ';
-                print_r($_SESSION);
-            ?>
 
             <div class="navbar_item usuari">
 
@@ -84,14 +84,16 @@
 
         </div>
 
-        <div class="dialeg_usuari">
+        <div class="content">
 
-            <div><a href="index.php?accio=perfil">Pàgina perfil</a></div>
-            <div><a class="logout" href="index.php?accio=logout">Tancar sessió</a></div>
+            <div class="dialeg_usuari">
 
-        </div>
+                <div><a href="index.php?accio=perfil">Pàgina perfil</a></div>
+                <div><a class="logout" href="index.php?accio=logout">Tancar sessió</a></div>
 
-    </div>
+            </div>
+
+  
 
 <?php
 

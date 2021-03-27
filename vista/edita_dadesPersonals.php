@@ -23,20 +23,20 @@
     <form class="act_dades" action="/XLC/index.php?accio=act_dadesPersonals" method="post">
 
 
-        <h4>Nom d'usuari</h4><br>
-        <input class="inputNom" type="text" name="nom" value="<?php echo $info[0]["nom"]; ?>">
+        <h4>Nom d'usuari</h4>
+        <input class="inputNom" type="text" name="nom" value="<?php echo $info[0]["nom"]; ?>"><br><br>
 
-        <h4>Correu electrònic</h4><br>
-        <input class="inputCorreu" type="text" name="correu" value="<?php echo $info[0]['correu']; ?>">
+        <h4>Correu electrònic</h4>
+        <input class="inputCorreu" type="text" name="correu" value="<?php echo $info[0]['correu']; ?>"><br><br>
 
-        <h4>Contrasenya actual</h4><br>
-        <input class="inputPass" type="text" name="passAct" value="" placeholder="***********">
+        <h4>Contrasenya actual</h4>
+        <input class="inputPass" type="text" name="passAct" value="" placeholder="***********"><br><br>
 
-        <h4>Contrasenya nova</h4><br>
-        <input class="inputPass1" id="pass1_id" type="text" name="pass1" value="">
-        <h4>Repeteix la contrasenya nova</h4><br>
-
-        <input class="inputPass2" type="text" name="pass2" value="">
+        <h4>Contrasenya nova</h4>
+        <input class="inputPass1" id="pass1_id" type="text" name="pass1" value=""><br><br>
+        
+        <h4>Repeteix la contrasenya nova</h4>
+        <input class="inputPass2" type="text" name="pass2" value=""><br><br>
     
         <button type="submit" value="Guarda els canvis">Guarda els canvis</button>
     

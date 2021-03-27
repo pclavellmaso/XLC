@@ -103,8 +103,8 @@ h1 h2 {
     margin-left: auto;
 }
 
-.sticky + .wrap {
-    padding-top: 800px;
+.sticky + .content {
+    padding-top: 80px;
 }
 
 .navbar_item {

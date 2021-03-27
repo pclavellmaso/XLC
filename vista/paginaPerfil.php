@@ -59,13 +59,13 @@
 
         $("#dades_personals").click(function(){
             $.ajax({url: "index.php?accio=perfil_personal", success: function(result){
-                $("#contingut").html(result);
+                $("#contingut").hide().html(result).fadeIn(400);
             }});
         });
 
         $("#dades_negoci").click(function(){
             $.ajax({url: "index.php?accio=perfil_negoci.php", success: function(result){
-                $("#contingut").html(result);
+                $("#contingut").hide().html(result).fadeIn(400);
             }});
         });
 

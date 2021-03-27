@@ -29,6 +29,6 @@ $info = $consulta_res->fetch_all(MYSQLI_ASSOC);
             <p><?php echo $info[0]['telefon']; ?></p><br>
     
     <!-- ajax -->
-    <a href=''><?php echo 'EDITAR'; ?></a>
+    <h2><?php echo 'EDITAR'; ?><h2>
 
 </div>

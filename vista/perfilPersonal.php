@@ -38,43 +38,19 @@
 <div>
 
     <h2>Consulta o modifica les teves dades</h2><br>
-    
-        <!--<h3>Nom</h3>
-            <p><?php //echo $info[0]["nom"]; ?></p><br>
-        <h3>Correu electrònic</h3>
-            <p><?php //echo $info[0]['correu']; ?></p><br>
-        <h3>Contrasenya</h3>
-            <p><?php //echo $info[0]['contrasenya']; ?></p><br>-->
-
-    <!-- ajax -->
-    <!--<a href=''><?php //echo 'EDITAR'; ?></a>-->
 
     <div class="dades">
         
-        <h4>Nom d'usuari</h4><br>
-        <p class="inputNom"><?php echo $info[0]["nom"]; ?></p>
+        <h4>Nom d'usuari</h4>
+        <p class="inputNom"><?php echo $info[0]["nom"]; ?></p><br>
 
-        <h4>Correu electrònic</h4><br>
-        <p class="inputCorreu"><?php echo $info[0]['correu']; ?></p>
+        <h4>Correu electrònic</h4>
+        <p class="inputCorreu"><?php echo $info[0]['correu']; ?></p><br>
 
-        <h4>Contrasenya</h4><br>
-        <p class="inputPass">***********</p>
+        <h4>Contrasenya</h4>
+        <p class="inputPass">***********</p><br>
 
-
-        <!--AJAX FILE--><!--<div class="chPass">
-
-                <h4>Contrasenya actual</h4><br>
-                <input class="inputText" type="text" name="pass" value="">
-
-                <h4>Contrasenya nova</h4><br>
-                <input class="inputText" type="text" name="pass" value="">
-
-                <h4>Confirma la contrasenya nova</h4><br>
-                <input class="inputText" type="text" name="pass" value="">
-
-        </div>-->
-
-        <button class="btn">Edita</button>
+        <h2 class="edita">Edita<h2>
         
     </div>
 
@@ -84,7 +60,7 @@
 
     jQuery(document).ready(function(){
 
-        jQuery(".btn").click(function(){
+        jQuery(".edita").click(function(){
 
             jQuery(".dades").load("/XLC/vista/edita_dadesPersonals.php")
 
