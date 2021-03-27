@@ -1,0 +1,41 @@
+* {
+    margin: 0px;
+    padding: 0px;
+}
+
+#contentFlex {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+#leftFlex, #rightFlex {
+    padding: 80px 70px;
+    box-sizing: border-box;
+}
+
+#leftFlex {
+    flex: 0 0 30%;
+}
+
+.menu_item {
+    cursor: pointer;
+    font-size:20px;
+    margin-bottom: 30px;
+}
+
+.menu_item:hover {
+    font-weight: bold;
+}
+
+#rightFlex {
+    flex: 0 0 70%;
+}
+
+.dadesPersonals, .dadesNegoci, .infoProductes, .infoPromocions {
+    display: none;
+}
+label {
+    display: block;
+    margin: 20px 0;
+}

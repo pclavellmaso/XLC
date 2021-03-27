@@ -1,0 +1,128 @@
+body {
+    background-color: blanchedalmond;
+    font-family: "Montserrat", sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.pagina {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /*height: 100vh;*/
+}
+
+.capçalera_flex {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.logo {
+    width: 25%;
+    text-align: left;
+}
+
+.tema {
+    width: 25%;
+    text-align: right;
+}
+
+.titol {
+    width: 50%;
+    text-align: center;
+}
+
+h1 h2 {
+    font-family: "Trebuchet MS", sans-serif;
+}
+
+.tema_clar {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background-color: blanchedalmond;
+    border: 1px solid black;
+    cursor: pointer;
+}
+
+.tema_fosc {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    background-color: #333;
+    border: 1px solid #333;
+    margin-left: -4px;
+    cursor: pointer;
+}
+
+.descripcio_flex {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    line-height: 30px;
+}
+
+.descripcio_flex p {
+    width: 50%;
+    padding: 50px;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: justify;
+    text-align-last: center;
+}
+
+.sticky {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    background-color: rgb(248, 222, 183);
+    line-height: 50px;
+    z-index: 2;
+
+    /* bottom: 0;
+      position: absolute;
+      width: 100%; */
+}
+
+.navbar_item.usuari {
+    margin-left: auto;
+}
+
+.sticky + .wrap {
+    padding-top: 800px;
+}
+
+.navbar_item {
+    padding: 15px 30px;
+    cursor: pointer;
+    font-family: "Montserrat", sans-serif !important;
+}
+
+.navbar_item:hover {
+    color: brown;
+}
+
+.dialeg_usuari {
+    opacity:0;
+    margin-left: auto;
+    transition: 0.4s;
+}
+
+.logout:hover {
+    color: red;
+}
