@@ -82,11 +82,11 @@ img {
     background: transparent;
 }
 
-input {
+.inputHide {
     display: none;
 }
 
-input + .check_label {
+.inputHide + .check_label {
     cursor: pointer;
 }
 
@@ -107,7 +107,7 @@ input + .check_label {
     border: 1px solid grey;
 }
 
-input:checked + .check_label:before {
+.inputHide:checked + .check_label:before {
     background-color: gray;
 }
 
@@ -122,6 +122,13 @@ input:checked + .check_label:before {
 
 .btn_crear:hover {
     font-size: 22px;
+}
+
+.input_descmp, .input_data_fi {
+    display: inline-block;
+    background: transparent;
+    border:none;
+    border-bottom: 1px solid black;
 }
 
 
@@ -141,14 +148,19 @@ input:checked + .check_label:before {
 
 
 
-<div class="llistaFlex">
+
+
+<form action="/XLC/index.php?accio=crear_promo" method="post">
+
+
+    <div class="llistaFlex">
 
     <?php for ($i = 0; $i < count($data_prods); $i++) { ?>
 
         <div class="promoFlex">
-      
+    
             <div class="flex">
-                <input id="<?php echo $i; ?>" type="checkbox">
+                <input class="inputHide" id="<?php echo $i; ?>" name="ids[]" type="checkbox" value="<?php echo $data_prods[$i]['id']; ?>">
                 <label class="check_label" for="<?php echo $i; ?>"></label>
             </div>
             
@@ -177,14 +189,36 @@ input:checked + .check_label:before {
 
     <?php } ?>
 
-</div>
+    </div>
 
-<form action="../index.php?accio=crear_promo">
+    <h3 style="display: inline-block; margin-top: 15px;">Aplicar descompte del</h3>
+    <input name="descompte" value="" class="input_descmp" type="number">
 
-        
-        <input type="text">
+    <h3 style="margin-top: 15px;">Data de finalització (deixar buit si indefinida)</h3>
+    <input name="data_fi" value="" class="input_data_fi" type="date">
 
-
-        <button class="btn_crear" type="submit">Crear Promoció</button>
+    <button style="display: block; margin-top: 15px;" class="btn_crear" type="submit" disabled>Crear Promoció</button>
 
 </form>
+
+
+<script>
+
+    jQuery(document).ready(function() {
+
+        jQuery("input[type=checkbox]").click(function() {
+
+            if (jQuery("input[type=checkbox]:checked").length > 0) {
+            
+                jQuery(".btn_crear").prop('disabled', false);
+            }else {
+                jQuery(".btn_crear").prop('disabled', true);
+            }
+        })
+        
+    })
+    
+
+    
+
+</script>

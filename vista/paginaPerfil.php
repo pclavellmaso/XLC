@@ -14,6 +14,14 @@
                 }
             ?>
 
+            <?php
+                
+                if(isset($_SESSION['new_promo']) && $_SESSION['new_promo'] == 'yes') {
+
+                    echo '<p style="color: green;">Promoció creada!</p>';
+                }
+            ?>
+
             <p id="dades_personals" class="menu_item">Dades personals</p>
 
             <?php if(isset($_SESSION['tipus_usuari']) and $_SESSION['tipus_usuari'] == 'negoci') { ?>
