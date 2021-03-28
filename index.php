@@ -59,6 +59,10 @@ switch ($accio) {
         include('vista/perfilProductes.php');
         break;
 
+    case 'perfil_promos':
+        include('vista/perfilPromos.php');
+        break;
+
     case 'sobre_projecte':
         include('vista/sobreProjecte.php');
         break;

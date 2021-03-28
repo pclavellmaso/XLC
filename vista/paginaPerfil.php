@@ -77,7 +77,9 @@
 
 
         jQuery("#consul_proms").on('click', function() {
-            jQuery("#contingut").html("<p>INFO PROMOCIONS</p>");
+            $.ajax({url: "index.php?accio=perfil_promos", success: function(result){
+                $("#contingut").html(result);
+            }});
         });
 
     });
