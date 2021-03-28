@@ -44,9 +44,6 @@
         <div id="rightFlex">
 
             <div id="contingut">
-
-                <p>En aquest espai pots consultar etc...</p>
-
             </div>
 
         </div>
@@ -62,6 +59,11 @@
     
 
 <script>
+
+    // Per defecte carrega la pàgina de les dades personals
+    $.ajax({url: "index.php?accio=perfil_personal", success: function(result){
+        $("#contingut").hide().html(result).fadeIn(400);
+    }});
 
     jQuery(document).ready(function() {
 
