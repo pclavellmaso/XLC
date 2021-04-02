@@ -12,6 +12,7 @@ ini_set('display_errors', 1);
 
 include("model/debug.php");
 
+
 if (isset($_GET['accio'])) {
     $accio = $_GET['accio'];
 } else if (isset($_POST['accio'])) {
@@ -21,6 +22,7 @@ if (isset($_GET['accio'])) {
 }
 
 $accio = explode('.', $accio)[0];
+
 
 switch ($accio) {
     case 'registreLogin':
@@ -51,6 +53,14 @@ switch ($accio) {
         include('controlador/act_dadesPersonals.php');
         break;
 
+    case 'perfil_cistella':
+        include('vista/perfilCistella.php');
+        break;
+
+    case 'buida_cistella':
+        include('controlador/buidaCistella.php');
+        break;
+
     case 'perfil_negoci':
         include('vista/perfilNegoci.php');
         break;
@@ -75,12 +85,21 @@ switch ($accio) {
         include('vista/murPromocions.php');
         break;
 
+    case 'pagina_promo':
+        include('vista/paginaPromo.php');
+        break;
+
     case 'llista_negocis':
         include('vista/llistaNegocis.php');
         break;
 
     case 'afegir_producte':
         include('controlador/validacio_producte.php');
+        break;
+
+    case 'afegir_cistella':
+        console_log('case afegir');
+        include('controlador/afegirCistella.php');
         break;
 
     default:

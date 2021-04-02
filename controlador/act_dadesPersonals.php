@@ -1,6 +1,5 @@
 <?php
-    
-
+ 
     //EN TEORIA tenim la connexió a la bd feta passant per l'index.php
     if(isset($_SESSION['tipus_usuari'])) {
             

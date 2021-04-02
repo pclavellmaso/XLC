@@ -29,16 +29,16 @@
   background: lightgrey; 
 }
 
-.promoFlex {
+.prodFlex {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
     background-color: lightgrey;
-    border-radius: 7px 7px 7px 40px;
+    border-radius: 3px 3px 3px 3px;
     padding: 10px;
-    margin-bottom: 30px;
-    box-shadow: 4px 4px #888888;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px #888888;
 }
 
 .right {
@@ -68,7 +68,7 @@
 
 
 .flex_img {
-    border-radius: 10%;
+    border-radius: 5px;
     background: #b5b0b0;
     width: 10%;
     display: flex;
@@ -78,7 +78,7 @@
 img {
     width: 100%;
     margin: auto;
-    border-radius: 10%;
+    border-radius: 5px;
     background: transparent;
 }
 
@@ -98,11 +98,11 @@ img {
 
 .check_label:before {
     content: "";
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background-color: transparent;
     display: inline-block;
-    border-radius: 10px 10px 10px 40px;
+    border-radius: 2px 2px 2px 2px;
     height: 20px;
     border: 1px solid grey;
 }
@@ -157,7 +157,7 @@ img {
 
     <?php for ($i = 0; $i < count($data_prods); $i++) { ?>
 
-        <div class="promoFlex">
+        <div class="prodFlex">
     
             <div class="flex">
                 <input class="inputHide" id="<?php echo $i; ?>" name="ids[]" type="checkbox" value="<?php echo $data_prods[$i]['id']; ?>">
