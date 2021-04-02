@@ -5,34 +5,39 @@
         $_SESSION['cistella']['prods'] = array();
     }
 
+    // Ens guardem l'index del producte en l'array de $_SESSION['cistella']['prods'] per a poder modificar els seus valors (pe. nombre d'unitats)
     $index_prod = $_POST['index_prod'];
 
     // Cas d'incrementar la quantitat de cert producte
     if ($_POST['mod_prod'] == 'afegir_promo') {
         
+        // Si es tracta d'una promoció, incrementem els comptadors de la promoció i dels elements de la cistella 
         $_SESSION['cistella']['prods'][$index_prod]['qty_promo'] += 1;
         $_SESSION['cistella']['qty'] += 1;
+
         header('location: index.php?accio=perfil_cistella');
         exit();
 
     }else if ($_POST['mod_prod'] == 'afegir_prod') {
 
+        // Si es trcta d'un producte, incrementem comptador producte i elements de la cistella
         $_SESSION['cistella']['prods'][$index_prod]['prod_qty'] += 1;
         $_SESSION['cistella']['qty'] += 1;
+
         header('location: index.php?accio=perfil_cistella');
         exit();
     }
         
-    
-
     // Cas de decrementar la quantitat de cert producte
     if ($_POST['mod_prod'] == 'eliminar_promo') {
 
-        //$index_prod = $_POST['index_prod'];
-
+        // Si actualment només hi ha aquest element, i es borra, esborrar l'array de la sessió
+        // i drecrementar nombre d'elements de la cistella
         if ($_SESSION['cistella']['prods'][$index_prod]['qty_promo'] == 1) {
             unset($_SESSION['cistella']['prods'][$index_prod]);
             $_SESSION['cistella']['qty'] -= 1;
+
+        // Si n'hi ha més, només decrementar el comptador de la promoció i el nombre d'elements de la cistella
         }else {
             $_SESSION['cistella']['prods'][$index_prod]['qty_promo'] -= 1;
             $_SESSION['cistella']['qty'] -= 1;
@@ -40,6 +45,7 @@
         header('location: index.php?accio=perfil_cistella');
         exit();
 
+    // El mateix procediment però per a productes
     }else if ($_POST['mod_prod'] == 'eliminar_prod') {
 
         if ($_SESSION['cistella']['prods'][$index_prod]['prod_qty'] == 1) {
@@ -54,15 +60,16 @@
     }
 
 
-// Si hem d'afegir una promoció amb possibles diversos productes
+    // Si hem d'afegir una promoció amb possibles diversos productes
     if (isset($_POST['promocio'])) {
 
+        // Agafem els ids de la promoció i dels seus productes
         $id_prods = $_POST['id_prods'];
-        $promo_qty = $_POST['promo_qty'];
-        $promo_id = $_POST['promo_id'];
 
+        // Creem array amb els ids separats en posicions
         $id_prods = explode(',', $id_prods);
 
+        // Array on es guarden tots els productes de la promoció
         $promocio = array();
 
         for ($i = 0; $i < count($id_prods); $i++) {
@@ -74,36 +81,40 @@
             
             // l'afegim a l'array de la promocio
             array_push($promocio, $data_prod[0]);
-
         }
 
-        $promocio['qty_promo'] = $promo_qty;
-        $promocio['promo_id'] = $promo_id;
+        // S'afegeixen dos camps extres en el resultat de la consulta (per al printeig a la pàgina de la cistella)
+        $promocio['qty_promo'] = $_POST['promo_qty'];
+        $promocio['promo_id'] = $_POST['promo_id'];
+
         // Afegim tota la promocio amb els subarrays de productes a la sessió, i augmentem el número d'elements de la cistella
         array_push($_SESSION['cistella']['prods'], $promocio);
 
-        $_SESSION['cistella']['qty'] += $promo_qty;
+        // Incrementem el nombre d'elements de la cistella 
+        $_SESSION['cistella']['qty'] += $_POST['promo_qty'];
 
-    // Si hem d'afegir un únic producte (control més d'1 unitat)
+    // Si hem d'afegir un únic producte
     }else {
 
+        // Seleccionem les dades del producte en qüestió de la bd
         $cons_prod = "SELECT * FROM producte p WHERE p.id = ".$_POST['id_prod']."";
         $res_prod = $bd->query($cons_prod);
         $data_prod = $res_prod->fetch_all(MYSQLI_ASSOC);
 
+        // Afegim camp extra al resultat (quantitat d'unitats del mateix producte)
         $data_prod[0]['prod_qty'] = $_POST['prod_qty'];
+
+        // Afegim el producte a la sessió
         array_push($_SESSION['cistella']['prods'], $data_prod[0]); 
 
+        // Incrementem el nombre d'elements de la cistella segons el número d'unitats del producte
         $_SESSION['cistella']['qty'] += $_POST['prod_qty'];
-
 
         // de moment redirigeix a inici, revisarr
         header('location: index.php');
         exit();
     }
 
-
     header('location: index.php?accio=mur_promos');
-
 
 ?>
