@@ -20,149 +20,144 @@
     width: 100%;
     justify-content: flex-start;
     flex-wrap: wrap;
+    height: 620px;
+    overflow: hidden;
 }
 
 .img {
-    flex-grow: 1;
-    height: 80vh;
+    flex: 0 0 33%;
 }
 
-img {
-    max-height: 100%;
-    min-width: 100%;
-    object-fit: cover;
-    opacity: 1;
-}
-
-.sectionBuscar {
+.carousel {
     width: 100%;
-    height: 100vh;
 }
 
-.fade {
+.titol1 {
+    margin-top: 100px;
+    margin-bottom: 70px;
+}
+
+.grid_seleccio {
+    display: flex;
     width: 100%;
-    height: 100%;
-    top: -100%;
-    position: relative;
-    /* NO VA JODER */
-    transition: 0.5s;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.producte {
+    flex: 0 0 20%;
+    padding: 20px;
 }
 
-.fade:hover {
-    
-    background: linear-gradient(to right, rgba(255, 216, 158, 0.8) 0%, rgba(0,0,0, 0) 150%);
+.prod_abaix {
+    background: rgba(0,0,0, 0.2);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 10px;
 }
 
-/*.buscar {
-    position: absolute;
-    top: 50%;
-    left: 40%;
+.info_nom, .preu {
+    font-weight: bold;
 }
 
-.inpText {
-    border: none;
-    font-size:30px;
-    border-bottom: 2px solid black;
-    background: transparent;
-}*/
 
+.foto {
+    width: 100%;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
 
 
 </style>
 
+
+
+
 <div class="wrap">
 
-    <div class="sectionBuscar">
+    <div class=imgflex>
+    
+        <div class="img">
+            <img class="carousel" src="/XLC/vista/img/una-2.jpg" alt="una">
 
-        <div class=imgflex>
+        </div>
         
-            <div class="img">
-                <img src="/XLC/vista/img/una-2.jpg" alt="una">
-                <div class="fade"></div>
+        <div class="img">
+            <img class="carousel" src="/XLC/vista/img/dos.jpg" alt="dos">
 
-            </div>
-            
-            <div class="img">
-                <img src="/XLC/vista/img/dos.jpg" alt="dos">
-                <div class="fade"></div>
-
-            </div>
-            
-            <div class="img">
-                <img src="/XLC/vista/img/quatre.jpg" alt="tres">
-                <div class="fade"></div>
-
-            </div>
-
-            <!-- <div class="buscar">
-
-                <input class="inpText" type="text" name="buscar" placeholder="Busca un producte">
-
-            </div> -->
+        </div>
+        
+        <div class="img">
+            <img class="carousel" src="/XLC/vista/img/quatre.jpg" alt="tres">
 
         </div>
 
     </div>
-
-    
-    
    
-    
-    
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+    <div>
 
-    <p>Descobreix els negocis que tens aprop i que no coneixies!</p>
-    <?php
-        echo $_SESSION['negoci?'];
-        echo $_SESSION['entra'];
-        echo $_SESSION['signin'];
-        echo $_SESSION['signin2'];
-        echo $_SESSION['login'];
-        echo $_SESSION['res_c'];
-        echo $_SESSION['res_n'];
-        echo $_SESSION['imatge'];
-        echo $_SESSION['cons_client'];
-        echo $_SESSION['aff'];
+        <h1 class="titol1">Descobreix els negocis que tens aprop i que no coneixies!</h1>
+        <h2>Aquí trobaràs una selecció de productes dels negocis adherits al nostre portal</h2>
 
-    ?>
-    <br>
-    <p>Aquí trobaràs una selecció de productes dels negocis adherits al nostre portal</p>
+        
+        <div class="seleccio">
+            
+        <p>Selecció de productes amb descompte</p>
+            
+            <div class="grid_seleccio">
+
+                <?php 
+
+                    $cons_prods = "SELECT p.id, p.imatge, p.descompte, p.nom, p.preu, c.nom_categoria FROM producte p, categoria c WHERE p.descompte > 0 and p.categoria_id = c.id";
+                    $res_prods = $bd->query($cons_prods);
+                    $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
+
+                    foreach($data_prods as $prod) { ?>
+
+                        <div class="producte"><a href="index.php?accio=pagina_producte&id=<?php echo $prod['id']; ?>">
+
+                            <div class="prod_amunt">
+                                <img class="foto" src="/XLC/vista/img/<?php echo $prod['imatge']; ?>" alt="">
+                            </div>
+                            <div class="prod_abaix">
+                                <div class=info>
+                                    <p class="info_nom"><?php echo $prod['nom']; ?></p>
+                                    <p class="info_cate"><?php echo $prod['nom_categoria']; ?></p>
+                                </div>
+                                <div class="info2">
+                                    <p class="preu"><?php echo $prod['preu']; ?> €</p>
+                                    <p class="descompte"><?php echo $prod['descompte']; ?> % Rebaixat</p>
+                                </div>
+                            </div>
+
+                        </a></div>
+
+                    <?php } ?>
+
+            </div>
+
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+    </div>
+
     
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
 
 </div>
 
-<!-- <script>
+<script>
 
-    jQuery(document).ready(function(){
+ 
 
-        jQuery(".inpText").focus(function(){
-
-            jQuery("img").css('opacity', '0.4');
-
-        });
-        jQuery(".inpText").blur(function(){
-
-            jQuery("img").css('opacity', '0.6');
-
-        });
-
-    });
-
-</script> -->
+</script>
 
 
 <?php include("footer.php"); ?>

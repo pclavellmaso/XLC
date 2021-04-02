@@ -21,8 +21,6 @@ if (isset($_GET['accio'])) {
     $accio = null;
 }
 
-$accio = explode('.', $accio)[0];
-
 
 switch ($accio) {
     case 'registreLogin':
@@ -87,6 +85,10 @@ switch ($accio) {
 
     case 'pagina_promo':
         include('vista/paginaPromo.php');
+        break;
+    
+    case 'pagina_producte':
+        include('vista/paginaProducte.php');
         break;
 
     case 'llista_negocis':

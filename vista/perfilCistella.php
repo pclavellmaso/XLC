@@ -67,7 +67,7 @@ margin-left: ;
                 foreach($prods as $index_prod=>$prod) {
 
                     // Si és una promoció (possibles diversos productes)
-                    if(true) {
+                    if (isset($prods['qty_promo'])) {
                         
                         echo '<div class="promoFlex">
                         <p>Promoció</p>';
@@ -93,8 +93,8 @@ margin-left: ;
                         echo '<p>Qty: '.$prod['qty_promo'].'</p>
                         <form action="index.php?accio=afegir_cistella" method="post">
                             <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                            <button name="mod_prod" value="afegir" type="submit">+</button>
-                            <button name="mod_prod" value="eliminar" type="submit">-</button>
+                            <button name="mod_prod" value="afegir_promo" type="submit">+</button>
+                            <button name="mod_prod" value="eliminar_promo" type="submit">-</button>
                         </form>
                         </div>';
 
@@ -109,15 +109,22 @@ margin-left: ;
                             <div class="prod_dreta">
 
                                 <p>'.$prod['nom'].'</p>
-                                <p>'.$prod['preu'].'</p>
+                                <p>'.$prod['descripcio'].'</p>
+                                <p>'.$prod['preu'].' €</p>
+                                <p>'.$prod['descompte'].' % Rebaixat</p>
 
                             </div>
-
+                        <p>Qty: '.$prod['prod_qty'].'</p>
+                        <form action="index.php?accio=afegir_cistella" method="post">
+                            <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
+                            <button name="mod_prod" value="afegir_prod" type="submit">+</button>
+                            <button name="mod_prod" value="eliminar_prod" type="submit">-</button>
+                        </form>
                         </div>';
+                        
                     }
                 }
             }   
-
         ?>
 
         <form action="index.php?accio=buida_cistella" method="post">
