@@ -1,5 +1,7 @@
 <link rel="stylesheet" href="/XLC/vista/footer.css">
 
+    </div><!--tancament del div 'content' del header (tanca tota la pàgina)-->
+
     <div class="footer_flex">
 
         <div class="esq_flex">

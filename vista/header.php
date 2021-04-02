@@ -15,9 +15,11 @@
 
     <!--CSS styles-->
     <link rel="stylesheet" href="/XLC/vista/header.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 
     <!--JS files-->
     <script src="/XLC/vista/js/header.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 
     <!--Other Shittys-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -67,13 +69,28 @@
 
             <div class="navbar_item"><a href="index.php?accio=mur_promos">Mur de Promocions</a></div>
             <div class="navbar_item"><a href="index.php?accio=sobre_projecte">Sobre el Projecte</a></div>
+            <div class="navbar_item cistella">
 
+                <?php 
+
+                    //si hi ha una sessió iniciada
+                    if (isset($_SESSION['nom'])) { 
+                        
+                        echo '<a href="/XLC/index.php?accio=perfil_cistella" class="cistella">'.$_SESSION["cistella"]["qty"].'</a>'; 
+                    }
+                ?>
+
+            </div>
             <div class="navbar_item usuari">
 
                 <?php 
 
                     //si hi ha una sessió iniciada
-                    if (isset($_SESSION['nom'])) { echo $_SESSION['nom']; } else {
+                    if (isset($_SESSION['nom'])) { 
+                        
+                        echo '<p class="usuari">'.$_SESSION["nom"].'</p>';
+                    
+                    } else {
                         
                         // icono / algo nice jeje
                         echo "<a href='index.php?accio=registreLogin'>Registra't o Inicia sessió</a>";
@@ -103,11 +120,11 @@
 
             $(document).ready(function(){
 
-            $(".navbar_item.usuari").on("click", function(){
-                $(".dialeg_usuari").toggle();
-            });
+                $(".navbar_item.usuari").on("click", function(){
+                    $(".dialeg_usuari").toggle();
+                });
 
-        });
+            });
 
         </script>';
     }

@@ -1,21 +1,33 @@
 <style>
 
-    .chPass {
-        display: none;
-    }
+.chPass {
+    display: none;
+}
 
-    .write {
-        border-bottom: 1px solid red;
-    }
+.write {
+    border-bottom: 1px solid red;
+}
 
-    input {
-        background-color: transparent;
-        border: none;
-    }
+input {
+    background-color: transparent;
+    border: none;
+}
 
-    .cancela {
-        cursor: pointer;
-    }
+.cancela {
+    cursor: pointer;
+}
+
+.edita {
+    transition: 0.4s;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.edita:hover {
+    font-size: 22px;
+}
 
 </style>
 
@@ -50,7 +62,7 @@
         <h4>Contrasenya</h4>
         <p class="inputPass">***********</p><br>
 
-        <h2 class="edita">Edita<h2>
+        <button class="edita">Edita</button>
         
     </div>
 

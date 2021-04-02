@@ -1,6 +1,5 @@
 <?php
-    
-
+ 
     //EN TEORIA tenim la connexió a la bd feta passant per l'index.php
     if(isset($_SESSION['tipus_usuari'])) {
             
@@ -22,8 +21,8 @@
     $cons_pass = "SELECT u.contrasenya FROM usuari u WHERE u.correu = '$correuUsuari'";
     $cons_pass_res = $bd->query($cons_pass);
     $passBd = $cons_pass_res->fetch_all(MYSQLI_ASSOC);
-
-    if (isset($passAct)) {
+    
+    if (!empty($passAct)) {
 
         $passAct = md5($passAct);
 

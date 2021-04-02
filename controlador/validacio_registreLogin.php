@@ -93,6 +93,8 @@
             $_SESSION['usuari_id'] = $info_usuari[0]['id'];
             $_SESSION['usuari_correu'] = $info_usuari[0]['correu'];
             
+            $_SESSION['cistella']['qty'] = 0;
+            
             header('location: index.php');
         
         }else {

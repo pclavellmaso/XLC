@@ -1,4 +1,20 @@
 
+<style>
+
+.guarda {
+    transition: 0.4s;
+    font-size: 20px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.guarda:hover {
+    font-size: 22px;
+}
+
+</style>
+
 <?php
     //Necessari iniciar sessio i incloure bd ja que la pàgina es crida per ajax i no passa per index.php
     session_start();
@@ -38,7 +54,7 @@
         <h4>Repeteix la contrasenya nova</h4>
         <input class="inputPass2" type="text" name="pass2" value=""><br><br>
     
-        <button type="submit" value="Guarda els canvis">Guarda els canvis</button>
+        <button type="submit" class="guarda">Guarda els canvis</button>
     
     </form>
 

@@ -14,6 +14,14 @@
                 }
             ?>
 
+            <?php
+                
+                if(isset($_SESSION['new_promo']) && $_SESSION['new_promo'] == 'yes') {
+
+                    echo '<p style="color: green;">Promoció creada!</p>';
+                }
+            ?>
+
             <p id="dades_personals" class="menu_item">Dades personals</p>
 
             <?php if(isset($_SESSION['tipus_usuari']) and $_SESSION['tipus_usuari'] == 'negoci') { ?>
@@ -36,9 +44,6 @@
         <div id="rightFlex">
 
             <div id="contingut">
-
-                <p>En aquest espai pots consultar etc...</p>
-
             </div>
 
         </div>
@@ -54,6 +59,11 @@
     
 
 <script>
+
+    // Per defecte carrega la pàgina de les dades personals
+    $.ajax({url: "index.php?accio=perfil_personal", success: function(result){
+        $("#contingut").hide().html(result).fadeIn(400);
+    }});
 
     jQuery(document).ready(function() {
 
@@ -77,7 +87,9 @@
 
 
         jQuery("#consul_proms").on('click', function() {
-            jQuery("#contingut").html("<p>INFO PROMOCIONS</p>");
+            $.ajax({url: "index.php?accio=perfil_promos", success: function(result){
+                $("#contingut").html(result);
+            }});
         });
 
     });

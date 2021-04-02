@@ -9,15 +9,12 @@
     .listFlex {
         display: flex;
         flex-wrap: wrap;
-        /* WTF POLLAS PQ NO TE SPACE BEWTEEN NI CENTER NI NAAA?!?*/
-        /* Es fa amb el justify content no amb flex-direction retarded de merda */
-        flex-direction: space-between;
+        justify-content: flex-start;
     }
 
     .prodFlex {
         display: flex;
-        margin-left: 35px;
-        margin-top: 35px;
+        margin-bottom: 65px;
     }
 
     .prod_img {
@@ -35,7 +32,8 @@
     }
 
     .desplega {
-        margin-top: 200px;
+        margin-top: 60px;
+        margin-bottom: 45px;
     }
 
     input {

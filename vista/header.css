@@ -100,12 +100,16 @@ h1 h2 {
     z-index: 2;
 }
 
-.navbar_item.usuari {
-    margin-left: auto;
+.navbar_item:hover > a {
+    color: brown;
 }
 
-.sticky + .content {
-    padding-top: 80px;
+.navbar_item:hover {
+    color: brown;
+}
+
+.navbar_item.cistella {
+    margin-left: auto;
 }
 
 .navbar_item {
@@ -114,8 +118,8 @@ h1 h2 {
     font-family: "Montserrat", sans-serif !important;
 }
 
-.navbar_item:hover {
-    color: brown;
+.sticky + .content {
+    padding-top: 80px;
 }
 
 .dialeg_usuari {
@@ -148,3 +152,6 @@ h1 h2 {
     color: rgba(255, 0, 0, 0.6)
 }
 
+.content {
+    padding: 0% 5%;
+}
