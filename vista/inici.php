@@ -67,6 +67,13 @@
     border-top-right-radius: 5px;
 }
 
+.session {
+    position: static;
+    width: 100%;
+    background: rgba(0,0,0,0.5);
+    color: white;
+}
+
 
 </style>
 
@@ -74,6 +81,9 @@
 
 
 <div class="wrap">
+
+
+    
 
     <div class=imgflex>
     
@@ -146,6 +156,11 @@
         <br>
         <br>
         <br>
+
+        <div class="session"><?php
+            echo 'Log Session: ';
+            print_r($_SESSION);
+        ?></div>
 
     </div>
 

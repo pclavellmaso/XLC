@@ -16,10 +16,16 @@
     <!--CSS styles-->
     <link rel="stylesheet" href="/XLC/vista/header.css">
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
     <!--JS files-->
     <script src="/XLC/vista/js/header.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
 
     <!--Other Shittys-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -33,28 +39,43 @@
 
         <div class="capçalera_flex">
 
-            <div class="logo">
+            <div class="cap_esq">
 
-                <h2>XLC - Cardedeu</h2>
+                <img class="logo" src="/XLC/vista/img/logo.png" alt="logo"></img>
+                <a href="index.php"><h1 class="titol">Xarxa Local de Comerços</h1></a>
+
             </div>
 
-            <div class="titol">
-                <h1><a href="index.php">Xarxa Local de Comerços</a></h1>
-            </div>
+            <div class="cap_dreta">
 
-            <div class="tema">
+                <input class="cerca" type="text" placeholder="Busca...">
 
-                <div class="tema_clar"></div>
-                <div class="tema_fosc"></div>
+                <?php 
+
+                    //si hi ha una sessió iniciada
+                    if (isset($_SESSION['nom'])) { 
+                        
+                        echo '<div class="cistella">
+                            <img class="cistella_icon" src="/XLC/vista/img/cistella.png" alt="">
+                            <div class="cistella_info">'.$_SESSION["cistella"]["qty"].'</div>
+                        </div>'; 
+                    }
+                ?>
+                
+                <?php 
+                
+                    if (isset($_SESSION['nom'])) {
+
+                        echo '<div class="usuari">'.ucfirst($_SESSION['nom'][0]).'</div>';
+                    }else {
+                        echo '<a href="index.php?accio=registreLogin"><div class="usuari">?</div></a>';
+                    }
+                ?>
+                
 
             </div>
 
         </div>
-
-        <div><?php
-            echo 'Log Session: ';
-            print_r($_SESSION);
-        ?></div>
 
         <div class="navbar">
 
@@ -67,35 +88,9 @@
 
             <?php }?>
 
-            <div class="navbar_item"><a href="index.php?accio=mur_promos">Mur de Promocions</a></div>
+            <div class="navbar_item"><a href="index.php?accio=mur_promos"></i>Mur de Promocions</a></div>
             <div class="navbar_item"><a href="index.php?accio=sobre_projecte">Sobre el Projecte</a></div>
-            <div class="navbar_item cistella">
-
-                <?php 
-
-                    //si hi ha una sessió iniciada
-                    if (isset($_SESSION['nom'])) { 
-                        
-                        echo '<a href="/XLC/index.php?accio=perfil_cistella" class="cistella">'.$_SESSION["cistella"]["qty"].'</a>'; 
-                    }
-                ?>
-
-            </div>
-            <div class="navbar_item usuari">
-
-                <?php 
-
-                    //si hi ha una sessió iniciada
-                    if (isset($_SESSION['nom'])) { 
-                        
-                        echo '<p class="usuari">'.$_SESSION["nom"].'</p>';
-                    
-                    } else {
-                        
-                        // icono / algo nice jeje
-                        echo "<a href='index.php?accio=registreLogin'>Registra't o Inicia sessió</a>";
-                    }
-                ?>
+            <div class="navbar_item item_usuari">
 
             </div>
 
@@ -105,8 +100,15 @@
 
             <div class="dialeg_usuari">
 
-                <div class="perfil"><a href="index.php?accio=perfil">Pàgina perfil</a></div>
-                <div class="logout"><a href="index.php?accio=logout">Tancar sessió</a></div>
+                <a href="index.php?accio=perfil"><div class="perfil"><i data-feather="user"></i>Pàgina perfil</div></a>
+                <a href="index.php?accio=logout"><div class="logout"><i data-feather="x-circle"></i>Tancar sessió</div></a>
+
+            </div>
+
+            <div class="dialeg_cistella">
+
+                <a href="index.php?accio=perfil_cistella"><div class="cistella_prods"><i data-feather="align-left"></i><?php echo $_SESSION["cistella"]["qty"]; ?> Productes</div></a>
+                <a href="#"><div class="cistella_punts"><i data-feather="gift"></i>125 Punts</div></a>
 
             </div>
 
@@ -118,16 +120,41 @@
 
         echo '<script>
 
-            $(document).ready(function(){
+        jQuery(document).ready(function(){
 
-                $(".navbar_item.usuari").on("click", function(){
-                    $(".dialeg_usuari").toggle();
-                });
-
+            jQuery(".usuari").on("click", function(){
+                jQuery(".dialeg_usuari").toggle();
             });
+            jQuery(".cistella").on("click", function(){
+                jQuery(".dialeg_cistella").toggle();
+            });
+        });
+
+            feather.replace()
 
         </script>';
     }
 
 ?>
 
+<script>
+
+jQuery(document).ready(function() {
+
+    jQuery(document).not(jQuery(".usuari").click(function() {
+        
+        jQuery(".dialeg_cistella").hide()
+        jQuery(".dialeg_usuari").hide()
+    });
+
+    jQuery(".cistella .usuari").click(function(e) {
+        e.stopPropagation();
+        return false;
+    });
+
+
+})
+
+
+
+</script>

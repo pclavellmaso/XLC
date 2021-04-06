@@ -5,8 +5,8 @@
 }
 
 body {
-    background-color: blanchedalmond;
-    font-family: "Montserrat", sans-serif;
+    background-color: FAEADB;
+    font-family: "Nunito", sans-serif;
     margin: 0;
     padding: 0;
 }
@@ -17,56 +17,65 @@ a {
 }
 
 .pagina {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
     /*height: 100vh;*/
 }
 
 .capçalera_flex {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    background-color: FAEADB;
+    padding: 10px 30px 10px 30px;
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    z-index: 4;
+}
+
+.cap_esq {
+    display: flex;
     align-items: center;
-    padding: 30px;
+}
+
+.cap_dreta {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
 }
 
 .logo {
-    width: 25%;
-    text-align: left;
-}
-
-.tema {
-    width: 25%;
-    text-align: right;
+    width: 60px;
 }
 
 .titol {
-    width: 50%;
-    text-align: center;
+    margin-left: 35px;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
+}
+
+.cerca {
+    margin-right: 35px;
+    line-height: 33px;
+    font-size: 15px;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid black;
 }
 
 h1 h2 {
-    font-family: "Trebuchet MS", sans-serif;
+    font-family: 'Yanone Kaffeesatz', sans-serif;
 }
 
-.tema_clar {
-    width: 30px;
-    height: 30px;
+.usuari {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
     display: inline-block;
-    background-color: blanchedalmond;
-    border: 1px solid black;
+    background-color: B3001B;
+    border: 1px solid 101819;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     cursor: pointer;
-}
-
-.tema_fosc {
-    width: 30px;
-    height: 30px;
-    display: inline-block;
-    background-color: #333;
-    border: 1px solid #333;
-    margin-left: -4px;
-    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: FAEADB;
 }
 
 .descripcio_flex {
@@ -98,12 +107,12 @@ h1 h2 {
 
 .navbar {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    background-color: rgb(248, 222, 183);
-    line-height: 50px;
+    background-color: FAEADB;
+    align-items: center;
+    padding: 2% 5%;
     z-index: 2;
+    width: 100%;
+    margin-top: 60;
 }
 
 .navbar_item:hover > a {
@@ -119,9 +128,10 @@ h1 h2 {
 }
 
 .navbar_item {
-    padding: 15px 30px;
+    margin-right: 40px;
+    font-size: 22px;
     cursor: pointer;
-    font-family: "Montserrat", sans-serif !important;
+    font-family: 'Yanone Kaffeesatz', sans-serif !important;
 }
 
 .sticky + .content {
@@ -129,35 +139,84 @@ h1 h2 {
 }
 
 .dialeg_usuari {
-
-    right: 0px;
+    background-color: FAEADB;
+    top: 83px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     position: absolute;
-    z-index: 1;
-    background-color: #969c9a;
     display: none;
-    border-radius: 10px;
+    right: 30px;
 }
 
 .perfil, .logout {
     transition: 0.4s;
-    font-size: 14px;
-    border-radius: 10px;
-    padding: 18px;
+    font-size: 16px;
+    color: B3001B;
+    padding: 13px 15px;
 }
 
 .perfil:hover, .logout:hover {
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: B3001B;
+    color: FAEADB;
+    border-radius: 2px;
+}
+
+.dialeg_cistella {
+    background-color: FAEADB;
+    top: 83px;
+    border-radius: 2px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+    right: 90px;
+    position: absolute;
+    display: none;
+}
+
+.cistella_prods, .cistella_punts {
+    transition: 0.4s;
     font-size: 16px;
+    color: EFA243;
+    padding: 13px 15px;
+}
+
+.cistella_prods:hover, .cistella_punts:hover {
+    background-color: EFA243;
+    color: FAEADB;
+    border-radius: 2px;
 }
 
 .perfil:hover>a {
     color: white;
 }
 
-.logout:hover>a {
-    color: rgba(255, 0, 0, 0.6)
+.feather.feather-x-circle, .feather.feather-user, .feather.feather-align-left, .feather.feather-gift {
+    vertical-align: bottom;
+    margin-right: 15px;
 }
 
 .content {
     padding: 0% 5%;
+}
+
+.cistella {
+    position: relative;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.cistella_info {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+}
+
+.cistella_icon {
+    width: 45px;
+    vertical-align: bottom;
+}
+
+.navbar_item.item_usuari {
+    margin-left: auto;
+    margin-right: 0px!important;
 }

@@ -4,7 +4,7 @@ jQuery(document).ready(function () {
 
     /*************************/
 
-    var navbar = jQuery('.navbar');
+    /*var navbar = jQuery('.navbar');
     var sticky = navbar.offset().top;
 
     var modal_user = jQuery('.dialeg_usuari');
@@ -18,11 +18,11 @@ jQuery(document).ready(function () {
             navbar.removeClass("sticky");
             modal_user.removeClass("stickyUser");
         }
-    });
+    });*/
 
     /*************************/
 
-    jQuery('.tema_fosc').on('click', function () {
+    /*jQuery('.tema_fosc').on('click', function () {
 
         jQuery("body").css("background-color", "#333");
         jQuery("body, a").css("color", "blanchedalmond");
@@ -38,7 +38,7 @@ jQuery(document).ready(function () {
         jQuery(".tema_fosc, .tema_clar").css("border", "1px solid #333");
         jQuery(".footer_flex, .navbar").css("background-color", "rgb(248, 222, 183)");
 
-    });
+    });*/
 
     /*************************/
 
@@ -46,10 +46,5 @@ jQuery(document).ready(function () {
 
 
 
-
-});
-
-jQuery(".usuari").click(function () {
-    jQuery(".dialeg_usuari").toggle(3000);
 
 });
