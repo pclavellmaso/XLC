@@ -52,11 +52,12 @@ a {
 
 .cerca {
     margin-right: 35px;
-    line-height: 33px;
     font-size: 15px;
     background: transparent;
     border: none;
-    border-bottom: 1px solid black;
+    line-height: 25px;
+    border-bottom: 2px solid #101819;
+
 }
 
 h1 h2 {
@@ -137,6 +138,15 @@ h1 h2 {
 .sticky + .content {
     padding-top: 80px;
 }
+
+.cerca_icon {
+    margin-right: 7px;
+    position: relative;
+    top: 3;
+    color: 101819;
+}
+
+
 
 .dialeg_usuari {
     background-color: FAEADB;

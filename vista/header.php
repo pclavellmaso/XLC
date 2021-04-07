@@ -47,7 +47,7 @@
             </div>
 
             <div class="cap_dreta">
-
+                <div class="cerca_icon"><i data-feather="search"></i></div>
                 <input class="cerca" type="text" placeholder="Busca...">
 
                 <?php 
@@ -120,15 +120,35 @@
 
         echo '<script>
 
-        jQuery(document).ready(function(){
+            jQuery(document).ready(function(){
 
-            jQuery(".usuari").on("click", function(){
-                jQuery(".dialeg_usuari").toggle();
+                
+
+                jQuery(".usuari").on("click", function(){
+                    
+                    jQuery(".dialeg_cistella").hide("fade", {direction: "center"}, 250);
+
+                    if(jQuery(".dialeg_usuari").css("display") == "none") {
+                        
+                        jQuery(".dialeg_usuari").show("fade", {direction: "center"}, 250);
+                    }else {
+                        jQuery(".dialeg_usuari").hide("fade", {direction: "center"}, 250);
+                    }
+                });
+
+                jQuery(".cistella").on("click", function(){
+                    
+                    jQuery(".dialeg_usuari").hide("fade", {direction: "center"}, 250);
+
+                    if(jQuery(".dialeg_cistella").css("display") == "none") {
+                        
+                        jQuery(".dialeg_cistella").show("fade", {direction: "center"}, 250);
+                    }else {
+                        jQuery(".dialeg_cistella").hide("fade", {direction: "center"}, 250);
+                    }
+                });
+
             });
-            jQuery(".cistella").on("click", function(){
-                jQuery(".dialeg_cistella").toggle();
-            });
-        });
 
             feather.replace()
 
@@ -141,19 +161,27 @@
 
 jQuery(document).ready(function() {
 
-    jQuery(document).not(jQuery(".usuari").click(function() {
+
+    /* Click on document tanca sidemenu */
+    jQuery(document).click(function() {
         
-        jQuery(".dialeg_cistella").hide()
-        jQuery(".dialeg_usuari").hide()
+        jQuery('.dialeg_usuari').hide("fade", {direction: "center"}, 250);
+        jQuery('.dialeg_cistella').hide("fade", {direction: "center"}, 250);
+    })
+    
+    /* Stop propagation del click on document en el propi sidemenu */
+    jQuery('.cistella').on('click', function(e){
+        e.stopPropagation()
+    });
+    jQuery('.usuari').on('click', function(e){
+        e.stopPropagation()
     });
 
-    jQuery(".cistella .usuari").click(function(e) {
-        e.stopPropagation();
-        return false;
-    });
 
 
-})
+
+
+});
 
 
 
