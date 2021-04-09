@@ -1,3 +1,10 @@
+/* COLOR PALETTE {
+    "Eerie Black":"101819",
+    "Linen":"faeadb",
+    "Yellow Orange":"efa243",
+    "Firebrick":"b3001b"
+}*/
+
 * {
     margin: 0;
     padding: 0;
@@ -153,7 +160,7 @@ h1 h2 {
     top: 83px;
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    position: absolute;
+    position: fixed;
     display: none;
     right: 30px;
 }
@@ -177,7 +184,7 @@ h1 h2 {
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     right: 90px;
-    position: absolute;
+    position: fixed;
     display: none;
 }
 
