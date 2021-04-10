@@ -69,6 +69,9 @@ img {
 
     <div class="promoFlex">
 
+        <p><?php echo $data_promo[0]['data_fi']; ?></p>
+        <p><?php echo $data_promo[0]['descompte_add']; ?>%</p>
+
         <?php 
         $id_prods = array();
         for ($i = 0; $i < count($data_subpromo); $i++) { ?>
@@ -98,6 +101,8 @@ img {
 
     <form action="index.php?accio=afegir_cistella" method="post">
         <input type="text" name ="id_prods" value="<?php echo $id_prods; ?>" hidden>
+        <input type="text" name ="data_fi" value="<?php echo $data_promo[0]['data_fi']; ?>" hidden>
+        <input type="text" name ="descompte" value="<?php echo $data_promo[0]['descompte_add']; ?>" hidden>
         <input type="text" name ="promocio" value="promocio" hidden>
         <input type="text" name ="promo_id" value="<?php echo $data_promo[0]['id']; ?>" hidden>
         <input type="number" min="1" max="15" name ="promo_qty" value="1">

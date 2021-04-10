@@ -65,7 +65,7 @@
                 <?php 
                 
                     if (isset($_SESSION['nom'])) {
-
+                        // Primera lletra del nom de l'usuari
                         echo '<div class="usuari">'.ucfirst($_SESSION['nom'][0]).'</div>';
                     }else {
                         echo '<a href="index.php?accio=registreLogin"><div class="usuari">?</div></a>';

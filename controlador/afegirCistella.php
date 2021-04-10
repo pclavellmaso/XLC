@@ -28,7 +28,7 @@
         exit();
     }
         
-    // Cas de decrementar la quantitat de cert producte
+    // Cas de decrementar la quantitat de certa promoció
     if ($_POST['mod_prod'] == 'eliminar_promo') {
 
         // Si actualment només hi ha aquest element, i es borra, esborrar l'array de la sessió
@@ -83,9 +83,16 @@
             array_push($promocio, $data_prod[0]);
         }
 
-        // S'afegeixen dos camps extres en el resultat de la consulta (per al printeig a la pàgina de la cistella)
+        // S'afegeixen quatre camps extres en el resultat de la consulta (per al printeig a la pàgina de la cistella)
         $promocio['qty_promo'] = $_POST['promo_qty'];
         $promocio['promo_id'] = $_POST['promo_id'];
+        
+        $cons_data = "SELECT p.data_fi FROM promocio p WHERE p.id = ".$_POST['promo_id']."";
+        $res_data = $bd->query($cons_prod);
+        $data = $res_prod->fetch_all(MYSQLI_ASSOC);
+        
+        $promocio['data_fi'] = $_POST['data_fi'];
+        $promocio['descompte'] = $_POST['descompte'];
 
         // Afegim tota la promocio amb els subarrays de productes a la sessió, i augmentem el número d'elements de la cistella
         array_push($_SESSION['cistella']['prods'], $promocio);
@@ -110,8 +117,8 @@
         // Incrementem el nombre d'elements de la cistella segons el número d'unitats del producte
         $_SESSION['cistella']['qty'] += $_POST['prod_qty'];
 
-        // de moment redirigeix a inici, revisarr
-        header('location: index.php');
+        // "Actualitzem la pàgina" (amb el id del mateix producte)
+        header('location: index.php?accio=pagina_producte&id='.$_POST['id_prod'].'');
         exit();
     }
 

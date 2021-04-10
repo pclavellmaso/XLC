@@ -91,6 +91,10 @@ switch ($accio) {
         include('vista/paginaProducte.php');
         break;
 
+    case 'nova_comanda':
+        include('controlador/afegirComanda.php');
+        break; 
+
     case 'llista_negocis':
         include('vista/llistaNegocis.php');
         break;

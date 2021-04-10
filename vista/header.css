@@ -1,8 +1,8 @@
 /* COLOR PALETTE {
-    "Eerie Black":"101819",
-    "Linen":"faeadb",
-    "Yellow Orange":"efa243",
-    "Firebrick":"b3001b"
+    "Eerie Black":"#101819",
+    "Linen":"#FAEADB",
+    "Yellow Orange":"#EFA243",
+    "Firebrick":"#B3001B"
 }*/
 
 * {
@@ -12,7 +12,7 @@
 }
 
 body {
-    background-color: FAEADB;
+    background-color: #FAEADB;
     font-family: "Nunito", sans-serif;
     margin: 0;
     padding: 0;
@@ -29,7 +29,7 @@ a {
 
 .capçalera_flex {
     display: flex;
-    background-color: FAEADB;
+    background-color: #FAEADB;
     padding: 10px 30px 10px 30px;
     position: fixed;
     top: 0px;
@@ -76,14 +76,14 @@ h1 h2 {
     height: 45px;
     border-radius: 50%;
     display: inline-block;
-    background-color: B3001B;
-    border: 1px solid 101819;
+    background-color: #B3001B;
+    border: 1px solid #101819;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: FAEADB;
+    color: #FAEADB;
 }
 
 .descripcio_flex {
@@ -115,7 +115,7 @@ h1 h2 {
 
 .navbar {
     display: flex;
-    background-color: FAEADB;
+    background-color: #FAEADB;
     align-items: center;
     padding: 2% 5%;
     z-index: 2;
@@ -156,7 +156,7 @@ h1 h2 {
 
 
 .dialeg_usuari {
-    background-color: FAEADB;
+    background-color: #FAEADB;
     top: 83px;
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -168,18 +168,18 @@ h1 h2 {
 .perfil, .logout {
     transition: 0.4s;
     font-size: 16px;
-    color: B3001B;
+    color: #B3001B;
     padding: 13px 15px;
 }
 
 .perfil:hover, .logout:hover {
-    background-color: B3001B;
+    background-color: #B3001B;
     color: FAEADB;
     border-radius: 2px;
 }
 
 .dialeg_cistella {
-    background-color: FAEADB;
+    background-color: #FAEADB;
     top: 83px;
     border-radius: 2px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
@@ -196,7 +196,7 @@ h1 h2 {
 }
 
 .cistella_prods:hover, .cistella_punts:hover {
-    background-color: EFA243;
+    background-color: #EFA243;
     color: FAEADB;
     border-radius: 2px;
 }
