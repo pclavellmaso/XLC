@@ -206,6 +206,7 @@
             }else {
             
                 $prods = $_SESSION['cistella']['prods'];
+                $subtotal = 0;
                 
                 // Per a cada element de la cistella
                 foreach($prods as $index_prod=>$prod) {
@@ -264,7 +265,7 @@
                                     }
                                 echo '</div>';
 
-                                $preu_final = $preu_total - ( $preu_total * ($prod['descompte']/100));
+                                $preu_final = $preu_total - ($preu_total * ($prod['descompte']/100));
 
 
                                 echo '<div class="promo_info_wrap">
@@ -275,9 +276,11 @@
                                         <p class="promo_subtotal preu">'.$preu_final.' €</p>
                                     </div>
 
-                                </div>
+                                </div>';
 
-                            </div>
+                                $subtotal += $preu_final;
+
+                            echo '</div>
                             
                         </div>';     
                     
@@ -289,6 +292,8 @@
                         $cons_negoci = "SELECT n.nom FROM negoci n WHERE n.id = ".$neg_id."";
                         $res_negoci = $bd->query($cons_negoci);
                         $nom_negoci = $res_negoci->fetch_all(MYSQLI_ASSOC);
+
+                        $preu_prod_final = $prod['preu'] - ($prod['preu'] * ($prod['descompte']/100));
 
                         echo '<div class="prodFlex">
 
@@ -312,11 +317,14 @@
                                 <div class="preu_desc">
                                     <span>Rebaixat un </span><span class="descompte">'.$prod['descompte'].'%</span>
                                     <p class="preu">'.$prod['preu'].' €</p>
+                                    <p class="preu_final">'.$preu_prod_final.' €</p>
                                 </div>
 
                             </div>
                         
                         </div>';
+
+                        $subtotal += $preu_prod_final;
                         
                     }
                 }
@@ -325,7 +333,11 @@
 
         <form action="index.php?accio=buida_cistella" method="post">
             <button class="clean" type="submit">NETEJA</button>
-        </form>     
+        </form>
+
+        <?php if (isset($prods)) {
+            echo '<p class="subtotal">Subtotal'.$subtotal.'</p>';
+        } ?>
 
     </div><!-- listFlex -->
     
@@ -337,9 +349,10 @@
                 <span>Amb aquesta cistella pots aconseguir <span style="font-weight: bold;">'125'</span> punts!</span>
             </div>
             
-            <a href="/XLC/index.php?accio=nova_comanda">
-            <button class="continuar" <?php if (!isset($_SESSION['cistella']['prods'])) { ?> disabled <?php } ?>>CONTINUAR</button>
-            </a>
+            <form action="index.php?accio=nova_comanda" method="post">
+                <input type="text" name="subtotal" value="<?php echo $subtotal; ?>" hidden>
+                <button class="continuar" type="submit" <?php if (!isset($_SESSION['cistella']['prods'])) { ?> disabled <?php } ?>>CONTINUAR</button>
+            </form>
 
             <div class="show_points">
                 <p>Barra de punts amb hover etc</p>
