@@ -92,8 +92,19 @@
             $_SESSION['tipus_usuari'] = $info_usuari[0]['tipus'];
             $_SESSION['usuari_id'] = $info_usuari[0]['id'];
             $_SESSION['usuari_correu'] = $info_usuari[0]['correu'];
-            
             $_SESSION['cistella']['qty'] = 0;
+
+            // COOKIE MANAGEMENT
+            $user_id = $info_usuari[0]['id'];
+
+            if (isset($_COOKIE[$user_id])) {
+        
+                $cistella = unserialize($_COOKIE[$user_id]);
+                $_SESSION['cistella'] = $cistella;
+                $_SESSION['cistella']['qty'] = $cistella['qty'];
+
+            }
+            
             
             header('location: index.php');
         

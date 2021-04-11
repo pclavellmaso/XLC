@@ -36,7 +36,7 @@ switch ($accio) {
 
         break;
     case 'logout':
-        include('vista/tancar_sessio.php');
+        include('controlador/tancar_sessio.php');
         break;
 
     case 'perfil':

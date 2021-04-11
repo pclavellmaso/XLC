@@ -53,7 +53,7 @@
                 <?php 
 
                     //si hi ha una sessió iniciada
-                    if (isset($_SESSION['nom'])) { 
+                    if (isset($_SESSION['nom'])) {
                         
                         echo '<div class="cistella">
                             <img class="cistella_icon" src="/XLC/vista/img/cistella.png" alt="">

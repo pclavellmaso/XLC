@@ -161,6 +161,17 @@
             echo 'Log Session: ';
             print_r($_SESSION);
         ?></div>
+        <!--<div class="session">
+            <?php
+            /*echo 'Log Cookies: ';
+            echo '<br>';
+            echo 'client10: ';
+            print_r(unserialize($_COOKIE[10]));
+            echo '<br>';
+            echo 'clientnou: ';
+            print_r(unserialize($_COOKIE[9]));*/
+            ?>
+        </div>-->
 
     </div>
 

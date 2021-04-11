@@ -190,7 +190,13 @@
 </style>
 
 
-<?php include("header.php"); ?>
+<?php
+
+    include("header.php");
+
+?>
+
+
 
 <h2>LA TEVA CISTELLA</h2>
 
