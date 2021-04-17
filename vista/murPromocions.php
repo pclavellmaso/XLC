@@ -55,7 +55,7 @@ width: 30%;
 }
 
 .capçalera {
- margin-top: 60px;
+ padding-top: 60px;
  text-align: center;
 }
 
@@ -193,7 +193,7 @@ div.slick-slide:nth-child(3) {
 
 <?php
 
-    $usuari_id = $_SESSION['usuari_id'];
+    
 
     $cons_promos = "SELECT distinct p.id, n.nom, p.descompte_add, p.data_fi  FROM promocio p, usuari u, negoci n";
     $res_promos = $bd->query($cons_promos);

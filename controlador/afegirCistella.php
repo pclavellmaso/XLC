@@ -9,18 +9,18 @@
     $index_prod = $_POST['index_prod'];
 
     // Cas d'incrementar la quantitat de cert producte
+    // Si es tracta d'una promoció, incrementem els comptadors de la promoció i dels elements de la cistella
     if ($_POST['mod_prod'] == 'afegir_promo') {
         
-        // Si es tracta d'una promoció, incrementem els comptadors de la promoció i dels elements de la cistella 
         $_SESSION['cistella']['prods'][$index_prod]['qty_promo'] += 1;
         $_SESSION['cistella']['qty'] += 1;
 
         header('location: index.php?accio=perfil_cistella');
         exit();
 
+    // Si es trcta d'un producte, incrementem comptador producte i elements de la cistella
     }else if ($_POST['mod_prod'] == 'afegir_prod') {
 
-        // Si es trcta d'un producte, incrementem comptador producte i elements de la cistella
         $_SESSION['cistella']['prods'][$index_prod]['prod_qty'] += 1;
         $_SESSION['cistella']['qty'] += 1;
 
@@ -58,7 +58,6 @@
         header('location: index.php?accio=perfil_cistella');
         exit();
     }
-
 
     // Si hem d'afegir una promoció amb possibles diversos productes
     if (isset($_POST['promocio'])) {
@@ -117,6 +116,7 @@
         // Incrementem el nombre d'elements de la cistella segons el número d'unitats del producte
         $_SESSION['cistella']['qty'] += $_POST['prod_qty'];
 
+        $_SESSION['epepep'] = $_POST['desc_final'];
         // "Actualitzem la pàgina" (amb el id del mateix producte)
         header('location: index.php?accio=pagina_producte&id='.$_POST['id_prod'].'');
         exit();

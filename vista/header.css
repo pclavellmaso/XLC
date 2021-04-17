@@ -30,11 +30,11 @@ a {
 .capçalera_flex {
     display: flex;
     background-color: #FAEADB;
-    padding: 10px 30px 10px 30px;
+    padding: 10px 30px;
     position: fixed;
     top: 0px;
     width: 100%;
-    z-index: 4;
+    z-index: 2;
 }
 
 .cap_esq {
@@ -118,9 +118,8 @@ h1 h2 {
     background-color: #FAEADB;
     align-items: center;
     padding: 2% 5%;
-    z-index: 2;
     width: 100%;
-    margin-top: 60;
+    margin-top: 70px;
 }
 
 .navbar_item:hover > a {
@@ -212,6 +211,7 @@ h1 h2 {
 
 .content {
     padding: 0% 5%;
+    background: #F4F3EE;
 }
 
 .cistella {
