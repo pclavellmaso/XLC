@@ -42,6 +42,19 @@
         border-bottom: 1px solid black;
     }
 
+    /* Amagar fletxes dels input type number*/
+    /* Chrome, Safari, Edge, Opera */
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
 </style>
 
 
@@ -112,22 +125,22 @@
             </div>
             
             <?php
-                $query = "SELECT c.id, c.nom FROM categoria c";
+                $query = "SELECT c.id, c.nom_categoria FROM categoria c";
                 $result = $bd->query($query);
-                $rows = $result->num_rows;
-                $categories = $result->fetch_all();
+                $categories = $result->fetch_all(MYSQLI_ASSOC);
             ?>
 
             <div value='categoria'>Categoria</div>
             <select name="categoria">
-                <?php for($i=0; $i < $rows; ++$i) { ?>
-                <option value='<?php echo $categories[$i][0]; ?>'><?php echo $categories[$i][1]; ?></option>
+            <?php console_log(count($categories)); ?>
+                <?php for($i=0; $i < count($categories); ++$i) { ?>
+                <option value="<?php echo $categories[$i]['id']; ?>"><?php echo $categories[$i]['nom_categoria']; ?></option>
                 <?php } ?>
             </select>
             
             <div class='camp_prod'>
                 <label>Descompte</label>
-                <input type='text' name='descompte'>
+                <input type='number' min="0" max="100" name='descompte' value="0">
             </div>
             
             <div class='camp_prod'>

@@ -4,6 +4,7 @@
 
 .prodFlex {
     display: flex;
+    padding-top: 60px;
 }
 
 .esquerre {
@@ -15,25 +16,60 @@ img {
 }
 
 .esquerre {
-    flex: 0 0 21%;
-    height: 400px;
-    overflow: hidden;
-}
-
-.prodFlex {
-    padding-top: 60px;
+    flex: 0 0 30%;
 }
 
 .dreta {
     margin-left: 50px;
+    width: 70%;
+}
+
+.info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.fav_btn {
+    background: transparent;
+    border: none;
+    float: right;
+}
+
+.feather.feather-heart {
+    width: 3em;
+    height: 5em;
 }
 
 .info_nom {
     font-weight: bold;
+    font-size: 2em;
+}
+
+.info_descompte {
+    font-size: 1.1em;
+}
+
+.info_negoci {
+    font-size: 1.4em;
+}
+
+.info_poblacio {
+    font-size: 1.2em;
+}
+
+.info_descripcio {
+    margin-top: 3em;
 }
 
 .info_preu {
     font-weight: bold;
+    font-size: 1.3em;
+    margin-top: 2em;
+}
+
+.prodFlex_abaix {
+    margin-top: auto;
 }
 
 /* INFO COMPRA */
@@ -41,8 +77,7 @@ img {
 .info_compra {
     margin-top: 2em;
     padding: 1em;
-    border-radius: 5px;
-    border: 4px solid rgba(0,0,0, 0.1);
+    background: rgba(239, 162, 67, 0.4);
 }
 
 .add {
@@ -57,13 +92,9 @@ img {
     display: block;
 }
 
-.descomptes {
-    display: flex;
-}
-
 .descompte {
-    margin-right: 1.5em;
-    font-size: 1.5em;
+    margin-top: 0.5em;
+    font-size: 1.1em;
     font-weight: bold;
     color: rgba(0,0,0, 0.5);
     cursor: pointer;
@@ -71,8 +102,50 @@ img {
     border: none;
 }
 
+.compra_esq {
+    display: flex;
+    flex-direction: column;
+}
+
+.compra_dreta {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10em;
+}
+
+.info_compra {
+    display: flex;
+}
+
 .descompte:hover, .descompte:focus {
-    color: #EFA243;
+    color: black;
+}
+
+#vue_qty {
+    margin-top: 1em;
+}
+
+.qty_producte {
+    vertical-align: super;
+    margin: 0px 0.5em;
+}
+
+.punts_extra {
+    display: block;
+    margin-top: 0.6em;
+}
+
+.feather.feather-minus-circle.minus, .feather.feather-plus-circle.plus {
+    cursor: pointer;
+}
+
+.preu_descompte {
+    margin-top: auto;
+}
+
+
+.relacionats {
+    margin-top: 6em;
 }
 
 </style>
@@ -81,14 +154,13 @@ img {
 
     $id = $_GET['id'];
 
-    $cons_prod = "SELECT p.id, p.nom, p.descripcio, p.preu, p.imatge, p.descompte, c.nom_categoria FROM producte p, categoria c WHERE p.id = '$id' and c.id = p.categoria_id";
+    $cons_prod = "SELECT p.id, p.nom, p.descripcio, p.preu, p.imatge, p.descompte, c.nom_categoria, n.nom as nom_negoci, n.poblacio FROM producte p, categoria c, negoci n WHERE p.id = '$id' and c.id = p.categoria_id and n.id = p.negoci_id";
     $res_prod = $bd->query($cons_prod);
     $data_prod = $res_prod->fetch_all(MYSQLI_ASSOC);
 
 ?>
 
-<div class="continut">
-
+<div class="contingut">
 
     <div class="prodFlex">
 
@@ -98,55 +170,122 @@ img {
 
         <div class="dreta">
             <div class="info">
-                <p class="info_nom"><?php echo $data_prod[0]['nom']; ?></p>
+                <p class="info_nom"><?php echo ucfirst($data_prod[0]['nom']); ?><span class="fav"><button class="fav_btn" name="" value="" type=""><i data-feather="heart"></i></button></span></p>
+                <p class="info_negoci"><?php echo ucfirst($data_prod[0]['nom_negoci']); ?></p>
                 <p class="info_cate"><?php echo $data_prod[0]['nom_categoria']; ?></p>
-                <p class="info_descripcio"><?php echo $data_prod[0]['descripcio']; ?></p>
-                <p class="info_preu"><?php echo $data_prod[0]['preu']; ?> €</p>
-                <p class="info_descompte"><?php echo $data_prod[0]['descompte']; ?> % Rebaixat</p>
+                <p class="info_poblacio">Manufacturat a <?php echo $data_prod[0]['poblacio']; ?></p>
+                <p class="info_descripcio"><?php echo ucfirst($data_prod[0]['descripcio']); ?></p>
+                
+                <div class="prodFlex_abaix">
+                    <div class="abaix_esq">
+                        <?php 
+                            if ($data_prod[0]['descompte'] > 0) {
+                                $descompte = $data_prod[0]['descompte'];
+                                echo '<p class="info_preu">Preu <span style="text-decoration: line-through;">'.$data_prod[0]['preu'].' €</span><span> '.($data_prod[0]['preu'] - $data_prod[0]['preu'] * ($data_prod[0]['descompte'] / 100)).' €</span></p>
+                                <p class="info_descompte">Producte rebaixat un '.$descompte.' %</p>';
+                            }else {
+                                echo '<p class="info_preu">Preu '.$data_prod[0]['preu'].' €</p>';
+                            }
+                        ?>
+                        
+                    </div>
+                    <div class="abaix_dreta">
+                        <button class="add" value="ep">Afegir a la cistella</button>
+                    </div>
+                    
+                </div>
+                
+                
             </div>
         </div>
 
     </div>
 
-    <div class="info_compra">
+    <br>
+    <hr>
 
-        <?php
-            // Codi per temes de variar els descomptes segons el preu o alguna cosa aixi, pq no sempre siguin els mateixos tres
-            /*$cons_desc = "SELECT p.descompte, p.preu FROM producte p WHERE p.id = '$id'";
-            $res_desc = $bd->query($cons_desc);
-            $data_desc = $res_prod->fetch_all(MYSQLI_ASSOC);
-
-            if () {
-
-
-            }*/
-        
-        ?>
-
-        <form class="desc_form" action="index.php?accio=afegir_cistella" method="post">
-            
-            <input type="text" name ="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
-            <input type="number" min="1" max="15" name ="prod_qty" value="1">
-
-            <div class="descomptes">
-
-                <div data-value="5" tabindex="1" class="descompte">5 %</div>
-                <div data-value="10" tabindex="1" class="descompte">10 %</div>
-                <div data-value="15" tabindex="1" class="descompte">15 %</div>
-
-                <input class="desc_final" name="desc_final" type="text" value="" hidden>
-            
-            </div>
-            
-        </form>
-
-        <button class="add" value="ep">Afegir a la cistella</button>
-
-    </div>
     
 
+    <?php
+        // Codi per temes de variar els descomptes segons el preu o alguna cosa aixi, pq no sempre siguin els mateixos tres
+        /*$cons_desc = "SELECT p.descompte, p.preu FROM producte p WHERE p.id = '$id'";
+        $res_desc = $bd->query($cons_desc);
+        $data_desc = $res_prod->fetch_all(MYSQLI_ASSOC);
 
-</div>
+        if () {
+
+
+        }*/
+    
+    ?>
+
+    <?php
+        $id_usuari = $_SESSION['usuari_id'];
+        $unitats_producte = 0;
+        $cons_punts = "SELECT u.punts FROM usuari u WHERE u.id = '$id_usuari'";
+        $res_punts = $bd->query($cons_punts);
+        $data_punts = $res_punts->fetch_all(MYSQLI_ASSOC);
+    
+        if ($data_prod[0]['descompte'] == 0) {
+            console_log($data_punts);
+            echo '<div class="info_compra">
+                
+                <div class="compra_esq">
+
+                    <p>Disposes de '.$data_punts[0]['punts'].' punts</p>
+                    <p>Aquest producte compte amb els següents descomptes:</p>
+                    
+                    <div data-value="5" tabindex="1" class="descompte">5 % (50 punts)</div>
+                    <div data-value="10" tabindex="1" class="descompte">10 % (100 punts)</div>
+                    <div data-value="15" tabindex="1" class="descompte">15 % No disponible</div>
+                    
+                    <input class="desc_final" name="desc_final" type="text" value="" hidden>
+
+                </div>
+
+                <div class="compra_dreta">
+
+                    <p>Per a cada unitat extra acumules 50 punts</p>
+                    <div id="vue_qty">
+                    </div>';
+                    echo '<p class="preu_descompte">Preu final amb descompte aplicat 50</p>
+
+                </div>
+
+                <form class="desc_form" action="index.php?accio=afegir_cistella" method="post">';
+                    $id_prod = $data_prod[0]['id'];
+    
+                    echo '<input type="text" name ="id_prod" value="'.$id_prod.'" hidden>
+                    <input type="hidden" name ="prod_qty" value="{{ qty }}">
+                    <input type="hidden" name ="punts_extra" value="{{ punts_extra }}">
+                    
+                </form>
+
+            </div>';
+        }
+    ?>
+
+    <div class="relacionats">
+    
+        <h2 class="titol_relacionats">Productes relacionats</h2>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+    
+    </div>
+
+</div><!-- contingut -->
 
 <script>
 
@@ -165,6 +304,34 @@ img {
         })
         
     })
+
+    
+
+    const options = {
+        data() {
+            return {
+                qty: 1
+            }
+        },
+        methods: {
+            decrement() {
+                if (this.qty > 1) {
+                    this.qty--
+                }
+            }
+        },
+        template: `
+        <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
+        <span id="vue_qty" class="qty_producte">{{ qty }} unitats</span>
+        <span v-on:click="qty++"><i data-feather="plus-circle" class="plus"></i></span>
+        <span class="punts_extra">Punts extra {{ (qty - 1) * 50 }}</span>
+        `
+    }
+
+    const app = Vue.createApp(options)
+    const vm = app.mount("#vue_qty")
+
+    feather.replace()
 
 </script>
 

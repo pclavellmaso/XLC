@@ -118,7 +118,7 @@
 
                 <?php 
 
-                    $cons_prods = "SELECT p.id, p.imatge, p.descompte, p.nom, p.preu, c.nom_categoria FROM producte p, categoria c WHERE p.descompte > 0 and p.categoria_id = c.id";
+                    $cons_prods = "SELECT p.id, p.imatge, p.descompte, p.nom, p.preu, c.nom_categoria FROM producte p, categoria c WHERE /*p.descompte > 0 and*/ p.categoria_id = c.id";
                     $res_prods = $bd->query($cons_prods);
                     $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
 
