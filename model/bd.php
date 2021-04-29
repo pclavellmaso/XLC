@@ -1,9 +1,9 @@
 <?php
 
-$serverName = 'localhost';
+$serverName = 'database';
 $userName = 'root';
-$password = 'surrounD1';
-$dbName = 'XLC';
+$password = 'tiger';
+$dbName = 'docker';
 
 //create connection
 $bd = new mysqli($serverName, $userName, $password, $dbName);
