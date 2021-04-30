@@ -11,8 +11,6 @@
         setcookie($user_id, false, 1, '/');
     }
 
-    console_log('epepepep');
-
     header('location: index.php?accio=perfil_cistella');
 
 

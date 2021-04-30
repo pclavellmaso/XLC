@@ -377,7 +377,7 @@ h2 {
                         
                         // Si es un producte
                         }else {
-                            
+                            //var_dump($prod);
                             $neg_id = $prod['negoci_id'];
                             // Agafem el nom del negoci per mostrar-lo
                             $cons_negoci = "SELECT n.nom, n.poblacio FROM negoci n WHERE n.id = ".$neg_id."";
@@ -399,8 +399,11 @@ h2 {
 
                                 <form class="prod_qty" action="index.php?accio=afegir_cistella" method="post">
                                     <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                                    <button class="qty_mod" name="mod_prod" value="eliminar_prod" type="submit"><div><i data-feather="minus-circle"></div></i></button>
-                                    <p class="qty">'.$prod['prod_qty'].'</p>
+                                    <button class="qty_mod" name="mod_prod" value="eliminar_prod" type="submit"><div><i data-feather="minus-circle"></div></i></button>';
+                                    
+                                    if (!isset($prod['prod_qty'])) $prod['prod_qty'] = 1;
+
+                                    echo '<p class="qty">'.$prod['prod_qty'].'</p>
                                     <button class="qty_mod" name="mod_prod" value="afegir_prod" type="submit"><i data-feather="plus-circle"></i></button>
                                 </form>';
 

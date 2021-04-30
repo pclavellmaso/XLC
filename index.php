@@ -104,7 +104,6 @@ switch ($accio) {
         break;
 
     case 'afegir_cistella':
-        console_log('case afegir');
         include('controlador/afegirCistella.php');
         break;
 

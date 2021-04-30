@@ -90,6 +90,7 @@ img {
     position: relative;
     background: #EFA243;
     display: block;
+    cursor: pointer;
 }
 
 .descompte {
@@ -190,7 +191,10 @@ img {
                         
                     </div>
                     <div class="abaix_dreta">
-                        <button class="add" value="ep">Afegir a la cistella</button>
+                        <form action="index.php?accio=afegir_cistella" method="post">
+                            <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
+                            <button type="submit" class="add add_defecte">Afegir a la cistella</button>
+                        </form>
                     </div>
                     
                 </div>
@@ -220,49 +224,51 @@ img {
     ?>
 
     <?php
-        $id_usuari = $_SESSION['usuari_id'];
-        $unitats_producte = 0;
-        $cons_punts = "SELECT u.punts FROM usuari u WHERE u.id = '$id_usuari'";
-        $res_punts = $bd->query($cons_punts);
-        $data_punts = $res_punts->fetch_all(MYSQLI_ASSOC);
+        if (isset($_SESSION['usuari_id'])) {
+            $id_usuari = $_SESSION['usuari_id'];
+            $cons_punts = "SELECT u.punts FROM usuari u WHERE u.id = '$id_usuari'";
+            $res_punts = $bd->query($cons_punts);
+            $data_punts = $res_punts->fetch_all(MYSQLI_ASSOC);
+
+            if ($data_prod[0]['descompte'] == 0) {
+            
+                echo '<div class="info_compra">
+                    
+                    <div class="compra_esq">
     
-        if ($data_prod[0]['descompte'] == 0) {
-            console_log($data_punts);
-            echo '<div class="info_compra">
-                
-                <div class="compra_esq">
-
-                    <p>Disposes de '.$data_punts[0]['punts'].' punts</p>
-                    <p>Aquest producte compte amb els següents descomptes:</p>
-                    
-                    <div data-value="5" tabindex="1" class="descompte">5 % (50 punts)</div>
-                    <div data-value="10" tabindex="1" class="descompte">10 % (100 punts)</div>
-                    <div data-value="15" tabindex="1" class="descompte">15 % No disponible</div>
-                    
-                    <input class="desc_final" name="desc_final" type="text" value="" hidden>
-
-                </div>
-
-                <div class="compra_dreta">
-
-                    <p>Per a cada unitat extra acumules 50 punts</p>
-                    <div id="vue_qty">
-                    </div>';
-                    echo '<p class="preu_descompte">Preu final amb descompte aplicat 50</p>
-
-                </div>
-
-                <form class="desc_form" action="index.php?accio=afegir_cistella" method="post">';
-                    $id_prod = $data_prod[0]['id'];
+                        <p>Disposes de '.$data_punts[0]['punts'].' punts</p>
+                        <p>Aquest producte compte amb els següents descomptes:</p>
+                        
+                        <div data-value="5" tabindex="1" class="descompte">5 % (50 punts)</div>
+                        <div data-value="10" tabindex="1" class="descompte">10 % (100 punts)</div>
+                        <div data-value="15" tabindex="1" class="descompte">15 % No disponible</div>
+                        
+                        <input class="desc_final" name="desc_final" type="text" value="" hidden>
     
-                    echo '<input type="text" name ="id_prod" value="'.$id_prod.'" hidden>
-                    <input type="hidden" name ="prod_qty" value="{{ qty }}">
-                    <input type="hidden" name ="punts_extra" value="{{ punts_extra }}">
-                    
-                </form>
-
-            </div>';
+                    </div>
+    
+                    <div class="compra_dreta">
+    
+                        <p>Per a cada unitat extra acumules 50 punts</p>
+                        <div id="vue_qty">
+                        </div>';
+                        echo '<p class="preu_descompte">Preu final amb descompte aplicat 50</p>
+    
+                    </div>
+    
+                    <form class="desc_form" action="index.php?accio=afegir_cistella" method="post">';
+                        $id_prod = $data_prod[0]['id'];
+        
+                        echo '<input type="text" name ="id_prod" value="'.$id_prod.'" hidden>
+                        <input type="hidden" name ="prod_qty" value="{{ qty }}">
+                        <input type="hidden" name ="punts_extra" value="{{ punts_extra }}">
+                        
+                    </form>
+    
+                </div>';
+            }
         }
+        
     ?>
 
     <div class="relacionats">
@@ -291,13 +297,13 @@ img {
 
     jQuery(document).ready(function() {
 
-        let value = 0
+        let value = 1
         jQuery(".descompte").focus(function() {
 
             value = document.activeElement.dataset.value
         })
 
-        jQuery(".add").click(function() {
+        jQuery(".add_descompte").click(function() {
 
             jQuery(".desc_final").val(value)
             jQuery(".desc_form").submit()

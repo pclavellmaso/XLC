@@ -156,11 +156,6 @@
         <br>
         <br>
         <br>
-
-        <div class="session"><?php
-            echo 'Log Session: ';
-            print_r($_SESSION);
-        ?></div>
         <!--<div class="session">
             <?php
             /*echo 'Log Cookies: ';
