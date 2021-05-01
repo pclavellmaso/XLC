@@ -24,6 +24,15 @@ img {
     width: 70%;
 }
 
+.prodFlex_abaix {
+    display: flex;
+}
+
+.abaix_dreta {
+    margin-left: auto;
+    margin-top: auto;
+}
+
 .info {
     height: 100%;
     display: flex;
@@ -103,27 +112,23 @@ img {
     border: none;
 }
 
-.compra_esq {
+.compra_esq, .compra_dreta {
     display: flex;
     flex-direction: column;
-}
-
-.compra_dreta {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10em;
+    flex: 0 0 50%;
 }
 
 .info_compra {
     display: flex;
+    padding: 1em 1em;
+}
+
+#vue_qty > p:nth-child(1) {
+    margin-bottom: 1em;
 }
 
 .descompte:hover, .descompte:focus {
     color: black;
-}
-
-#vue_qty {
-    margin-top: 1em;
 }
 
 .qty_producte {
@@ -192,8 +197,14 @@ img {
                     </div>
                     <div class="abaix_dreta">
                         <form action="index.php?accio=afegir_cistella" method="post">
+                            <input type="hidden" name="prod_qty" value="1">
                             <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
-                            <button type="submit" class="add add_defecte">Afegir a la cistella</button>
+                            <?php
+                                if ($data_prod[0]['descompte'] > 0) {
+                                    echo '<button type="submit" class="add add_defecte">Afegir a la cistella</button>';
+                                }
+                            ?>
+                            
                         </form>
                     </div>
                     
@@ -249,21 +260,11 @@ img {
     
                     <div class="compra_dreta">
     
-                        <p>Per a cada unitat extra acumules 50 punts</p>
-                        <div id="vue_qty">
-                        </div>';
-                        echo '<p class="preu_descompte">Preu final amb descompte aplicat 50</p>
+                        
+                        <div id="vue_qty"></div>
+                        
     
                     </div>
-    
-                    <form class="desc_form" action="index.php?accio=afegir_cistella" method="post">';
-                        $id_prod = $data_prod[0]['id'];
-        
-                        echo '<input type="text" name ="id_prod" value="'.$id_prod.'" hidden>
-                        <input type="hidden" name ="prod_qty" value="{{ qty }}">
-                        <input type="hidden" name ="punts_extra" value="{{ punts_extra }}">
-                        
-                    </form>
     
                 </div>';
             }
@@ -310,7 +311,6 @@ img {
         })
         
     })
-
     
 
     const options = {
@@ -324,18 +324,35 @@ img {
                 if (this.qty > 1) {
                     this.qty--
                 }
+            },
+            increment() {
+                this.qty++
             }
         },
         template: `
+        <p>Per a cada unitat extra acumules 50 punts</p>
+
         <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
-        <span id="vue_qty" class="qty_producte">{{ qty }} unitats</span>
-        <span v-on:click="qty++"><i data-feather="plus-circle" class="plus"></i></span>
+        <span class="qty_producte">{{ qty }} unitats</span>
+        <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
         <span class="punts_extra">Punts extra {{ (qty - 1) * 50 }}</span>
+
+        <p class="preu_descompte">Preu final amb descompte aplicat 50</p>
+
+        <form action="index.php?accio=afegir_cistella" method="post">
+            <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
+            <input type="hidden" name="prod_qty_add" v-model="qty">
+            <input type="hidden" name="punts_extra" value="{{ punts_extra }}">
+            <button type="submit" class="add add_defecte">Afegir a la cistella</button>
+        </form>
         `
     }
 
     const app = Vue.createApp(options)
-    const vm = app.mount("#vue_qty")
+    app.mount("#vue_qty")
+
+    
+    
 
     feather.replace()
 

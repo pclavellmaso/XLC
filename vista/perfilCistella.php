@@ -302,7 +302,7 @@ h2 {
                     // Per a cada element de la cistella
                     foreach($prods as $index_prod=>$prod) {
 
-                        // Si és una promoció (possibles diversos productes)
+                        // Si és una promoció amb diversos productes
                         if (isset($prod['qty_promo'])) {
                             
                             echo '<p class="promo_titol">Promoció</p>
@@ -311,10 +311,12 @@ h2 {
 
                                 <form class="form_qty" action="index.php?accio=afegir_cistella" method="post">
                                         
+                                            <input type="text" name="mod_article" value="mod_promo" hidden>
                                             <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                                            <button class="qty_mod" name="mod_prod" value="eliminar_promo" type="submit"><i data-feather="minus-circle"></i></button>
+                                            <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
+                                            <button class="qty_mod" name="dec_promo" type="submit"><i data-feather="minus-circle"></i></button>
                                             <p class="qty">'.$prod['qty_promo'].'</p>
-                                            <button class="qty_mod" name="mod_prod" value="afegir_promo" type="submit"><i data-feather="plus-circle"></i></button>
+                                            <button class="qty_mod" name="inc_promo" type="submit"><i data-feather="plus-circle"></i></button>
                                 
                                 </form>
                                 
@@ -398,13 +400,17 @@ h2 {
                                 </div>
 
                                 <form class="prod_qty" action="index.php?accio=afegir_cistella" method="post">
+
+                                    <input type="text" name="mod_article" value="mod_prod" hidden>
                                     <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                                    <button class="qty_mod" name="mod_prod" value="eliminar_prod" type="submit"><div><i data-feather="minus-circle"></div></i></button>';
+                                    <input type="text" name="id_prod" value="'.$prod['id'].'" hidden>
+                                    <button class="qty_mod" name="dec_prod" value="eliminar_prod" type="submit"><div><i data-feather="minus-circle"></div></i></button>';
                                     
-                                    if (!isset($prod['prod_qty'])) $prod['prod_qty'] = 1;
+                                    // No s'esborra per precaució pero a priori no té sentit/efecte
+                                    //if (!isset($prod['prod_qty'])) $prod['prod_qty'] = 1;
 
                                     echo '<p class="qty">'.$prod['prod_qty'].'</p>
-                                    <button class="qty_mod" name="mod_prod" value="afegir_prod" type="submit"><i data-feather="plus-circle"></i></button>
+                                    <button class="qty_mod" name="inc_prod" type="submit"><i data-feather="plus-circle"></i></button>
                                 </form>';
 
                                 if (isset($prod['descompte'])) {

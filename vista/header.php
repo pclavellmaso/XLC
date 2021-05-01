@@ -30,6 +30,9 @@
     <!-- VUE -->
     <script src="https://unpkg.com/vue@next"></script>
 
+    <!-- AXIOS (ajax for vue) -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     <!-- Other Shittys -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans:wght@700&display=swap">
