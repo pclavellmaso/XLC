@@ -1,7 +1,7 @@
 <?php
 
 // Si incloem la base de dades aquí estarà disponible a totes les pàgines
-//include("model/bd.php");
+include("/model/bd.php");
 
 // Si iniciem $_SESSION aquí tindrem la informació disponible a totes les pàgines
 session_start();
@@ -108,6 +108,6 @@ switch ($accio) {
         break;
 
     default:
-        include('vista/inici.php');
+        include('/vista/inici.php');
         break;
 }
