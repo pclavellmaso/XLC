@@ -112,7 +112,7 @@ img {
     border: none;
 }
 
-.compra_esq, .compra_dreta {
+.compra_esq {
     display: flex;
     flex-direction: column;
     flex: 0 0 50%;
@@ -121,6 +121,11 @@ img {
 .info_compra {
     display: flex;
     padding: 1em 1em;
+}
+
+form {
+    width: 100%;
+    display: flex;
 }
 
 #vue_qty > p:nth-child(1) {
@@ -147,6 +152,11 @@ img {
 
 .preu_descompte {
     margin-top: auto;
+}
+
+input[type="radio"] {
+    width: 20px;
+    height: 20px;
 }
 
 
@@ -198,6 +208,7 @@ img {
                     <div class="abaix_dreta">
                         <form action="index.php?accio=afegir_cistella" method="post">
                             <input type="hidden" name="prod_qty" value="1">
+                            <input type="hidden" name="descompte" value="<?php echo $data_prod[0]['descompte']; ?>">
                             <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
                             <?php
                                 if ($data_prod[0]['descompte'] > 0) {
@@ -207,13 +218,9 @@ img {
                             
                         </form>
                     </div>
-                    
                 </div>
-                
-                
             </div>
         </div>
-
     </div>
 
     <br>
@@ -242,31 +249,9 @@ img {
             $data_punts = $res_punts->fetch_all(MYSQLI_ASSOC);
 
             if ($data_prod[0]['descompte'] == 0) {
-            
-                echo '<div class="info_compra">
-                    
-                    <div class="compra_esq">
-    
-                        <p>Disposes de '.$data_punts[0]['punts'].' punts</p>
-                        <p>Aquest producte compte amb els següents descomptes:</p>
-                        
-                        <div data-value="5" tabindex="1" class="descompte">5 % (50 punts)</div>
-                        <div data-value="10" tabindex="1" class="descompte">10 % (100 punts)</div>
-                        <div data-value="15" tabindex="1" class="descompte">15 % No disponible</div>
-                        
-                        <input class="desc_final" name="desc_final" type="text" value="" hidden>
-    
-                    </div>
-    
-                    <div class="compra_dreta">
-    
-                        
-                        <div id="vue_qty"></div>
-                        
-    
-                    </div>
-    
-                </div>';
+                
+                // VUE
+                echo '<div class="info_compra" id="info_compra"></div>';
             }
         }
         
@@ -294,29 +279,18 @@ img {
 
 </div><!-- contingut -->
 
-<script>
+<script>    
 
-    jQuery(document).ready(function() {
-
-        let value = 1
-        jQuery(".descompte").focus(function() {
-
-            value = document.activeElement.dataset.value
-        })
-
-        jQuery(".add_descompte").click(function() {
-
-            jQuery(".desc_final").val(value)
-            jQuery(".desc_form").submit()
-        })
-        
-    })
-    
-
+    // VUEJS
     const options = {
         data() {
             return {
-                qty: 1
+                qty: 1,
+                descompte: 0,
+                preu_inicial: <?php echo $data_prod[0]['preu']; ?>,
+                preu_descompte: 0,
+                punts_extra: 0,
+                array_descomptes: [5, 10, 15, 20, 35]
             }
         },
         methods: {
@@ -324,32 +298,67 @@ img {
                 if (this.qty > 1) {
                     this.qty--
                 }
+                this.punts_extra = (this.qty - 1) * 50
             },
             increment() {
                 this.qty++
+                this.punts_extra = (this.qty - 1) * 50
             }
         },
+
+        created() {
+            this.preu_descompte = this.preu_inicial
+        },
+
+        watch: {
+            qty: function() {
+                this.preu_descompte = this.preu_inicial * this.qty 
+            }
+        },
+
         template: `
-        <p>Per a cada unitat extra acumules 50 punts</p>
-
-        <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
-        <span class="qty_producte">{{ qty }} unitats</span>
-        <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
-        <span class="punts_extra">Punts extra {{ (qty - 1) * 50 }}</span>
-
-        <p class="preu_descompte">Preu final amb descompte aplicat 50</p>
-
         <form action="index.php?accio=afegir_cistella" method="post">
-            <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
-            <input type="hidden" name="prod_qty_add" v-model="qty">
-            <input type="hidden" name="punts_extra" value="{{ punts_extra }}">
-            <button type="submit" class="add add_defecte">Afegir a la cistella</button>
+        <div class="compra_esq">
+    
+            <p>Disposes de <?php echo $data_punts[0]['punts']; ?> punts</p>
+            <p>Aquest producte compte amb els següents descomptes:</p>
+
+          
+
+                <div v-for="(descompte, index) in descomptes" class="descs_add">
+                    <input v-on:click="this.descompte=descompte" id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descomptes[index] * 100); ?>" checked>
+                    <input class="desc_add" name="desc_add" type="text" value="<?php echo $descomptes[$i]; ?>" hidden>
+                    <label for="   ">Cap</label>
+                </div>
+
+
+        </div>
+
+        <div class="compra_dreta">
+                        
+            <p>Per a cada unitat extra acumules 50 punts</p>
+
+            <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
+            <span class="qty_producte">{{ qty }} unitats</span>
+            <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
+            <span class="punts_extra">Punts extra {{ punts_extra }}</span>
+
+            <p class="preu_descompte">Preu final amb descompte aplicat {{(preu_descompte - (preu_descompte * (descompte / 100)))}} €</p>
+
+            
+                <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
+                <input type="hidden" name="prod_qty_add" v-model="qty">
+                <input type="hidden" name="punts_extra" v-model="punts_extra">
+                <button type="submit" class="add add_defecte">Afegir a la cistella</button>
+            
+                        
+        </div>
         </form>
         `
     }
 
     const app = Vue.createApp(options)
-    app.mount("#vue_qty")
+    app.mount("#info_compra")
 
     
     
