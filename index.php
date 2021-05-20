@@ -1,16 +1,9 @@
 <?php
 
-// Si incloem la base de dades aquí estarà disponible a totes les pàgines
-//require("model/bd.php");
+include("model/bd.php");
+include("model/debug.php");
 
-// Si iniciem $_SESSION aquí tindrem la informació disponible a totes les pàgines
 session_start();
-
-//Display errors if any
-//error_reporting(E_ALL);
-//ini_set('display_errors', 1);
-
-//include("model/debug.php");
 
 
 if (isset($_GET['accio'])) {
