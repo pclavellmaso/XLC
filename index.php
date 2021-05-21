@@ -1,9 +1,11 @@
 <?php
 
+session_start();
+
 include("model/bd.php");
 include("model/debug.php");
 
-session_start();
+
 
 
 if (isset($_GET['accio'])) {
@@ -46,6 +48,10 @@ switch ($accio) {
 
     case 'perfil_cistella':
         include('vista/perfilCistella.php');
+        break;
+
+    case 'perfil_punts':
+        include('vista/perfilPunts.php');
         break;
 
     case 'buida_cistella':

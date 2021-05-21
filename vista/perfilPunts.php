@@ -55,11 +55,11 @@ a:hover {
 
     if(isset($_SESSION['tipus_usuari'])){
         
-        $nom = $_SESSION['nom'];
+        $id = $_SESSION['usuari_id'];
     }
 
     // Agafem dades del usuari que té la sessió iniciada
-    $consulta = "SELECT * FROM usuari u WHERE u.nom = '".$nom."' ";
+    $consulta = "SELECT * FROM usuari u WHERE u.id = '".$id."' ";
 
     $consulta_res = $bd->query($consulta);
     $info = $consulta_res->fetch_all(MYSQLI_ASSOC);

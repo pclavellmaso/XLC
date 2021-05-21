@@ -1,17 +1,17 @@
-  <?php
+<?php
 
-$serverName = 'database';
-$userName = 'root';
-$password = 'tiger';
-$dbName = 'docker';
+    $serverName = 'database';
+    $userName = 'root';
+    $password = 'tiger';
+    $dbName = 'docker';
 
-$bd = new mysqli($serverName, $userName, $password, $dbName);
+    $bd = new mysqli($serverName, $userName, $password, $dbName);
 
-$bd->set_charset("utf8");
+    $bd->set_charset("utf8");
 
-if (mysqli_connect_errno()) {
-    echo 'Failed to connect!';
-    exit();
-}
+    if (mysqli_connect_errno()) {
+        echo 'Failed to connect!';
+        exit();
+    }
 
 ?>

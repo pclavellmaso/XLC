@@ -82,9 +82,6 @@
 
 <div class="wrap">
 
-
-    
-
     <div class=imgflex>
     
         <div class="img">

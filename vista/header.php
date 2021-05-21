@@ -113,8 +113,16 @@
 
             <div class="dialeg_cistella">
 
+                <?php
+
+                    $cons_punts = "SELECT u.punts FROM usuari u WHERE u.id = ".$_SESSION['usuari_id']."";
+
+                    $res_punts = $bd->query($cons_punts);
+                    $punts = $res_punts->fetch_all(MYSQLI_ASSOC);
+                ?>
+
                 <a href="index.php?accio=perfil_cistella"><div class="cistella_prods"><i data-feather="align-left"></i><?php echo $_SESSION["cistella"]["qty"]; ?> Productes</div></a>
-                <a href="#"><div class="cistella_punts"><i data-feather="gift"></i>125 Punts</div></a>
+                <a href="index.php?accio=perfil"><div class="cistella_punts"><i data-feather="gift"></i><?php echo $punts[0]['punts']; ?> punts</div></a>
 
             </div>
 

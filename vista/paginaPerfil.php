@@ -92,6 +92,12 @@
             }});
         });
 
+        jQuery("#punts").on('click', function() {
+            $.ajax({url: "index.php?accio=perfil_punts", success: function(result){
+                $("#contingut").html(result);
+            }});
+        });
+
     });
 
 </script>
