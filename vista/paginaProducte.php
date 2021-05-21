@@ -1,4 +1,3 @@
-
 <?php include('header.php'); ?>
 
 <style>
@@ -321,11 +320,11 @@ input[type="radio"] {
             <p>Disposes de <?php echo $data_punts[0]['punts']; ?> punts</p>
             <p>Aquest producte compte amb els següents descomptes:</p>
           
-                <div v-for="(descompte, index) in descomptes" class="descs_add">
-                    <input v-on:click="this.descompte=descompte" id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descomptes[index] * 100); ?>" checked>
+                <!--<div v-for="(descompte, index) in descomptes" class="descs_add">
+                    <input v-on:click="this.descompte=descompte" id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descomptes[index] * 100)" checked>
                     <input class="desc_add" name="desc_add" type="text" value="<?php echo $descomptes[$i]; ?>" hidden>
                     <label for="   ">Cap</label>
-                </div>
+                </div>-->
         </div>
         <div class="compra_dreta">
                         
