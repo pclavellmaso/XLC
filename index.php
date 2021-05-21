@@ -1,12 +1,9 @@
 <?php
 
-session_start();
-
-include("model/bd.php");
-
+//include("model/bd.php");
 include("model/debug.php");
 
-
+session_start();
 
 
 if (isset($_GET['accio'])) {

@@ -233,7 +233,10 @@ input[type="radio"] {
         /*$cons_desc = "SELECT p.descompte, p.preu FROM producte p WHERE p.id = '$id'";
         $res_desc = $bd->query($cons_desc);
         $data_desc = $res_prod->fetch_all(MYSQLI_ASSOC);
+
         if () {
+
+
         }*/
     
     ?>
@@ -319,21 +322,29 @@ input[type="radio"] {
     
             <p>Disposes de <?php echo $data_punts[0]['punts']; ?> punts</p>
             <p>Aquest producte compte amb els següents descomptes:</p>
+
           
-                <!--<div v-for="(descompte, index) in descomptes" class="descs_add">
-                    <input v-on:click="this.descompte=descompte" id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descomptes[index] * 100)" checked>
+
+                <div v-for="(descompte, index) in descomptes" class="descs_add">
+                    <input v-on:click="this.descompte=descompte" id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descomptes[index] * 100); ?>" checked>
                     <input class="desc_add" name="desc_add" type="text" value="<?php echo $descomptes[$i]; ?>" hidden>
                     <label for="   ">Cap</label>
-                </div>-->
+                </div>
+
+
         </div>
+
         <div class="compra_dreta">
                         
             <p>Per a cada unitat extra acumules 50 punts</p>
+
             <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
             <span class="qty_producte">{{ qty }} unitats</span>
             <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
             <span class="punts_extra">Punts extra {{ punts_extra }}</span>
+
             <p class="preu_descompte">Preu final amb descompte aplicat {{(preu_descompte - (preu_descompte * (descompte / 100)))}} €</p>
+
             
                 <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
                 <input type="hidden" name="prod_qty_add" v-model="qty">
