@@ -1,6 +1,6 @@
 <?php
 
-//include("model/bd.php");
+include("model/bd.php");
 include("model/debug.php");
 
 session_start();

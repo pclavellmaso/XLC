@@ -1,5 +1,4 @@
-  
-<?php
+  <?php
 
 $serverName = 'database';
 $userName = 'root';
