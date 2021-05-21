@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="/XLC/vista/inici.css">
 
-<?php include "header.php";?>
+<?php include "header.php"; ?>
 
 <style>
 
