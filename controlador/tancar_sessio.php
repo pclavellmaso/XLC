@@ -9,7 +9,7 @@
     
 
     header('location: index.php?');
-
+    exit();
     // Així seria el rollo MVC. El fitxer actual seria el intermig (diria que el model). En un futur ordenar-ho així.
     // El controlador és el que té tota la lògica pura, sense html. El model (aquest) redirigeix a les vistes.
     

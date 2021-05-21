@@ -34,6 +34,7 @@
             //Error, usuari (correu) ja registrat
             $_SESSION['signin_inc'] = '';
             header('location: index.php?accio=registreLogin');
+            exit();
         
         }else {
 
@@ -65,6 +66,7 @@
             $_SESSION['registre'] = 'registreComplet';
             
             header('location: index.php?accio=registreLogin');
+            exit();
         } 
     }
 
@@ -107,11 +109,13 @@
             
             
             header('location: index.php');
+            exit();
         
         }else {
             // Si hi ha errors, redirigim a la pàgina de registre/login mostrant missatge d'error
             $_SESSION['login_inc'] = '';
             header('location: index.php?accio=registreLogin');
+            exit();
         }
     }
 
