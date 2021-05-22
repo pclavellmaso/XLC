@@ -33,15 +33,12 @@
 }
 
 .titol1 {
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 70px;
 }
 
 .prod_abaix {
-    background: rgba(0,0,0, 0.2);
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    padding: 10px;
+    padding: 5px;
 }
 
 .info_nom, .preu {
@@ -51,8 +48,6 @@
 
 .foto {
     width: 100%;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
 }
 
 .session {
@@ -61,99 +56,73 @@
     background: rgba(0,0,0,0.5);
     color: white;
 }
+.background:hover {
+    background: rgba(0,0,0, 0.1);
+}
 
+.background {
+    transition: 0.7s;
+    padding: 5px;
+}
 
 </style>
 
 
 
 
-<div class="wrap">
-
-    <div class=imgflex>
-    
-        <div class="img">
-            <img class="carousel" src="/XLC/vista/img/una-2.jpg" alt="una">
-
-        </div>
-        
-        <div class="img">
-            <img class="carousel" src="/XLC/vista/img/dos.jpg" alt="dos">
-
-        </div>
-        
-        <div class="img">
-            <img class="carousel" src="/XLC/vista/img/quatre.jpg" alt="tres">
-
-        </div>
-
-    </div>
+<div class="wrap bg-light">
    
-    <div>
+    <div class="container-fluid main-container">
 
-        <h1 class="titol1">Descobreix els negocis que tens aprop i que no coneixies!</h1>
-        <h2>Aquí trobaràs una selecció de productes dels negocis adherits al nostre portal</h2>
-
+        <h1 class="titol1">Descobreix productes artesanals arreu de Catalunya</h1>
         
-        <div class="seleccio container-fluid">
+        <h2>Novetats</h2>
             
-        <p>Selecció de productes amb descompte</p>
-            
-            <div class="grid_seleccio row">
+        <div class="grid_seleccio row">
 
-                <?php 
+            <?php 
 
-                    $cons_prods = "SELECT p.id, p.imatge, p.descompte, p.nom, p.preu, c.nom_categoria FROM producte p, categoria c WHERE /*p.descompte > 0 and*/ p.categoria_id = c.id";
-                    $res_prods = $bd->query($cons_prods);
-                    $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
+                $cons_prods = "SELECT p.id, p.imatge, p.descompte, p.nom, p.preu, c.nom_categoria FROM producte p, categoria c WHERE /*p.descompte > 0 and*/ p.categoria_id = c.id";
+                $res_prods = $bd->query($cons_prods);
+                $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
 
-                    foreach($data_prods as $prod) { ?>
+                foreach($data_prods as $prod) { ?>
 
-                        <div class="col-12 col-sm-6 col-xl-4 mt-2 p-3"><a href="index.php?accio=pagina_producte&id=<?php echo $prod['id']; ?>">
+                    <div class="prodFlex col-12 col-sm-6 col-xl-3 mt-2 p-4"><a href="index.php?accio=pagina_producte&id=<?php echo $prod['id']; ?>">
 
-                            <div class="prod_amunt">
-                                <img class="foto" src="/XLC/vista/img/<?php echo $prod['imatge']; ?>" alt="">
+                        <div class="background">
+                        <div class="prod_amunt">
+                            <img class="foto" src="/XLC/vista/img/<?php echo $prod['imatge']; ?>" alt="">
+                        </div>
+                        <div class="prod_abaix">
+                            <div class=info>
+                                <p class="info_nom"><?php echo $prod['nom']; ?></p>
+                                <p class="info_cate"><?php echo $prod['nom_categoria']; ?></p>
                             </div>
-                            <div class="prod_abaix">
-                                <div class=info>
-                                    <p class="info_nom"><?php echo $prod['nom']; ?></p>
-                                    <p class="info_cate"><?php echo $prod['nom_categoria']; ?></p>
-                                </div>
-                                <div class="info2">
-                                    <p class="preu"><?php echo $prod['preu']; ?> €</p>
-                                    <p class="descompte"><?php echo $prod['descompte']; ?> % Rebaixat</p>
-                                </div>
+                            <div class="info2">
+                                <p class="preu"><?php echo $prod['preu']; ?> €</p>
+                                <p class="descompte"><?php echo $prod['descompte']; ?> % Rebaixat</p>
                             </div>
+                        </div>
+                        </div>
 
-                        </a></div>
+                    </a></div>
 
-                    <?php } ?>
-
-            </div>
+                <?php } ?>
 
         </div>
 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <!--<div class="session">
-            <?php
-            /*echo 'Log Cookies: ';
-            echo '<br>';
-            echo 'client10: ';
-            print_r(unserialize($_COOKIE[10]));
-            echo '<br>';
-            echo 'clientnou: ';
-            print_r(unserialize($_COOKIE[9]));*/
-            ?>
-        </div>-->
-
     </div>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+       
 
     
 
