@@ -113,13 +113,16 @@ h1 h2 {
     top: 80px;
 }
 
+.search {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid black;
+    border-radius: 0px;
+}
+
 .navbar {
-    display: flex;
-    background-color: #FAEADB;
-    align-items: center;
     padding: 2% 5%;
-    width: 100%;
-    margin-top: 70px;
+    margin-top: 0px;
 }
 
 .navbar_item:hover > a {

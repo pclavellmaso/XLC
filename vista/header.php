@@ -6,12 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xarxa Local de Comerços</title>
 
-    <!-- JQuery Core-->
+    <!-- JQuery Core -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- JQuery UI-->
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" integrity="sha256-T0Vest3yCU7pafRw9r+settMBX6JkKN06dqBnpQ8d30=" crossorigin="anonymous"></script>
-    <!-- JQuery Validate-->
+    <!-- JQuery Validate -->
     <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js" crossorigin="anonymous"></script>
+
+    <!-- BOOTSTRAP 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
 
     <!-- CSS -->
     <link rel="stylesheet" href="/XLC/vista/header.css">
@@ -43,64 +47,81 @@
 
     <div class="pagina">
 
-        <div class="capçalera_flex">
+        <!-- <div class="capçalera_flex"> -->
+        <nav class="navbar navbar-expand-lg mt-0">
+            <div class="container-fluid">
 
-            <div class="cap_esq">
+                <a class="navbar-brand" href="#">Xarxa Local de Comerços</a>
 
-                <img class="logo" src="/XLC/vista/img/logo.png" alt="logo"></img>
-                <a href="index.php"><h1 class="titol">Xarxa Local de Comerços</h1></a>
+                
+
+                    <form class="d-flex">
+                        <div class="cerca_icon"><i data-feather="search"></i></div>
+                        <input class="search form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    </form>
+
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Inici</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Mur de Promocions</a>
+                        </li>
+                    </ul>
+
+                
 
             </div>
+        </nav>
 
-            <div class="cap_dreta">
-                <div class="cerca_icon"><i data-feather="search"></i></div>
-                <input class="cerca" type="text" placeholder="Busca...">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mt-0">
+            <div class="container-fluid">
 
-                <?php 
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Inici</a>
+                    </li>
 
-                    //si hi ha una sessió iniciada
-                    if (isset($_SESSION['nom'])) {
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Mur de Promocions</a>
+                    </li>
+
+                    <!-- <li class="nav-item dropdown">
                         
-                        echo '<div class="cistella">
-                            <img class="cistella_icon" src="/XLC/vista/img/cistella.png" alt="">
-                            <div class="cistella_info">'.$_SESSION["cistella"]["qty"].'</div>
-                        </div>'; 
-                    }
-                ?>
-                
-                <?php 
-                
-                    if (isset($_SESSION['nom'])) {
-                        // Primera lletra del nom de l'usuari
-                        echo '<div class="usuari">'.ucfirst($_SESSION['nom'][0]).'</div>';
-                    }else {
-                        echo '<a href="index.php?accio=registreLogin"><div class="usuari">?</div></a>';
-                    }
-                ?>
-                
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Dropdown
+                        </a>
 
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#">Action</a></li>
+                            <li><a class="dropdown-item" href="#">Another action</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+
+                    </li> -->
+
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    </li>
+
+                </ul>
+
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+
+                </div>
             </div>
-
-        </div>
-
-        <div class="navbar">
-
-            <div class="navbar_item"><a href="index.php">Inici</a></div>
-
-            <!-- Només el usuari registrat com a negoci podrà veure l'apartat Rànking negocis -->
-            <?php if (isset($_SESSION['tipus_usuari']) and $_SESSION['tipus_usuari'] == 'negoci') {?>
-
-                <div class="navbar_item"><a href="index.php?accio=llista_negocis">Rànking Negocis</a></div>
-
-            <?php }?>
-
-            <div class="navbar_item"><a href="index.php?accio=mur_promos"></i>Mur de Promocions</a></div>
-            <div class="navbar_item"><a href="index.php?accio=sobre_projecte">Sobre el Projecte</a></div>
-            <div class="navbar_item item_usuari">
-
-            </div>
-
-        </div>
+        </nav>
 
         <div class="content">
 
@@ -126,8 +147,6 @@
                     }
                     
                 ?>
-
-                
 
             </div>
 
@@ -169,7 +188,7 @@
 
             });
 
-            feather.replace()
+            
 
         </script>';
     }
@@ -196,12 +215,8 @@ jQuery(document).ready(function() {
         e.stopPropagation()
     });
 
-
-
-
+    feather.replace()
 
 });
-
-
 
 </script>

@@ -37,18 +37,6 @@
     margin-bottom: 70px;
 }
 
-.grid_seleccio {
-    display: flex;
-    width: 100%;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    margin-top: 30px;
-}
-.producte {
-    flex: 0 0 20%;
-    padding: 20px;
-}
-
 .prod_abaix {
     background: rgba(0,0,0, 0.2);
     border-bottom-left-radius: 5px;
@@ -107,11 +95,11 @@
         <h2>Aquí trobaràs una selecció de productes dels negocis adherits al nostre portal</h2>
 
         
-        <div class="seleccio">
+        <div class="seleccio container-fluid">
             
         <p>Selecció de productes amb descompte</p>
             
-            <div class="grid_seleccio">
+            <div class="grid_seleccio row">
 
                 <?php 
 
@@ -121,7 +109,7 @@
 
                     foreach($data_prods as $prod) { ?>
 
-                        <div class="producte"><a href="index.php?accio=pagina_producte&id=<?php echo $prod['id']; ?>">
+                        <div class="col-12 col-sm-6 col-xl-4 mt-2 p-3"><a href="index.php?accio=pagina_producte&id=<?php echo $prod['id']; ?>">
 
                             <div class="prod_amunt">
                                 <img class="foto" src="/XLC/vista/img/<?php echo $prod['imatge']; ?>" alt="">
