@@ -201,7 +201,7 @@ button:hover {
                         </div>
 
                         <div class="input-group">
-                            epep
+                            <h1>epep</h1>
                             <button type="submit" class="btn" name="reg_user">Registra\'t!</button>
                         </div>
 
