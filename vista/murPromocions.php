@@ -8,6 +8,10 @@
     box-sizing: border-box;
 }
 
+p {
+    color: black;
+}
+
 .slick-list.draggable {
     height: 100px;
 }

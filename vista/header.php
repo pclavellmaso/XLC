@@ -19,7 +19,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="/XLC/vista/bootstrap2.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="slick/slick-theme.css"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     
@@ -31,7 +32,7 @@
     <script src="/XLC/vista/js/header.js"></script>
     <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <script src="https://unpkg.com/feather-icons"></script>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script type="text/javascript" src="slick/slick.min.js"></script>
 
     <!-- VUE -->
     <script src="https://unpkg.com/vue@next"></script>
@@ -388,15 +389,15 @@ h1 h2 {
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Inici</a>
+                            <a class="nav-link active" aria-current="page" href="index.php">Inici</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Mur de Promocions</a>
+                            <a class="nav-link" href="index.php?accio=mur_promos">Mur de Promocions</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#" tabindex="-1">Sobre el projecte</a>
+                            <a class="nav-link" href="index.php?accio=sobre_projecte" tabindex="-1">Sobre el projecte</a>
                         </li>
 
                     </ul>

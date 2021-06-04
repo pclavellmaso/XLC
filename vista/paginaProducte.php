@@ -7,21 +7,8 @@
     padding-top: 60px;
 }
 
-.esquerre {
-    flex: 0 0 34%;
-}
-
 img {
     width: 100%;
-}
-
-.esquerre {
-    flex: 0 0 30%;
-}
-
-.dreta {
-    margin-left: 50px;
-    width: 70%;
 }
 
 .prodFlex_abaix {
@@ -176,31 +163,31 @@ input[type="radio"] {
 
 ?>
 
-<div class="contingut">
+<div class="contingut container-fluid">
 
-    <div class="prodFlex">
+    <div class="prodFlex row">
 
-        <div class="esquerre">
-            <img src="/XLC/vista/img/<?php echo $data_prod[0]['imatge']; ?>" alt="">
+        <div class="esquerre col-12 col-md-3">
+            <img class="mb-4 mb-md-0" src="/XLC/vista/img/<?php echo $data_prod[0]['imatge']; ?>" alt="">
         </div>
 
-        <div class="dreta">
+        <div class="dreta col-12 col-md-9">
             <div class="info">
-                <p class="info_nom"><?php echo ucfirst($data_prod[0]['nom']); ?><span class="fav"><button class="fav_btn" name="" value="" type=""><i data-feather="heart"></i></button></span></p>
-                <p class="info_negoci"><?php echo ucfirst($data_prod[0]['nom_negoci']); ?></p>
-                <p class="info_cate"><?php echo $data_prod[0]['nom_categoria']; ?></p>
-                <p class="info_poblacio">Manufacturat a <?php echo $data_prod[0]['poblacio']; ?></p>
-                <p class="info_descripcio"><?php echo ucfirst($data_prod[0]['descripcio']); ?></p>
+                <p class="info_nom fs-4"><?php echo ucfirst($data_prod[0]['nom']); ?></p>
+                <p class="info_negoci fs-5"><?php echo ucfirst($data_prod[0]['nom_negoci']); ?></p>
+                <p class="info_cate fs-6"><?php echo $data_prod[0]['nom_categoria']; ?></p>
+                <p class="info_poblacio fs-6">Manufacturat a <?php echo $data_prod[0]['poblacio']; ?></p>
+                <p class="info_descripcio fs-6"><?php echo ucfirst($data_prod[0]['descripcio']); ?></p>
                 
                 <div class="prodFlex_abaix">
                     <div class="abaix_esq">
                         <?php 
                             if ($data_prod[0]['descompte'] > 0) {
                                 $descompte = $data_prod[0]['descompte'];
-                                echo '<p class="info_preu">Preu <span style="text-decoration: line-through;">'.$data_prod[0]['preu'].' €</span><span> '.($data_prod[0]['preu'] - $data_prod[0]['preu'] * ($data_prod[0]['descompte'] / 100)).' €</span></p>
-                                <p class="info_descompte">Producte rebaixat un '.$descompte.' %</p>';
+                                echo '<p class="info_preu fs-5">Preu <span style="text-decoration: line-through;">'.$data_prod[0]['preu'].' €</span><span> '.($data_prod[0]['preu'] - $data_prod[0]['preu'] * ($data_prod[0]['descompte'] / 100)).' €</span></p>
+                                <p class="info_descompte fs-4">Producte rebaixat un '.$descompte.' %</p>';
                             }else {
-                                echo '<p class="info_preu">Preu '.$data_prod[0]['preu'].' €</p>';
+                                echo '<p class="info_preu fs-4">Preu '.$data_prod[0]['preu'].' €</p>';
                             }
                         ?>
                         
@@ -210,10 +197,16 @@ input[type="radio"] {
                             <input type="hidden" name="prod_qty" value="1">
                             <input type="hidden" name="descompte" value="<?php echo $data_prod[0]['descompte']; ?>">
                             <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
+                            
                             <?php
+                            
                                 if ($data_prod[0]['descompte'] > 0) {
-                                    echo '<button type="submit" class="add add_defecte">Afegir a la cistella</button>';
+
+                                    if (isset($_SESSION['nom'])) {
+                                        echo '<button type="submit" class="add add_defecte" >Afegir a la cistella</button>';
+                                    }
                                 }
+
                             ?>
                             
                         </form>
