@@ -20,54 +20,54 @@
             $cp = mysqli_real_escape_string($bd, $_POST['cp']);
             $telefon = mysqli_real_escape_string($bd, $_POST['telefon']);
         }
-        echo 'epep';exit();
+        
         $consulta = "SELECT * FROM usuari u WHERE u.correu = '$email' or u.nom = '$nom'";
         
         $res = $bd->query($consulta);
         
         if($res) { 
+
             $rows = $res->num_rows;
-        }
 
-        if($rows > 0) {
+            if($rows > 0) {
             
-            //Error, usuari (correu) ja registrat
-            $_SESSION['signin_inc'] = '';
-            header('location: index.php?accio=registreLogin');
-            exit();
-        
-        // Si no hi ha cap error, es registra l'usuari a la bd
-        }else {
-
-            // Encriptació de la contrasenya abans d'afegir-la a la bd
-            $password = md5($password_1);
-
-            // Creació instància usuari
-            $consulta = "INSERT INTO usuari(nom, correu, contrasenya, tipus) VALUES('$nom', '$email', '$password', '$tipus_usuari')";
-
-            $bd->query($consulta);
-
+                //Error, usuari (correu) ja registrat
+                $_SESSION['signin_inc'] = '';
+                header('location: index.php?accio=registreLogin');
+                exit();
             
-            // Creació instància negoci
-            if ($tipus_usuari == 'negoci') {
-                
-                $consulta_id = "SELECT u.id FROM usuari u WHERE u.correu = '".$email."'";
-                $res_id = $bd->query($consulta_id);
-
-                $info = $res_id->fetch_all(MYSQLI_ASSOC);                
-                $id = $info[0]['id'];
-
-                $consulta = "INSERT INTO negoci(nom, descripcio, poblacio, cp, telefon, usuari_id) VALUES('$nom_negoci', '$desc_negoci', '$poblacio', '$cp', '$telefon', '$id')";
-
+            // Si no hi ha cap error, es registra l'usuari a la bd
+            }else {
+    
+                // Encriptació de la contrasenya abans d'afegir-la a la bd
+                $password = md5($password_1);
+    
+                // Creació instància usuari
+                $consulta = "INSERT INTO usuari(nom, correu, contrasenya, tipus) VALUES('$nom', '$email', '$password', '$tipus_usuari')";
+    
                 $bd->query($consulta);
+    
+                // Creació instància negoci
+                if ($tipus_usuari == 'negoci') {
+                    
+                    $consulta_id = "SELECT u.id FROM usuari u WHERE u.correu = '".$email."'";
+                    $res_id = $bd->query($consulta_id);
+    
+                    $info = $res_id->fetch_all(MYSQLI_ASSOC);                
+                    $id = $info[0]['id'];
+    
+                    $consulta = "INSERT INTO negoci(nom, descripcio, poblacio, cp, telefon, usuari_id) VALUES('$nom_negoci', '$desc_negoci', '$poblacio', '$cp', '$telefon', '$id')";
+    
+                    $bd->query($consulta);
+                }
+                
+                
+                $_SESSION['registre'] = 'registreComplet';
+                
+                header('location: index.php?accio=registreLogin');
+                exit();
             }
-            
-            
-            $_SESSION['registre'] = 'registreComplet';
-            
-            header('location: index.php?accio=registreLogin');
-            exit();
-        } 
+        }
     }
 
     // Validació Login
