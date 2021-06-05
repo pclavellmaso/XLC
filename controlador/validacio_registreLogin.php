@@ -25,10 +25,10 @@
         
         $res = $bd->query($consulta);
         
-        if($res) { 
+        if($res) {
 
             $rows = $res->num_rows;
-
+            
             if($rows > 0) {
             
                 //Error, usuari (correu) ja registrat
@@ -43,10 +43,11 @@
                 $password = md5($password_1);
     
                 // Creació instància usuari
-                $consulta = "INSERT INTO usuari(nom, correu, contrasenya, tipus) VALUES('$nom', '$email', '$password', '$tipus_usuari')";
+                $punts = 0;
+                $consulta = "INSERT INTO usuari(nom, correu, contrasenya, tipus, punts) VALUES('$nom', '$email', '$password', '$tipus_usuari', '$punts')";
     
-                $bd->query($consulta);
-    
+                $epep = $bd->query($consulta);
+                
                 // Creació instància negoci
                 if ($tipus_usuari == 'negoci') {
                     

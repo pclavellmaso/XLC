@@ -186,10 +186,10 @@ h2 {
     cursor: pointer;
 }
 
-.col_info {
+/*.col_info {
     display: flex;
     width: 100%;
-}
+}*/
 
 .prod_noms {
     display: inline-block;
@@ -204,11 +204,17 @@ h2 {
     text-align: center;
     text-align: left;
     display: inline;
-    vertical-align: super;
+    vertical-align: middle;
+    padding: 0em 0.5em;
 }
 
 .col_prod, .prod_img {
     width: 40%;
+}
+
+.prod_img {
+    display: flex;
+    margin-right: 0.2em;
 }
 
 .col_qty, .prod_qty {
@@ -260,6 +266,83 @@ h2 {
     margin-top: 2em;
 }
 
+@media screen and (max-width: 768px) {
+
+    .col_descAdd, .prod_desc {
+        width: auto;
+    }
+
+    .col_preu, .prod_preu {
+        width: auto;
+    }
+
+    .foto {
+        width: 40%;
+        border-radius: 1px;
+        object-fit: cover;
+    }
+
+    .prod_noms {
+        padding-left: 0.3em;
+    }
+
+    .col_prod, .prod_img {
+        display: flex;
+        width: 100%;
+    }
+
+    p {
+        margin-bottom: 0!important;
+    }
+
+    .prodFlex {
+        margin-bottom: 0px;
+        flex-wrap: wrap;
+    }
+
+    .nom_prod {
+        font-size: 1rem;
+    }
+
+    .prod_preuFinal {
+        width: auto;
+        margin-left: auto;
+    }
+
+    .qty {
+        width: 100%;
+        text-align: center;
+    }
+
+    .resum_compra {
+        margin-left: 0em;
+        width: 100%;
+    }
+
+    .clean {
+        margin-top: 0px;
+        margin-bottom: 1em;
+        width: 100%;
+    }
+
+    .form_continuar {
+        margin-left: 0;
+    }
+
+    .continuar, .prod_preu {
+        width: 100%;
+    }
+
+    p {
+        margin-bottom: 0rem;
+    }
+
+    .prod_qty {
+        width: 35%!important;
+        margin: 0.5em 0em;
+        display: flex;
+    }
+}
 
 </style>
 
@@ -274,13 +357,13 @@ h2 {
 
 <h2>LA TEVA CISTELLA</h2>
 
-<div class="wrap_content">
+<div class="wrap_content d-block d-xl-flex">
 
-    <div class="cistella_content">
+    <div class="cistella_content w-100 w-xl-75">
 
         <div class="listFlex">
 
-            <div class="col_info">
+            <div class="col_info d-none d-xl-flex">
                 <p class="col_prod">Producte</p>
                 <p class="col_qty">Quantitat</p>
                 <p class="col_preu">Preu</p>
@@ -379,7 +462,7 @@ h2 {
                         
                         // Si es un producte
                         }else {
-                            //var_dump($prod);
+                            
                             $neg_id = $prod['negoci_id'];
                             // Agafem el nom del negoci per mostrar-lo
                             $cons_negoci = "SELECT n.nom, n.poblacio FROM negoci n WHERE n.id = ".$neg_id."";
@@ -389,15 +472,16 @@ h2 {
                             $preu_prod_final = $prod['preu'] - ($prod['preu'] * ($prod['descompte']/100));
 
                             echo '<div class="prodFlex">
-
-                                <div class="prod_img">
-                                    <img class="foto" src="/XLC/vista/img/'.$prod['imatge'].'" alt="">
-                                    <div class="prod_noms">
-                                        <p class="nom_prod">'.ucfirst($prod['nom']).'</p>
-                                        <p class="nom_neg">'.ucfirst($nom_negoci[0]['nom']).'</p>
-                                        <p class="poblacio">Manufacturat a '.ucfirst($nom_negoci[0]['poblacio']).'</p>
+                                <a href="index.php?accio=pagina_producte&id='.$prod['id'].'">
+                                    <div class="prod_img">
+                                        <img class="foto" src="/XLC/vista/img/'.$prod['imatge'].'" alt="">
+                                        <div class="prod_noms">
+                                            <p class="nom_prod">'.ucfirst($prod['nom']).'</p>
+                                            <p class="nom_neg">'.ucfirst($nom_negoci[0]['nom']).'</p>
+                                            <p class="poblacio d-none d-xl-block">Manufacturat a '.ucfirst($nom_negoci[0]['poblacio']).'</p>
+                                        </div>
                                     </div>
-                                </div>
+                                </a>
 
                                 <form class="prod_qty" action="index.php?accio=afegir_cistella" method="post">
 

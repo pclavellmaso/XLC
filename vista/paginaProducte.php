@@ -146,9 +146,18 @@ input[type="radio"] {
     height: 20px;
 }
 
-
 .relacionats {
     margin-top: 6em;
+}
+
+@media screen and (max-width: 414px) {
+	.add {
+        margin-left: auto;
+        width: 100%;
+    }
+    .prodFlex_abaix {
+        display: block;
+    }
 }
 
 </style>

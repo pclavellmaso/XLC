@@ -55,10 +55,6 @@
     "Firebrick":"#B3001B"
 }*/
 
-form {
-    width: auto!important;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -76,9 +72,7 @@ a {
     color: black;
 }
 
-form {
-    width: auto!important;
-}
+
 
 .capçalera_flex {
     display: flex;

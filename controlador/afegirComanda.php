@@ -1,4 +1,3 @@
-
 <?php
 
     $array_elements = $_SESSION['cistella']['prods'];
@@ -17,7 +16,6 @@
         if (isset($array_elements[$i]['qty_promo'])) {
 
             $subtotal = 0;
-            console_log($array_elements);
             
             foreach ($array_elements[$i] as $producte) {
                 
@@ -46,14 +44,9 @@
 
     }
 
-
-
-
-
-
     unset($_SESSION['cistella']['prods']);
     $_SESSION['cistella']['qty'] = 0;
+    
+    header('location: index.php')
+    
 ?>
-
-
-<?php header('location: index.php') ?>
