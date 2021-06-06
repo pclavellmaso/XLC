@@ -292,7 +292,9 @@ input[type="radio"] {
                 preu_inicial: <?php echo $data_prod[0]['preu']; ?>,
                 preu_descompte: 0,
                 punts_extra: 0,
-                array_descomptes: [5, 10, 15, 20, 35]
+                punts_aplicats: 0,
+                array_descomptes: [5, 10, 15, 20, 35],
+                punts_disponibles: <?php echo $_SESSION['punts_usuari']; ?>
             }
         },
         methods: {
@@ -305,6 +307,10 @@ input[type="radio"] {
             increment() {
                 this.qty++
                 this.punts_extra = (this.qty - 1) * 50
+            },
+            aplicarDesc(descompte) {
+                this.descompte = descompte
+                this.punts_aplicats = descompte * 10
             }
         },
 
@@ -320,41 +326,46 @@ input[type="radio"] {
 
         template: `
         <form action="index.php?accio=afegir_cistella" method="post">
-        <div class="compra_esq">
-    
-            <p>Disposes de <?php echo $data_punts[0]['punts']; ?> punts</p>
-            <p>Aquest producte compte amb els següents descomptes:</p>
+            <div class="compra_esq">
+        
+                <p>Disposes de <?php echo $data_punts[0]['punts']; ?> punts</p>
+                <p>Aquest producte compte amb els següents descomptes:</p>
 
-          
+                <div class="descomptes_disponibles"> 
 
-                <div v-for="(descompte, index) in descomptes" class="descs_add">
-                    <input v-on:click="this.descompte=descompte" id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descomptes[index] * 100); ?>" checked>
-                    <input class="desc_add" name="desc_add" type="text" value="<?php echo $descomptes[$i]; ?>" hidden>
-                    <label for="   ">Cap</label>
+                    <input v-on:click="this.descompte=0" id="cap" class="descompte" type="radio" name="punts_aplicats" value=0 checked>
+                    <label for="cap">Cap descompte aplicat</label>
+
+                    <div v-for="(descompte, index) in array_descomptes" class="descs_add">
+                        <input v-on:click="aplicarDesc(descompte)" v-bind:id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descompte * 10" :disabled="punts_disponibles < descompte * 10">
+                        <input class="desc_add" name="desc_add" type="text" value="<?php echo $descomptes[$i]; ?>" hidden>
+                        <label v-bind:for="index">Aplicar un {{ descompte }} % de descompte ({{descompte * 10}} Punts)</label>
+                    </div>
                 </div>
 
+            </div>
 
-        </div>
+            <div class="compra_dreta">
+                            
+                <p>Per a cada unitat extra acumules 50 punts</p>
 
-        <div class="compra_dreta">
-                        
-            <p>Per a cada unitat extra acumules 50 punts</p>
+                <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
+                <span class="qty_producte">{{ qty }} unitats</span>
+                <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
+                <span class="punts_extra">Punts extra: {{ punts_extra }}</span>
+                <span class="punts_aplicats">Punts aplicats: {{ punts_aplicats }}</span>
 
-            <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
-            <span class="qty_producte">{{ qty }} unitats</span>
-            <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
-            <span class="punts_extra">Punts extra {{ punts_extra }}</span>
+                <p class="preu_descompte">Preu final amb descompte aplicat {{(preu_descompte - (preu_descompte * (descompte / 100)))}} €</p>
 
-            <p class="preu_descompte">Preu final amb descompte aplicat {{(preu_descompte - (preu_descompte * (descompte / 100)))}} €</p>
+                    <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
+                    <input type="hidden" name="prod_qty_add" v-model="qty">
+                    <input type="hidden" name="punts_extra" v-model="punts_extra">
+                    <input type="hidden" name="punts_aplicats" v-model="punts_aplicats">
+                    <input type="hidden" name="descompte_add" v-model="descompte">
 
-            
-                <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
-                <input type="hidden" name="prod_qty_add" v-model="qty">
-                <input type="hidden" name="punts_extra" v-model="punts_extra">
-                <button type="submit" class="add add_defecte">Afegir a la cistella</button>
-            
-                        
-        </div>
+                    <button type="submit" class="add add_defecte">Afegir a la cistella</button>   
+                            
+            </div>
         </form>
         `
     }

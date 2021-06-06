@@ -9,6 +9,12 @@
     cursor: pointer;
 }
 
+input {
+    border: 1px solid black;
+    padding: 0.5em;
+    background: transparent;
+}
+
 .guarda:hover {
     font-size: 22px;
 }
@@ -16,17 +22,14 @@
 </style>
 
 <?php
-    //Necessari iniciar sessio i incloure bd ja que la pàgina es crida per ajax i no passa per index.php
-    session_start();
-    include("../model/bd.php");
 
-    if(isset($_SESSION['tipus_usuari'])){
+    if(isset($_SESSION['usuari_id'])){
             
-        $nom = $_SESSION['nom'];
+        $id = $_SESSION['usuari_id'];
     }
 
     // Agafem dades del usuari que té la sessió iniciada
-    $consulta = "SELECT * FROM usuari u WHERE u.nom = '$nom' ";
+    $consulta = "SELECT * FROM usuari WHERE id = ".$id."";
 
     $consulta_res = $bd->query($consulta);
 

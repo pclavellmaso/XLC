@@ -98,6 +98,12 @@
             }});
         });
 
+        jQuery("#compres").on('click', function() {
+            $.ajax({url: "index.php?accio=perfil_compres", success: function(result){
+                $("#contingut").html(result);
+            }});
+        });
+
     });
 
 </script>

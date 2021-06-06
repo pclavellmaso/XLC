@@ -44,7 +44,8 @@
     
                 // Creació instància usuari
                 $punts = 0;
-                $consulta = "INSERT INTO usuari(nom, correu, contrasenya, tipus, punts) VALUES('$nom', '$email', '$password', '$tipus_usuari', '$punts')";
+                $punts_totals = 0;
+                $consulta = "INSERT INTO usuari(nom, correu, contrasenya, tipus, punts, punts_totals) VALUES('$nom', '$email', '$password', '$tipus_usuari', '$punts', '$punts_totals')";
     
                 $epep = $bd->query($consulta);
                 
@@ -95,7 +96,10 @@
             $_SESSION['tipus_usuari'] = $info_usuari[0]['tipus'];
             $_SESSION['usuari_id'] = $info_usuari[0]['id'];
             $_SESSION['usuari_correu'] = $info_usuari[0]['correu'];
+            $_SESSION['punts_usuari'] = $info_usuari[0]['punts'];
+            
             $_SESSION['cistella']['qty'] = 0;
+
 
             // COOKIE MANAGEMENT
             $user_id = $info_usuari[0]['id'];
@@ -105,7 +109,6 @@
                 $cistella = unserialize($_COOKIE[$user_id]);
                 $_SESSION['cistella'] = $cistella;
                 $_SESSION['cistella']['qty'] = $cistella['qty'];
-
             }
             
             

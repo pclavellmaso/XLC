@@ -74,7 +74,7 @@ input {
 
         jQuery(".edita").click(function(){
 
-            jQuery(".dades").load("/XLC/vista/edita_dadesPersonals.php")
+            jQuery(".dades").load("index.php?accio=edita_personal")
 
         })          
 

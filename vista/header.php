@@ -421,7 +421,7 @@ h1 h2 {
                         $res_punts = $bd->query($cons_punts);
                         $punts = $res_punts->fetch_all(MYSQLI_ASSOC);
 
-                        echo '<a href="index.php?accio=perfil_cistella"><div class="cistella_prods"><i data-feather="align-left"></i><?php echo $_SESSION["cistella"]["qty"]; ?> Productes</div></a>
+                        echo '<a href="index.php?accio=perfil_cistella"><div class="cistella_prods"><i data-feather="align-left"></i>'.$_SESSION["cistella"]["qty"].' Productes</div></a>
                         <a href="index.php?accio=perfil"><div class="cistella_punts"><i data-feather="gift"></i>'.$punts[0]['punts'].' punts</div></a>';
                     }
                     

@@ -4,6 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-size: 1em;
 }
 
 .wrap_content {
@@ -184,6 +185,7 @@ h2 {
     color: white;
     padding: 15 25 15 25;
     cursor: pointer;
+    width: 100%;
 }
 
 /*.col_info {
@@ -194,7 +196,7 @@ h2 {
 .prod_noms {
     display: inline-block;
     vertical-align: top;
-    margin-left: 1em;
+    width: 69%;
 }
 .prod_preuFinal {
     text-align: right;
@@ -208,13 +210,14 @@ h2 {
     padding: 0em 0.5em;
 }
 
-.col_prod, .prod_img {
+.col_prod {
     width: 40%;
 }
 
 .prod_img {
     display: flex;
     margin-right: 0.2em;
+    width: 30%;
 }
 
 .col_qty, .prod_qty {
@@ -250,7 +253,6 @@ h2 {
 
 .form_continuar {
     position: relative;
-    margin-left: auto;
 }
 
 .subtotal {
@@ -262,8 +264,18 @@ h2 {
     font-size: 1.6em;
 }
 
-.get_points {
-    margin-top: 2em;
+.descompte {
+    margin-bottom: 0em;
+}
+
+.resum_compra {
+    height: 60vh;
+}
+
+.img_nom {
+    display:flex;
+    flex-wrap: wrap;
+    width: 40%;
 }
 
 @media screen and (max-width: 768px) {
@@ -394,12 +406,12 @@ h2 {
 
                                 <form class="form_qty" action="index.php?accio=afegir_cistella" method="post">
                                         
-                                            <input type="text" name="mod_article" value="mod_promo" hidden>
-                                            <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                                            <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                                            <button class="qty_mod" name="dec_promo" type="submit"><i data-feather="minus-circle"></i></button>
-                                            <p class="qty">'.$prod['qty_promo'].'</p>
-                                            <button class="qty_mod" name="inc_promo" type="submit"><i data-feather="plus-circle"></i></button>
+                                    <input type="text" name="mod_article" value="mod_promo" hidden>
+                                    <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
+                                    <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
+                                    <button class="qty_mod" name="dec_promo" type="submit"><i data-feather="minus-circle"></i></button>
+                                    <p class="qty">'.$prod['qty_promo'].'</p>
+                                    <button class="qty_mod" name="inc_promo" type="submit"><i data-feather="plus-circle"></i></button>
                                 
                                 </form>
                                 
@@ -469,18 +481,24 @@ h2 {
                             $res_negoci = $bd->query($cons_negoci);
                             $nom_negoci = $res_negoci->fetch_all(MYSQLI_ASSOC);
 
-                            $preu_prod_final = $prod['preu'] - ($prod['preu'] * ($prod['descompte']/100));
+                            if (isset($prod['descompte_add'])) {
+                                $preu_prod_final = $prod['preu'] - ($prod['preu'] * ($prod['descompte_add']/100));
+                            } else {
+                                $preu_prod_final = $prod['preu'] - ($prod['preu'] * ($prod['descompte']/100));
+                            }
 
                             echo '<div class="prodFlex">
-                                <a href="index.php?accio=pagina_producte&id='.$prod['id'].'">
+                                <a class="img_nom" href="index.php?accio=pagina_producte&id='.$prod['id'].'">
+                                    
                                     <div class="prod_img">
                                         <img class="foto" src="/XLC/vista/img/'.$prod['imatge'].'" alt="">
-                                        <div class="prod_noms">
-                                            <p class="nom_prod">'.ucfirst($prod['nom']).'</p>
-                                            <p class="nom_neg">'.ucfirst($nom_negoci[0]['nom']).'</p>
-                                            <p class="poblacio d-none d-xl-block">Manufacturat a '.ucfirst($nom_negoci[0]['poblacio']).'</p>
-                                        </div>
                                     </div>
+                                    <div class="prod_noms">
+                                        <p class="nom_prod">'.ucfirst($prod['nom']).'</p>
+                                        <p class="nom_neg">'.ucfirst($nom_negoci[0]['nom']).'</p>
+                                        <p class="poblacio d-none d-xl-block">Manufacturat a '.ucfirst($nom_negoci[0]['poblacio']).'</p>
+                                    </div>
+                                    
                                 </a>
 
                                 <form class="prod_qty" action="index.php?accio=afegir_cistella" method="post">
@@ -497,17 +515,44 @@ h2 {
                                     <button class="qty_mod" name="inc_prod" type="submit"><i data-feather="plus-circle"></i></button>
                                 </form>';
 
-                                if (isset($prod['descompte'])) {
-
-                                    echo '<p class="prod_preu"><span style="text-decoration: line-through;">'.$prod['preu'].' € </span><span>'.($prod['preu'] - $prod['preu'] * ($prod['descompte']) / 100).' €</span></p>';
+                                if (isset($prod['descompte']) && $prod['descompte'] > 0) {
+                                    
+                                    echo '<p class="prod_preu"><span style="text-decoration: line-through;">'.$prod['preu'].' € </span>
+                                    <span style="display:block;">'.($prod['preu'] - $prod['preu'] * (($prod['descompte']) / 100)).' €</span></p>';
+                                }elseif (isset($prod['descompte_add'])) {
+                                    
+                                    echo '<p class="prod_preu"><span style="text-decoration: line-through;">'.$prod['preu'].' € </span>
+                                    <span style="display:block;">'.($prod['preu'] - $prod['preu'] * (($prod['descompte_add']) / 100)).' €</span></p>';
                                 }else {
 
                                     echo '<p class="prod_preu">'.$prod['preu'].' €</p>';
                                 }
 
-                                echo '<div class="prod_desc">
-                                    <span class="descompte">'.$prod['descompte'].'% Per defecte</span>
-                                </div>
+                                echo '<div class="prod_desc">';
+
+                                    if (isset($prod['descompte_add'])) {
+                                        echo '<span class="descompte">'.$prod['descompte_add'].'% Addicional</span>';
+                                    } else {
+                                        echo '<span class="descompte">'.$prod['descompte'].'% Per defecte</span>';
+                                    }
+                                    
+                                    if (isset($prod['punts_extra']) && $prod['punts_extra'] > 0) {
+                                        $punts_extra = $prod['punts_extra'];
+                                    } else {
+                                        $punts_extra = 0;
+                                    }
+                                    echo '<hr>
+
+                                    <!-- Si no s\'aplica cap descompte addicional, guanya el preu * 2 en punts -->
+                                    
+
+                                    <p class="descompte">'.$punts_extra.' Punts extra</p>';
+                                    if (isset($prod['descompte_add'])) {
+                                        
+                                        echo '<p class="descompte">'.$prod['punts_aplicats'].' Punts aplicats</p>';
+                                    }
+
+                                echo '</div>
 
                                 <p class="prod_preuFinal">'.$preu_prod_final * $prod['prod_qty'].' €</p>
 
@@ -534,10 +579,36 @@ h2 {
         <h3 class="titol_resum">Resum de la comanda</h3>
         <hr>
         <div class="get_points">
+
             <?php 
-                $punts_compra = round(($subtotal * 2) / 5) * 5;
+
+                $punts_compra = 0;
+                $punts_extres_totals = 0;
+                $punts_aplicats_totals = 0;
+                if (isset($_SESSION['cistella']['prods'])) {
+                    foreach($prods as $index_prod=>$prod) {
+
+                        $punts_compra += $prod['punts_extra'] - $prod['punts_aplicats'];
+                        $punts_extres_totals += $prod['punts_extra'];
+                        $punts_aplicats_totals += $prod['punts_aplicats'];
+                    }
+                }
+
+                if ($punts_compra <= 0) {
+                    $info_punts = '<span>no aconsegueixes punts extres.</span>';
+                } else {
+                    $info_punts = '<span>pots aconseguir <span style="font-weight: bold;">'.$punts_compra.'</span> punts extra.</span>';
+                }
+                
+
             ?>
-            <span>Amb aquesta cistella pots aconseguir <span style="font-weight: bold;"><?php echo $punts_compra; ?></span> punts.</span>
+
+            
+            <p style="margin:0;"><?php echo $punts_extres_totals; ?> Punts extra totals</p>
+            <p><?php echo $punts_aplicats_totals; ?> Punts aplicats totals</p>
+            <hr>
+            <span>Amb aquesta cistella <?php echo $info_punts; ?>
+
         </div>
         
         <?php if (isset($prods)) {
@@ -546,6 +617,7 @@ h2 {
 
         <form class="form_continuar" action="index.php?accio=nova_comanda" method="post">
             <input type="text" name="subtotal" value="<?php echo $subtotal; ?>" hidden>
+            <input type="text" name="punts_compra" value="<?php echo $punts_compra; ?>" hidden>
             <button class="continuar" type="submit" <?php if (!isset($_SESSION['cistella']['prods'])) { ?> disabled <?php } ?>>CONTINUAR</button>
         </form>
         

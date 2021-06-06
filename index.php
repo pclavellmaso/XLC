@@ -40,7 +40,11 @@ switch ($accio) {
 
     case 'perfil_personal':
         include('vista/perfilPersonal.php');
-        break; 
+        break;
+        
+    case 'edita_personal':
+        include('vista/edita_dadesPersonals.php');
+        break;
 
     case 'act_dadesPersonals':
         include('controlador/act_dadesPersonals.php');
@@ -68,6 +72,10 @@ switch ($accio) {
 
     case 'perfil_promos':
         include('vista/perfilPromos.php');
+        break;
+
+    case 'perfil_compres':
+        include('vista/perfilCompres.php');
         break;
 
     case 'crear_promo':

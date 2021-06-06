@@ -50,6 +50,8 @@
             // Cas increment
             if (isset($_POST['inc_prod'])) {
 
+                $_SESSION['cistella']['prods'][$index_prod]['punts_extra'] += 50;
+
                 $_SESSION['cistella']['prods'][$index_prod]['prod_qty'] += 1;
                 $_SESSION['cistella']['qty'] += 1;
 
@@ -60,6 +62,9 @@
                     unset($_SESSION['cistella']['prods'][$index_prod]);
                     $_SESSION['cistella']['qty'] -= 1;
                 }else {
+
+                    $_SESSION['cistella']['prods'][$index_prod]['punts_extra'] -= 50;
+
                     $_SESSION['cistella']['prods'][$index_prod]['prod_qty'] -= 1;
                     $_SESSION['cistella']['qty'] -= 1;
                 }
@@ -139,7 +144,8 @@
                 if (isset($_SESSION['cistella']['prods'][$i]['prod_qty'])) {
                     
                     // Si el producte ja existeix a la cistella, només incrementem la seva quantitat (prod_qty)
-                    if ($_SESSION['cistella']['prods'][$i]['id'] == $_POST['id_prod']) {
+                    //A més a més els descomptes addicionals, si en tenen, ha de ser iguals, sinó es tracta com un article individual
+                    if ($_SESSION['cistella']['prods'][$i]['id'] == $_POST['id_prod'] && isset($_SESSION['cistella']['prods'][$i]['descompte_add']) && $_SESSION['cistella']['prods'][$i]['descompte_add'] == $_POST['descompte_add']) {
 
                         $_SESSION['cistella']['prods'][$i]['prod_qty'] += $qty;
                         
@@ -161,6 +167,12 @@
 
             // Afegim camp extra al resultat (quantitat d'unitats del mateix producte)
             $data_prod[0]['prod_qty'] = $qty;
+
+            //Afegim els punts aplicats i els extra en cas de productes sense descompte per defecte
+            //El descompte addicional també
+            $data_prod[0]['punts_extra'] = $_POST['punts_extra'];
+            $data_prod[0]['punts_aplicats'] = $_POST['punts_aplicats'];
+            $data_prod[0]['descompte_add'] = $_POST['descompte_add'];
 
             // Afegim el producte a la sessió
             array_push($_SESSION['cistella']['prods'], $data_prod[0]);
