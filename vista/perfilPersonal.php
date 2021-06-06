@@ -1,5 +1,10 @@
 <style>
 
+.content_wrap {
+    display: flex;
+    flex-direction: column;
+}
+
 .chPass {
     display: none;
 }
@@ -17,16 +22,67 @@ input {
     cursor: pointer;
 }
 
-.edita {
-    transition: 0.4s;
-    font-size: 20px;
-    background: transparent;
+.editaBtn {
+    background: #EFA243;
     border: none;
     cursor: pointer;
+    color: white;
+    padding: 1em;
+    min-width: 20%;
+    font-weight: bold;
 }
 
-.edita:hover {
-    font-size: 22px;
+.guarda {
+    background: #B3001B;
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 1em;
+    min-width: 20%;
+    font-weight: bold;
+    float: right;
+    display: none;
+}
+
+h2 {
+    font-size: 1.4em;
+}
+
+h4 {
+    font-size: 1.2em;
+    margin-top: 1.5em;
+}
+
+.dades_wrap {
+    display: flex;
+    justify-content: space-between;
+    height: 250px;
+}
+
+.edita {
+    display: none;
+    margin-left: 5em;
+}
+
+.edit_secc {
+    margin-left: 1.3em;
+}
+
+/**/
+
+.act_dades {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+input {
+    border: 1px solid black;
+    padding: 0.5em;
+    background: transparent;
+}
+
+.btns {
+    margin-top: 5em;
 }
 
 </style>
@@ -47,38 +103,94 @@ input {
 
 ?>
 
-<div>
+<h2><p>Consulta o modifica les teves dades</p></h2>
 
-    <h2>Consulta o modifica les teves dades</h2><br>
+<div class="content_wrap">
 
-    <div class="dades">
-        
-        <h4>Nom d'usuari</h4>
-        <p class="inputNom"><?php echo $info[0]["nom"]; ?></p><br>
+    <div class="dades_wrap">
 
-        <h4>Correu electrònic</h4>
-        <p class="inputCorreu"><?php echo $info[0]['correu']; ?></p><br>
+        <div class="consulta">
 
-        <h4>Contrasenya</h4>
-        <p class="inputPass">***********</p><br>
+            <div class="dades">
+                
+                <h4>Nom d'usuari</h4>
+                <p class="inputNom"><?php echo $info[0]["nom"]; ?></p>
 
-        <button class="edita">Edita</button>
-        
+                <h4>Correu electrònic</h4>
+                <p class="inputCorreu"><?php echo $info[0]['correu']; ?></p>
+
+                <h4>Contrasenya</h4>
+                <p class="inputPass">***********</p><br>
+
+            </div>
+
+        </div>
+
+        <div class="edita">
+
+            <form class="act_dades" action="/XLC/index.php?accio=act_dadesPersonals" method="post">
+
+                <div class="edit_secc">
+                    <h4>Nom d'usuari</h4>
+                    <input class="inputNom" type="text" name="nom" value="<?php echo $info[0]["nom"]; ?>">
+
+                    <h4>Correu electrònic</h4>
+                    <input class="inputCorreu" type="text" name="correu" value="<?php echo $info[0]['correu']; ?>">
+                </div>
+                
+                <div class="edit_secc">
+                    <h4>Contrasenya actual</h4>
+                    <input class="inputPass" type="text" name="passAct" value="" placeholder="***********">
+
+                    <h4>Contrasenya nova</h4>
+                    <input class="inputPass1" id="pass1_id" type="text" name="pass1" value="">
+
+                    <h4>Repeteix la contrasenya nova</h4>
+                    <input class="inputPass2" type="text" name="pass2" value="">
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <div class="btns">
+        <button class="editaBtn"><span id="edita">Edita</span></button>
+        <button type="submit" class="guarda"><span id="guarda">Guarda els canvis</span></button>
     </div>
 
 </div>
+
 
 <script>
 
     jQuery(document).ready(function(){
 
-        jQuery(".edita").click(function(){
+        let state = 'Edita'
 
-            jQuery(".dades").load("index.php?accio=edita_personal")
+        jQuery(".editaBtn").click(function(){
 
-        })          
+            //jQuery(".dades").load("index.php?accio=edita_personal")
+            jQuery(".edita").toggle('fade', 300 )
+
+            jQuery(".guarda").toggle('fade', 300)
+            
+            state = (state == 'Edita') ? 'Cancela' : 'Edita'
+            jQuery("#edita").html(state)
+
+        })
+
+        // Validació contrasenyes noves iguals i camps requerits
+        jQuery(".act_dades").validate({
+            rules: {
+                pass2: { equalTo: "#pass1_id" },
+            },
+            messages: {
+                pass2: "Les contrasenyes no coincideixen."
+            }
+	    });
 
     })
-
 
 </script>

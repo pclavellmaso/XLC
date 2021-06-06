@@ -128,8 +128,6 @@ h1 h2 {
     border-radius: 50%;
     display: inline-block;
     background-color: #B3001B;
-    border: 1px solid #101819;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -204,8 +202,6 @@ h1 h2 {
     top: 3;
     color: 101819;
 }
-
-
 
 .dialeg_usuari {
     background-color: #FAEADB;

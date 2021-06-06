@@ -119,11 +119,13 @@ a:hover {
                     }
                 }
 
-            ?>
+                if ($_SESSION['punts_usuari'] < 50) {
+                    $estat = '<h2>Actualment no arribes a desbloquejar cap descompte</h2>';
+                } else {
+                    $estat = '<h2>Actualment pots desbloquejar descomptes de fins a un '.$desc_max.' %</h2>';
+                }
 
-            <h2>Actualment pots desbloquejar descomptes de fins a un <?php echo $desc_max; ?> %</h2>
-
-            <?php
+                echo $estat;
 
                 $cont = 0;
                 for ($i = 0; $i < count($percentatge); $i++) {

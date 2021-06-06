@@ -6,9 +6,10 @@
     $usuari_id = $_SESSION['usuari_id'];
     
     $punts_compra = $_POST['punts_compra'];
+    $punts_usr_act = $_SESSION['punts_usuari'] + $punts_compra;
 
     // Afegim comanda a la bd
-    $cons_comanda = "INSERT INTO comanda(usuari_id, total, data, punts_acumulats) VALUES ('$usuari_id', '$subtotal', CURDATE(), ".$punts_compra.")";
+    $cons_comanda = "INSERT INTO comanda(usuari_id, total, data, punts_acumulats, punts_usr_act) VALUES (".$usuari_id.", ".$subtotal.", CURDATE(), ".$punts_compra.", ".$punts_usr_act.")";
     $bd->query($cons_comanda);
     $comanda_id = $bd->insert_id;
 
@@ -55,9 +56,11 @@
 
     }
 
-    //Actualitzem punts de la BD
+    //Actualitzem punts de la BD  i a la sessió
     $actpunts_cons = "UPDATE usuari SET punts=punts + ".$_POST['punts_compra']." WHERE id=".$_SESSION['usuari_id']."";
     $bd->query($actpunts_cons);
+
+    $_SESSION['punts_usuari'] += $punts_compra;
 
     //Actualitzem punts totals de la BD
     if ($_POST['punts_compra'] > 0) {
