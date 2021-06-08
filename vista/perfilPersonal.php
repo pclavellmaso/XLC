@@ -85,6 +85,12 @@ input {
     margin-top: 5em;
 }
 
+.sep {
+    height: 100%;
+    border-left: 1px solid black;
+    width: 1px;
+}
+
 </style>
 
 
@@ -128,7 +134,7 @@ input {
 
         <div class="edita">
 
-            <form class="act_dades" action="/XLC/index.php?accio=act_dadesPersonals" method="post">
+            <form id="form_edita" class="act_dades" action="/XLC/index.php?accio=act_dadesPersonals" method="post">
 
                 <div class="edit_secc">
                     <h4>Nom d'usuari</h4>
@@ -157,7 +163,7 @@ input {
 
     <div class="btns">
         <button class="editaBtn"><span id="edita">Edita</span></button>
-        <button type="submit" class="guarda"><span id="guarda">Guarda els canvis</span></button>
+        <button type="submit" class="guarda" form="form_edita"><span id="guarda">Guarda els canvis</span></button>
     </div>
 
 </div>
@@ -171,14 +177,11 @@ input {
 
         jQuery(".editaBtn").click(function(){
 
-            //jQuery(".dades").load("index.php?accio=edita_personal")
-            jQuery(".edita").toggle('fade', 300 )
-
-            jQuery(".guarda").toggle('fade', 300)
+            jQuery(".edita").toggle('slide', {direction: 'right'}, 1000)
+            jQuery(".guarda").toggle('slide', {direction: 'right'}, 500)
             
             state = (state == 'Edita') ? 'Cancela' : 'Edita'
             jQuery("#edita").html(state)
-
         })
 
         // Validació contrasenyes noves iguals i camps requerits

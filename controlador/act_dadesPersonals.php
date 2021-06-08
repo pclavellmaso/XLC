@@ -41,6 +41,7 @@
     $bd->query($consulta);
     $_SESSION['nom'] = $nom;
     $_SESSION['usuari_correu'] = $correu;
+    $_SESSION['dades_mod'] = '';
     
     header('location: /XLC/index.php?accio=perfil');
         

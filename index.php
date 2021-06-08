@@ -78,10 +78,6 @@ switch ($accio) {
         include('vista/perfilCompres.php');
         break;
 
-    case 'crear_promo':
-        include('controlador/crearPromo.php');
-        break;
-
     case 'sobre_projecte':
         include('vista/sobreProjecte.php');
         break;
@@ -108,6 +104,14 @@ switch ($accio) {
 
     case 'afegir_producte':
         include('controlador/validacio_producte.php');
+        break;
+
+    case 'afegir_promo':
+        include('controlador/afegirPromo.php');
+        break;
+
+    case 'eliminar_promo':
+        include('controlador/eliminarPromo.php');
         break;
 
     case 'afegir_cistella':

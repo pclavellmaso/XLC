@@ -74,43 +74,51 @@
    
     <div class="container-fluid main-container">
 
-        <h1 class="titol1">Descobreix productes artesanals arreu de Catalunya</h1>
+        <?php
+
+            if ($_SESSION['tipus_usuari'] == 'client') {
+
+                echo '<h1 class="titol1">Descobreix productes artesanals arreu de Catalunya</h1>
         
-        <h2>Novetats</h2>
-            
-        <div class="grid_seleccio row">
+                <h2>Novetats</h2>
+                    
+                <div class="grid_seleccio row">';
 
-            <?php 
+                        $cons_prods = "SELECT p.id, p.imatge, p.descompte, p.nom, p.preu, c.nom_categoria FROM producte p, categoria c WHERE /*p.descompte > 0 and*/ p.categoria_id = c.id";
+                        $res_prods = $bd->query($cons_prods);
+                        $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
 
-                $cons_prods = "SELECT p.id, p.imatge, p.descompte, p.nom, p.preu, c.nom_categoria FROM producte p, categoria c WHERE /*p.descompte > 0 and*/ p.categoria_id = c.id";
-                $res_prods = $bd->query($cons_prods);
-                $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
+                        foreach($data_prods as $prod) {
 
-                foreach($data_prods as $prod) { ?>
+                            echo '<div class="prodFlex col-12 col-sm-6 col-xl-3 mt-2 p-4"><a href="index.php?accio=pagina_producte&id='.$prod['id'].'">
 
-                    <div class="prodFlex col-12 col-sm-6 col-xl-3 mt-2 p-4"><a href="index.php?accio=pagina_producte&id=<?php echo $prod['id']; ?>">
+                                <div class="background">
+                                <div class="prod_amunt">
+                                    <img class="foto" src="/XLC/vista/img/'.$prod['imatge'].'" alt="">
+                                </div>
+                                <div class="prod_abaix">
+                                    <div class=info>
+                                        <p class="info_nom">'.$prod['nom'].'</p>
+                                        <p class="info_cate">'.$prod['nom_categoria'].'</p>
+                                    </div>
+                                    <div class="info2">
+                                        <p class="preu">'.$prod['preu'].' €</p>
+                                        <p class="descompte">'.$prod['descompte'].' % Rebaixat</p>
+                                    </div>
+                                </div>
+                                </div>
 
-                        <div class="background">
-                        <div class="prod_amunt">
-                            <img class="foto" src="/XLC/vista/img/<?php echo $prod['imatge']; ?>" alt="">
-                        </div>
-                        <div class="prod_abaix">
-                            <div class=info>
-                                <p class="info_nom"><?php echo $prod['nom']; ?></p>
-                                <p class="info_cate"><?php echo $prod['nom_categoria']; ?></p>
-                            </div>
-                            <div class="info2">
-                                <p class="preu"><?php echo $prod['preu']; ?> €</p>
-                                <p class="descompte"><?php echo $prod['descompte']; ?> % Rebaixat</p>
-                            </div>
-                        </div>
-                        </div>
+                            </a></div>';
 
-                    </a></div>
+                        }
 
-                <?php } ?>
+                echo '</div>';
+            } else {
 
-        </div>
+                include('paginaPerfilNegoci.php');
+            }
+
+        ?>        
 
     </div>
 

@@ -285,18 +285,20 @@ input[type="radio"] {
 
     // VUEJS
     const options = {
+
         data() {
             return {
                 qty: 1,
                 descompte: 0,
-                preu_inicial: <?php echo $data_prod[0]['preu']; ?>,
                 preu_descompte: 0,
                 punts_extra: 0,
                 punts_aplicats: 0,
                 array_descomptes: [5, 10, 15, 20, 35],
-                punts_disponibles: <?php echo $_SESSION['punts_usuari']; ?>
+                punts_disponibles: <?php echo json_encode($_SESSION['punts_usuari']); ?>,
+                data_prod: <?php echo json_encode($data_prod[0]); ?>
             }
         },
+        
         methods: {
             decrement() {
                 if (this.qty > 1) {
@@ -315,12 +317,12 @@ input[type="radio"] {
         },
 
         created() {
-            this.preu_descompte = this.preu_inicial
+            this.preu_descompte = this.data_prod['preu']
         },
 
         watch: {
             qty: function() {
-                this.preu_descompte = this.preu_inicial * this.qty 
+                this.preu_descompte = this.data_prod['preu'] * this.qty 
             }
         },
 
@@ -338,7 +340,7 @@ input[type="radio"] {
 
                     <div v-for="(descompte, index) in array_descomptes" class="descs_add">
                         <input v-on:click="aplicarDesc(descompte)" v-bind:id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descompte * 10" :disabled="punts_disponibles < descompte * 10">
-                        <input class="desc_add" name="desc_add" type="text" value="<?php echo $descomptes[$i]; ?>" hidden>
+                        <input class="desc_add" name="desc_add" type="text" v-model="descompte" hidden>
                         <label v-bind:for="index">Aplicar un {{ descompte }} % de descompte ({{descompte * 10}} Punts)</label>
                     </div>
                 </div>
@@ -357,13 +359,13 @@ input[type="radio"] {
 
                 <p class="preu_descompte">Preu final amb descompte aplicat {{(preu_descompte - (preu_descompte * (descompte / 100)))}} €</p>
 
-                    <input type="text" name="id_prod" value="<?php echo $data_prod[0]['id']; ?>" hidden>
+                    <input type="text" name="id_prod" v-model="data_prod['id']" hidden>
                     <input type="hidden" name="prod_qty_add" v-model="qty">
                     <input type="hidden" name="punts_extra" v-model="punts_extra">
                     <input type="hidden" name="punts_aplicats" v-model="punts_aplicats">
                     <input type="hidden" name="descompte_add" v-model="descompte">
 
-                    <button type="submit" class="add add_defecte">Afegir a la cistella</button>   
+                    <button type="submit" class="add add_defecte">Afegir a la cistella</button>
                             
             </div>
         </form>

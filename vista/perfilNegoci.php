@@ -1,3 +1,24 @@
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h2 {
+    font-size: 1.3em;
+}
+
+h3 {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+
+
+</style>
+
 
 <?php include('model/bd.php');
 

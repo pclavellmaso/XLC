@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="vista/paginaPerfil.css">
 <style>
 
 * {
@@ -15,9 +14,8 @@
 }
 
 #contingut {
-    background-color: #1716161c;
     border-radius: 5px;
-    padding: 50px;
+    margin-top: 1em;
 }
 
 #leftFlex {
@@ -125,11 +123,32 @@ h5 {
     cursor: pointer;
 }
 
+/* Pàgina inici */
+
+h2, h3 {
+    text-align: center;
+}
+
+h4 {
+    margin-bottom: 1.5em;
+}
+
+.resum_flex {
+    justify-content: space-around;
+}
+
+.resum_activitat {
+    background: rgba(239, 162, 67, 0.4);
+    padding: 4em;
+}
+
+.negoci_funcions {
+    background: rgba(239, 162, 67, 0.6);
+    padding: 4em;
+}
+
 </style>
 
-
-
-<?php include "header.php"; ?>
 
 <?php
 
@@ -163,19 +182,21 @@ h5 {
         unset($_SESSION['eliminar_promo']);
     }
 
+    if(isset($_SESSION['pass_err'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error a l\'actualitzar la contrasenya</strong> Contrasenya actual invàlida
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['pass_err']);
+    }
+
 ?>
 
 <div id="contentFlex">
 
     <div id="leftFlex">
-
-        <?php
-            
-            if(isset($_SESSION['pass_err']) && $_SESSION['pass_err'] == 'yes') {
-
-                echo '<p style="color: red;">Error a l\'actualitzar la contrasenya: Contrasenya actual invàlida</p>';
-            }
-        ?>
 
         <div>
             <span id="select-label" class="menu">MENÚ</span><br><br>
@@ -224,6 +245,26 @@ h5 {
     <div id="rightFlex">
 
         <div id="contingut">
+
+            <div class="resum_activitat">
+                <h2>RESUM ACTIVITAT</h2>
+
+                <div class="resum_flex d-flex pt-5">
+                    <div class="productes">
+                        <h4><?php echo 'X'; ?> productes catalogats</h4>
+                        <h4><?php echo 'X'; ?> promocions actives</h4>
+                    </div>
+                    <div class="beneficis">
+                        <h4><?php echo 'X'; ?> productes venuts</h4>
+                        <h4><?php echo 'X'; ?>€ de benefici obtingut</h4>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="negoci_funcions">
+                <h3>AMB EL COMPTE DE NEGOCI POTS</h3>
+            </div>
+
         </div>
 
     </div>
@@ -234,9 +275,10 @@ h5 {
 <script>
 
     // Per defecte carrega la pàgina de les dades personals
-    $.ajax({url: "index.php?accio=perfil_personal", success: function(result){
+
+    /*$.ajax({url: "index.php?accio=perfil_personal", success: function(result){
         $("#contingut").hide().html(result).fadeIn(400);
-    }});
+    }});*/
 
     jQuery(document).ready(function() {
 
@@ -310,6 +352,3 @@ h5 {
     });
 
 </script>
-
-<?php include "footer.php";?>
-

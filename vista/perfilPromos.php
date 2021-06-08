@@ -7,11 +7,20 @@
 }
 
 .llistaFlex {
-    width: 100%;
-    border-radius: 5px;
+    flex: 0 0 60%;
     height: 70vh;
     overflow-y: auto;
     padding-right: 30px;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 1em;
+}
+
+h3 {
+    font-size: 1em;
+}
+
+h2 {
+    font-size: 1.3em;
 }
 
 /* width */
@@ -31,22 +40,25 @@
 
 .prodFlex {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    background-color: lightgrey;
-    border-radius: 3px 3px 3px 3px;
-    padding: 10px;
-    margin-bottom: 10px;
-    box-shadow: 2px 2px #888888;
+    flex-direction: column;
+}
+
+#contingut {
+    padding: 1em;
+    width: 100%;
 }
 
 .right {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    padding-left: 40px;
-    width: 30%;
+    width: 80%;
+    padding-left: 2em;
+}
+
+#rightFlex {
+    width: 100%;
+    display: flex;
 }
 
 .data {
@@ -59,20 +71,23 @@
 
 .preu {
     display: inline-block;
-    margin-top: 12px;
 }
 
-.descompte {
-    margin-top: 8px;
+.flex {
+    margin: auto;
 }
-
 
 .flex_img {
     border-radius: 5px;
     background: #b5b0b0;
     width: 10%;
+    clip-path: circle(2em at center);
     display: flex;
     margin-left: 20px;
+}
+
+.check_label {
+    margin: auto;
 }
 
 img {
@@ -88,12 +103,6 @@ img {
 
 .inputHide + .check_label {
     cursor: pointer;
-}
-
-
-
-.check_label {
-    margin: 0px;
 }
 
 .check_label:before {
@@ -113,15 +122,18 @@ img {
 
 .btn_crear {
     transition: 0.4s;
-    margin-top: 60px;
-    background-color: transparent;
+    margin-top: auto;
+    background-color: rgba(0, 0, 0, 0.1);
     border: none;
     font-size: 20px;
     cursor: pointer;
+    padding: 1em;
+    width: 100%;
 }
 
-.btn_crear:hover {
-    font-size: 22px;
+.btn_crear:enabled {
+    background: #EFA243;
+    color: white;
 }
 
 .input_descmp, .input_data_fi {
@@ -129,6 +141,75 @@ img {
     background: transparent;
     border:none;
     border-bottom: 1px solid black;
+}
+
+.promo_act {
+    background: rgba(0, 0, 0, 0.1);
+    margin-left: 2em;
+    padding: 2em;
+    flex: 0 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.crear_promo {
+    display: flex;
+}
+
+.promo_act > h3 {
+    font-weight: bold;
+}
+
+.label_prod {
+    margin: 0;
+    display: flex;
+    cursor: pointer;
+}
+
+.prodFlex_wrap {
+    display: flex;
+}
+
+.promo_wrap {
+    display: flex;
+    background: rgba(0, 0, 0, 0.1);
+    padding: 1em;
+    margin-top: 1.5em;
+}
+
+.esq, .dreta {
+    flex: 0 0 45%;
+}
+
+.del {
+    flex: 0 0 10%;
+    display: flex;
+    flex-direction: column;
+}
+
+.del_btn {
+    margin-top: auto;
+    width: 100%;
+    background: #B3001B;
+    border: none;
+    border-radius: 1px;
+    color: white;
+    padding: 0.5em;
+}
+
+.mostra_btn {
+    margin-top: auto;
+    width: 100%;
+    background: #EFA243;
+    border: none;
+    border-radius: 1px;
+    color: white;
+    padding: 0.5em;
+    margin-bottom: 2em;
+}
+
+h6 {
+    margin-top: 3em;
 }
 
 
@@ -139,86 +220,211 @@ img {
 
     $usuari_id = $_SESSION['usuari_id'];
 
-    $cons_prods = "SELECT * FROM producte p WHERE p.negoci_id = '$usuari_id'";
+    // Consulta dels productes (catàleg) del negoci loguejat
+    $cons_prods = "SELECT * FROM producte WHERE negoci_id = '$usuari_id'";
     $res_prods = $bd->query($cons_prods);
     $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
-    
-?>
+
+    // Consulta de promocions actives/creades
+    $cons_promos = "SELECT * FROM promocio WHERE negoci_id = ".$usuari_id."";
+    $res_promos = $bd->query($cons_promos);
+    $data_promos = $res_promos->fetch_all(MYSQLI_ASSOC);
 
 
+    // Si hi ha promocions actives
+    if (count($data_promos) > 1) {
 
+        echo '<div>
 
+            <h2>Promocions Actives</h2>';
 
-
-<form action="/XLC/index.php?accio=crear_promo" method="post">
-
-
-    <div class="llistaFlex">
-
-    <?php for ($i = 0; $i < count($data_prods); $i++) { ?>
-
-        <div class="prodFlex">
-    
-            <div class="flex">
-                <input class="inputHide" id="<?php echo $i; ?>" name="ids[]" type="checkbox" value="<?php echo $data_prods[$i]['id']; ?>">
-                <label class="check_label" for="<?php echo $i; ?>"></label>
-            </div>
-            
-            <div class="flex_img">
-                <img src="/XLC/vista/img/<?php echo $data_prods[$i]['imatge']; ?>">
-            </div>
-            
-            <div class="right">
-
-                <div>
-                    <h3><?php echo $data_prods[$i]['nom']; ?></h3>
-                    <h6 class="data">AFEGIT EL 25/01/2020</h6>
-                    <h6 class="preu"><?php echo $data_prods[$i]['preu']; ?> €</h6>
-                    <h6 class="descompte">DESCOMPTE: <?php echo $data_prods[$i]['descompte']; ?> %</h6>
-                </div>
+            foreach ($data_promos as $indexPromo => $promocio) {
                 
+                // Consulta dels productes inclosos a la promocio (subpromocio)
+                $cons_subpromo = "SELECT * FROM subpromocio WHERE promocio_id = ".$promocio['id']."";
+                $res_subpromo = $bd->query($cons_subpromo);
+                $data_subpromo = $res_subpromo->fetch_all(MYSQLI_ASSOC);
 
-                <!--Guardar pels informes <h5>24u. venudes</h5>-->
-            </div>
+                echo '<div class="promo_wrap">
 
-            <div class="right2">
-                <h5 class="desc"><?php echo $data_prods[$i]['descripcio']; ?></h5>
-            </div>
+                    <div class="esq">
+                        <span>Vàlida desde el '.$promocio['data_inici'].' fins al </span>
+                        <span>'.$promocio['data_fi'].'</span>
+                        <p>Descompte del '.$promocio['descompte_add'].'% aplicat</p>
+                    </div>
+                    <div class="dreta">
+                        <p>Inclou els següents productes: </p>';
 
+                        foreach ($data_subpromo as $indexSubPromo => $subPromo) {
+
+                            // Per a cada article (subpromo) es consulten les dades (nom de moment) del producte
+                            $cons_infoProd = "SELECT nom FROM producte WHERE id = ".$subPromo['producte_id']."";
+                            $res_infoProd = $bd->query($cons_infoProd);
+                            $data_infoProd = $res_infoProd->fetch_all(MYSQLI_ASSOC);
+
+                            echo '<div class="subpromo">';
+                                foreach ($data_infoProd as $indexProd => $producte) {
+                                    echo '<li>'.ucfirst($producte['nom']).'</li>';
+                                }
+                            echo '</div>';
+                        }
+                        
+                    echo '</div>
+                    
+                    <form method="post" class="del" action="index.php?accio=eliminar_promo">
+                        <input type="text" name="promo_id" value="'.$promocio['id'].'" hidden>
+                        <button type="submit" class="del_btn">Elimina</button>
+                    </form>
+                    
+                </div><hr>';
+            }
+        echo '</div>
+        
+        </div><!-- #contingut -->';
+
+    // Si no hi ha promocions actives
+    } else {
+
+        echo '<div>
+            <h2>No tens cap promoció activa</h2>
+            <h6>Crea una nova promoció per a començar</h6>  
         </div>
 
-    <?php } ?>
+        <div id="contingut2">
 
-    </div>
+            <div id="app">
 
-    <h3 style="display: inline-block; margin-top: 15px;">Aplicar descompte del</h3>
-    <input name="descompte" value="" class="input_descmp" type="number">
+        </div>';
+    }
 
-    <h3 style="margin-top: 15px;">Data de finalització (deixar buit si indefinida)</h3>
-    <input name="data_fi" value="" class="input_data_fi" type="date">
-
-    <button style="display: block; margin-top: 15px;" class="btn_crear" type="submit" disabled>Crear Promoció</button>
-
-</form>
+?>
 
 
 <script>
 
-    jQuery(document).ready(function() {
+    //VUE
 
-        jQuery("input[type=checkbox]").click(function() {
+    promocions = {
 
-            if (jQuery("input[type=checkbox]:checked").length > 0) {
-            
-                jQuery(".btn_crear").prop('disabled', false);
-            }else {
-                jQuery(".btn_crear").prop('disabled', true);
+        data() {
+            return {
+                data_prods: <?php echo json_encode($data_prods); ?>,
+                llista: [],
+                crear_promo: false,
+                ids: [],
+                btn_text: 'Crear nova promoció'
             }
-        })
-        
-    })
-    
+        },
 
-    
+        methods: {
+            mod: function(nom, id) {
+                
+                if (!this.llista.includes(nom)) {
+                    this.llista.push(nom)
+                    this.ids.push(id)
+                } else {
+                    let index = this.llista.indexOf(nom)
+                    this.llista.splice(index, 1)
+                    this.ids.splice(index, 1)
+                }
+
+                if (this.llista.length > 1) {
+                    jQuery(".btn_crear").prop('disabled', false);
+                }else {
+                    jQuery(".btn_crear").prop('disabled', true);
+                }
+            },
+            mostra: function() {
+                this.crear_promo = !this.crear_promo
+                this.btn_text = (this.btn_text == "Crear nova promoció") ? "Cancela" : "Crear nova promoció"
+            }
+        },
+
+        template: `
+            <button v-on:click="mostra()" class="mostra_btn">{{ btn_text }}</button>
+
+            <div v-if="crear_promo">
+                <div class="header">
+                    <h2>Catàleg actualitzat dels teus productes</h2>
+                    <br>
+                    <p>1 Selecciona els productes que vulguis incloure en la promoció</p>
+                    <p>2 Omple les dades del formulari</p>
+                    <p>3 Crear Promoció!</p>
+                    <br>
+                    <p>* El descompte aplicat a l'hora de crear la promoció descarta els descomptes individuals dels productes</p>
+                </div>
+
+                <form id="crearPromoForm" class="crear_promo" action="/XLC/index.php?accio=afegir_promo" method="post">
+
+                    <div class="llistaFlex">
+
+                        <div v-for="(data_prod, i) in data_prods" class="prodFlex">
+                            <div class="prodFlex_wrap">
+                        
+                                <div class="flex">
+                                    <input class="inputHide" v-bind:id="i" name="ids[]" type="checkbox" v-model="data_prod['id']">
+                                    <label v-on:click="mod(data_prod['nom'], data_prod['id'])" class="check_label" v-bind:for="i"></label>
+                                </div>
+
+                                <label v-on:click="mod(data_prod['nom'], data_prod['id'])" class="label_prod" v-bind:for="i">
+                                    <div class="flex_img">
+                                        <img :src="'/XLC/vista/img/' + data_prod['imatge']">
+                                    </div>
+                                    
+                                    <div class="right">
+
+                                        <div>
+                                            <h3 style="font-weight: bold;">{{ data_prod['nom'].capitalize() }}</h3>
+                                            <h6 class="data">Afegit el: 25/01/2020</h6>
+                                            <h6 class="descompte">Descompte: {{ data_prod['descompte'] }} %</h6>
+                                            <h6 class="preu">{{ data_prod['preu'] }} €</h6>
+                                        </div>
+
+                                        <!--Guardar pels informes <h5>24u. venudes</h5>-->
+                                    </div>
+                                </label>
+                            
+                            </div>
+                            <hr>
+                        </div>
+
+                    </div>
+
+                    <div class="promo_act">
+
+                        <h3>Productes inclosos: </h3>
+
+                        <ul>
+                            <li v-for="(nom, index) in llista">{{ nom.capitalize() }}</li>
+                        </ul>
+
+                        <h3 style="display: inline-block; margin-top: 15px;">Aplicar descompte del</h3>
+                        <input name="descompte" value="" class="input_descmp" min=0 max=90 type="number" required>
+
+                        <h3 style="margin-top: 15px;">Data de finalització</h3>
+                        <input name="data_fi" value="" class="input_data_fi" type="date" required>
+
+                        <input name="ids" v-model="ids" type="hidden">
+
+                        <button style="display: block" class="btn_crear" type="submit" form="crearPromoForm" disabled>Crear Promoció</button>
+                            
+                    </div>
+
+                </form>
+            </div>
+        `
+    }
+
+    const app = Vue.createApp(promocions)
+    app.mount("#app")
+
+
+    /*jQuery(document).ready(function() {
+        
+    })*/
+    String.prototype.capitalize = function() {
+        return this.charAt(0).toUpperCase() + this.slice(1);
+    }
+
 
 </script>

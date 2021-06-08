@@ -62,17 +62,10 @@
     font-family: 'Prata', serif;
 }
 
-body {
-    
-}
-
-
 a {
     text-decoration: none;
     color: black;
 }
-
-
 
 .capçalera_flex {
     display: flex;
@@ -306,7 +299,6 @@ h1 h2 {
         width: 35px;
         height: 35px;
     }
-
 }
 
 @media (min-width: 768px) {
@@ -314,9 +306,7 @@ h1 h2 {
     .logo {
         width: 60px!important;
     }
-
 }
-
 
 
 </style>
@@ -341,17 +331,20 @@ h1 h2 {
                         //si hi ha una sessió iniciada
                         if (isset($_SESSION['nom'])) {
                             
-                            echo '<div class="">
-                                <div class="cistella">
-                                    <img class="cistella_icon" src="/XLC/vista/img/cistella.png" alt="">
-                                    <div class="cistella_info">'.$_SESSION["cistella"]["qty"].'</div>
-                                </div>
-                                
-                            </div>
+                            echo '<div class="">';
 
-                            <div class="">
-                                <div class="usuari">'.ucfirst($_SESSION['nom'][0]).'</div>
-                            </div>';
+                                if ($_SESSION['tipus_usuari'] == 'client') {
+                                    echo '<div class="cistella">
+                                        <img class="cistella_icon" src="/XLC/vista/img/cistella.png" alt="">
+                                        <div class="cistella_info">'.$_SESSION["cistella"]["qty"].'</div>
+                                    </div>';
+                                } else {
+                                    echo '<div class="">
+                                        <div class="usuari">'.ucfirst($_SESSION['nom'][0]).'</div>
+                                    </div>';
+                                }
+
+                            echo '</div>';
 
                         } else {
 
@@ -367,42 +360,50 @@ h1 h2 {
             </div>
         </nav>
 
-        <nav class="navbar2 navbar navbar-expand-lg navbar-light bg-light mt-0">
-            <div class="container-fluid">
 
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+        <?php 
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            if ($_SESSION['tipus_usuari'] == 'client') {
+
+                echo '<nav class="navbar2 navbar navbar-expand-lg navbar-light bg-light mt-0">
+                    <div class="container-fluid">
+
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="index.php">Inici</a>
-                        </li>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="index.php">Inici</a>
+                                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?accio=mur_promos">Mur de Promocions</a>
-                        </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.php?accio=mur_promos">Mur de Promocions</a>
+                                </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="index.php?accio=sobre_projecte" tabindex="-1">Sobre el projecte</a>
-                        </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="index.php?accio=sobre_projecte" tabindex="-1">Sobre el projecte</a>
+                                </li>
 
-                    </ul>
+                            </ul>
 
-                </div>
+                        </div>
 
-                </div>
-            </div>
-        </nav>
+                    </div>
+                </nav>';
+            }
+
+        ?>
+        
 
         <div class="content bg-light">
 
             <div class="dialeg_usuari">
 
-                <a href="index.php?accio=perfil"><div class="perfil"><i data-feather="user"></i>Pàgina perfil</div></a>
+                <a href="index.php?accio=perfil"><div class="perfil"><i data-feather="user"></i>El meu compte</div></a>
                 <a href="index.php?accio=logout"><div class="logout"><i data-feather="x-circle"></i>Tancar sessió</div></a>
 
             </div>
