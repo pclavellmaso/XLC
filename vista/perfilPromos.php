@@ -125,7 +125,7 @@ img {
     margin-top: auto;
     background-color: rgba(0, 0, 0, 0.1);
     border: none;
-    font-size: 20px;
+    font-size: 1.3em;
     cursor: pointer;
     padding: 1em;
     width: 100%;
@@ -198,14 +198,13 @@ img {
 }
 
 .mostra_btn {
-    margin-top: auto;
     width: 100%;
     background: #EFA243;
     border: none;
-    border-radius: 1px;
+    border-radius: 2px;
     color: white;
-    padding: 0.5em;
-    margin-bottom: 2em;
+    padding: 0.7em;
+    font-size: 1.3em;
 }
 
 h6 {
@@ -232,7 +231,7 @@ h6 {
 
 
     // Si hi ha promocions actives
-    if (count($data_promos) > 1) {
+    if (count($data_promos) >= 1) {
 
         echo '<div>
 

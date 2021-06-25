@@ -32,15 +32,11 @@
 }
 
 .h2 {
-    margin-bottom: 60px;
+    margin-bottom: 2em!important;
 }
 
-h3 {
-    margin-bottom: 20px;
-}
-
-h4 {
-    margin-top: 20px;
+h5 {
+    margin-bottom: 0!important;
 }
 
 .registreLogin {
@@ -56,17 +52,13 @@ h4 {
 }
 
 .inputText {
-    margin-bottom: 15px;
+    margin-bottom: 1.5em;
     height: 30px;
     background-color: transparent;
     border: none;
     border-bottom: 1px solid brown;
     width: 100%;
-    font-size: 18px;
-}
-
-input:nth-child(1){
-    margin-top: 60px;
+    font-size: 1em;
 }
 
 form {
@@ -78,22 +70,32 @@ form {
   display: none;
 }
 
-button {
-    float: right;
-    font-size: 25px;
-    background-color: transparent;
+.btn {
     border: none;
-    transition-duration: 0.2s;
+    color: white!important;
+    padding: 1em!important;
+    border-radius: 2px!important;
+    margin-left: auto;
+    position: relative;
+    background: #EFA243!important;
+    display: block;
     cursor: pointer;
+    transition: 0.4s!important;
 }
 
-button:hover {
-    font-size: 28px;
+.btn:hover {
+    transform: scale(1.06); 
 }
 
 .error {
     color:red;
     margin-bottom: 5px;
+}
+
+.tipus_usuari {
+    display: flex;
+    justify-content: space-between;
+    padding: 2em 1em;
 }
 
 </style>
@@ -117,10 +119,7 @@ button:hover {
                 echo '<div class="registre">
 
                     <h3>Registre completat!</h3>
-                    <h1>Inicia sessió per descobrir la fantasia de l\'artesania</h1>
-                    <br>
-                    <br>
-                    <br>';
+                    <h1>Inicia sessió per descobrir la fantasia de l\'artesania</h1>';
 
                     unset($_SESSION['registre']);
 
@@ -137,36 +136,38 @@ button:hover {
                     <form id="formulariRegistre" method="post" action="index.php?accio=val_registreLogin">';
 
                         if(isset($_SESSION['signin_inc'])) {
-                            echo "<div style='color: red;'>El correu i/o el nom ja han estat registrats</div>
-                            <br>";
+                            echo "<div style='color: red;'>El correu i/o el nom ja han estat registrats</div>";
                         }
                     
 
-                        echo '<div>
-                            <h3>Em registro com a:</h3>
-                            <input type="radio" id="client_radio_reg" name="tipus_usuari_reg" value="client" checked="checked">
-                            <label for="client_radio_reg">Client</label><br><br>
-                            <input type="radio" id="negoci_radio_reg" name="tipus_usuari_reg" value="negoci">
-                            <label for="negoci_radio_reg">Negoci</label>
+                        echo '<div class="tipus_usuari">
+                            <div>
+                                <input type="radio" id="client_radio_reg" name="tipus_usuari_reg" value="client" checked="checked">
+                                <label for="client_radio_reg">Client</label>
+                            </div>
+                            <div>
+                                <input type="radio" id="negoci_radio_reg" name="tipus_usuari_reg" value="negoci">
+                                <label for="negoci_radio_reg">Negoci</label>
+                            </div>
                         </div>
                 
                         <div class="input-group">
-                            <h4>Nom d\'usuari</h4><br>
+                            <h5>Nom d\'usuari</h5>
                             <input class="inputText" type="text" name="username">
                         </div>
                         
                         <div class="input-group">
-                            <h4>Correu electrònic</h4><br>
+                            <h5>Correu electrònic</h5>
                             <input class="inputText" type="email" name="email">
                         </div>
                         
                         <div class="input-group">
-                            <h4>Contrasenya</h4><br>
+                            <h5>Contrasenya</h5>
                             <input class="inputText" id="password_reg" type="password" name="password_1">
                         </div>
                         
                         <div class="input-group">
-                            <h4>Confirma la contrasenya</h4><br>
+                            <h5>Confirma la contrasenya</h5>
                             <input class="inputText" type="password" name="password_2">
                         </div>
 
@@ -174,34 +175,33 @@ button:hover {
                         <div id="info_negoci">
 
                             <div class="input-group camps_negoci">
-                                <h4>Nom del negoci</h4><br>
+                                <h5>Nom del negoci</h5>
                                 <input class="inputText" type="text" name="nom_negoci">
                             </div>
 
                             <div class="input-group camps_negoci">
-                                <h4>Descripció del negoci</h4><br>
+                                <h5>Descripció del negoci</h5>
                                 <input class="inputText" type="text" name="desc_negoci">
                             </div>
 
                             <div class="input-group camps_negoci">
-                                <h4>Població</h4><br>
+                                <h5>Població</h5>
                                 <input class="inputText" type="text" name="poblacio">
                             </div>
 
                             <div class="input-group camps_negoci">
-                                <h4>CP</h4><br>
+                                <h5>CP</h5>
                                 <input class="inputText" type="int" name="cp">
                             </div>
 
                             <div class="input-group camps_negoci">
-                                <h4>Telèfon</h4><br>
+                                <h5>Telèfon</h5>
                                 <input class="inputText" type="text" name="telefon">
                             </div>
 
                         </div>
 
                         <div class="input-group">
-                            <h1>epep</h1>
                             <button type="submit" class="btn" name="reg_user">Registra\'t!</button>
                         </div>
 
@@ -224,24 +224,23 @@ button:hover {
                 <?php
                     
                     if(isset($_SESSION['login_inc'])) {
-                        echo "<div style='color: red;'>El Correu i la contrasenya no coincideixen</div>
-                        <br>";
+                        echo "<div style='color: red;'>El Correu i la contrasenya no coincideixen</div>";
                     }
                 
                 ?>
 
                 <div class="input-group">
-                    <h4>Correu electrònic</h4><br>
+                    <h5>Correu electrònic</h5>
                     <input class="inputText" type="text" name="email">
                 </div>
 
                 <div class="input-group">
-                    <h4>Contrasenya</h4><br>
+                    <h5>Contrasenya</h5>
                     <input class="inputText" type="password" name="password">
                 </div>
 
                 <div class="input-group">
-                    <button type="submit" class="btn" name="login_user">Inicia sessió!</button>
+                    <button type="submit" class="btn" name="login_user">Iniciar sessió</button>
                 </div>
 
             </form>  
@@ -276,12 +275,14 @@ button:hover {
         // Registre
         jQuery("#client_radio_reg").on('click', function() {
 
+            jQuery('html,body').animate({ scrollTop: jQuery("#formulariRegistre").offset().top }, 'slow')
             jQuery("#info_negoci").css('display', 'none');
         });
         
         jQuery("#negoci_radio_reg").on('click', function() {
-
-            jQuery("#info_negoci").css('display', 'block');
+            
+            jQuery('html,body').animate({ scrollTop: jQuery("#formulariRegistre").offset().top }, 'slow')
+            jQuery("#info_negoci").css('display', 'block')
         });
 
         // Validacio jQuery Registre

@@ -24,10 +24,6 @@
     overflow: hidden;
 }
 
-.img {
-    flex: 0 0 33%;
-}
-
 .carousel {
     width: 100%;
 }
@@ -43,6 +39,7 @@
 
 .info_nom, .preu {
     font-weight: bold;
+    margin: 0;
 }
 
 
@@ -58,11 +55,15 @@
 }
 .background:hover {
     background: rgba(0,0,0, 0.1);
+    transform: scale(1.025);
+    transform-origin: center;
 }
 
 .background {
-    transition: 0.7s;
-    padding: 5px;
+    transition: transform 250ms ease-out;
+    transition: 0.4s;
+    width: 100%;
+    color: black;
 }
 
 </style>
@@ -76,7 +77,11 @@
 
         <?php
 
-            if ($_SESSION['tipus_usuari'] == 'client') {
+            if ($_SESSION['tipus_usuari'] == 'negoci') {
+
+                include('paginaPerfilNegoci.php');
+                
+            } else {
 
                 echo '<h1 class="titol1">Descobreix productes artesanals arreu de Catalunya</h1>
         
@@ -98,13 +103,15 @@
                                 </div>
                                 <div class="prod_abaix">
                                     <div class=info>
-                                        <p class="info_nom">'.$prod['nom'].'</p>
+                                        <p class="info_nom">'.ucfirst($prod['nom']).'</p>
                                         <p class="info_cate">'.$prod['nom_categoria'].'</p>
                                     </div>
                                     <div class="info2">
-                                        <p class="preu">'.$prod['preu'].' €</p>
-                                        <p class="descompte">'.$prod['descompte'].' % Rebaixat</p>
-                                    </div>
+                                        <span class="preu">'.$prod['preu'].' €</span>';
+                                        if ($prod['descompte'] > 0) {
+                                            echo '<span class="descompte">  |  '.$prod['descompte'].' % Rebaixat</span>';
+                                        }
+                                    echo '</div>
                                 </div>
                                 </div>
 
@@ -113,9 +120,6 @@
                         }
 
                 echo '</div>';
-            } else {
-
-                include('paginaPerfilNegoci.php');
             }
 
         ?>        

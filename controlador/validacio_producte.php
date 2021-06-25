@@ -18,8 +18,6 @@
     //$boolea = $cons->execute();
     if ($res) {
         $_SESSION['insert'] = 'yes'; 
-    }else {
-        $_SESSION['insert'] = 'fail';
     }
     
     header('location: index.php?accio=perfil');

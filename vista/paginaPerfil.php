@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="vista/paginaPerfil.css">
 <style>
 
 * {
@@ -16,8 +15,8 @@
 
 #contingut {
     background-color: #1716161c;
-    border-radius: 5px;
-    padding: 50px;
+    border-radius: 2px;
+    padding: 1em;
 }
 
 #leftFlex {
@@ -27,12 +26,8 @@
 
 .menu_item {
     cursor: pointer;
-    font-size:20px;
-    margin-bottom: 30px;
-}
-
-.menu_item:hover {
-    font-weight: bold;
+    font-size: 1.3em;
+    margin-bottom: 0.5em;
 }
 
 #rightFlex {
@@ -49,7 +44,7 @@ label {
 }
 
 #arteside {
-	width: 35% !important;
+	width: 25% !important;
 	top: 0!important;
 	left: 0!important;
 	background-color: #f5f2ed !important;
@@ -115,6 +110,10 @@ h5 {
     cursor: pointer;
 }
 
+.seccio:hover h4 {
+    font-weight: bold;
+}
+
 .close {
     background: transparent;
     border: none;
@@ -163,6 +162,26 @@ h5 {
         unset($_SESSION['eliminar_promo']);
     }
 
+    if (isset($_SESSION['insert'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Producte afegit correctament al catàleg</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['insert']);
+    }
+
+    if (isset($_SESSION['eliminar_producte'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Producte eliminat correctament</strong>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['eliminar_producte']);
+    }
+
 ?>
 
 <div id="contentFlex">
@@ -199,21 +218,36 @@ h5 {
 
             <div class="select-hide" id="order">
 
-                <h4 class="seccio" id="dades_personals" class="menu_item">Dades personals</h4>
+                <div id="dades_personals" class="seccio">
+                    <h4>Dades personals</h4>
+                    <h6>...</h6>
+                </div>
 
                 <?php if(isset($_SESSION['tipus_usuari']) and $_SESSION['tipus_usuari'] == 'negoci') { ?>
                 
                     <h4 class="seccio" id="dades_negoci" class="menu_item">Dades negoci</h4>
                     </br>
-                    <h4 class="seccio" id="consul_prods" class="menu_item">Consultar productes</h4>
-                    <h4 class="seccio" id="consul_proms" class="menu_item">Consultar promocions</h4>
+                    <div id="consul_prods" class="seccio">
+                        <h4>Catàleg de productes</h4>
+                        <h6>Consulta els productes atuals del catàleg, modifica o elimina els existents i afegeix-ne de nous</h6>
+                    </div>
+                    
+                    <div id="consul_proms" class="seccio">
+                        <h4>Promocions</h4>
+                        <h6>Consulta les promocions actives i creen de noves.</h6>
+                    </div>
 
                 <?php }else { ?>
                     
-                    <h4 class="seccio" id="compres" class="menu_item">Registre de compres</h4>
+                    <div id="compres" class="seccio">
+                        <h4>Registre de compres</h4>
+                        <h6>...</h6>
+                    </div>
                     </br>
-                    <h4 class="seccio" id="punts" class="menu_item">Els meus punts</h4>
-
+                    <div id="punts" class="seccio">
+                        <h4>Els meus punts</h4>
+                        <h6>...</h6>
+                    </div>
                 <?php } ?> 
 
             </div>

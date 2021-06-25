@@ -70,6 +70,10 @@ switch ($accio) {
         include('vista/perfilProductes.php');
         break;
 
+    case 'eliminaProducte':
+        include('controlador/eliminaProducte.php');
+        break;
+
     case 'perfil_promos':
         include('vista/perfilPromos.php');
         break;

@@ -27,9 +27,9 @@ input {
     border: none;
     cursor: pointer;
     color: white;
-    padding: 1em;
+    padding: 0.7em;
     min-width: 20%;
-    font-weight: bold;
+    font-size: 1.3em;
 }
 
 .guarda {

@@ -55,6 +55,11 @@
     "Firebrick":"#B3001B"
 }*/
 
+@font-face {
+    font-family: "keka";
+    src: url("../XLC/fonts/keka.otf");
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -363,7 +368,7 @@ h1 h2 {
 
         <?php 
 
-            if ($_SESSION['tipus_usuari'] == 'client') {
+            if ($_SESSION['tipus_usuari'] != 'negoci') {
 
                 echo '<nav class="navbar2 navbar navbar-expand-lg navbar-light bg-light mt-0">
                     <div class="container-fluid">

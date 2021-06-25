@@ -150,6 +150,20 @@ input[type="radio"] {
     margin-top: 6em;
 }
 
+.no_afegir {
+    background: #EFA243;
+    padding: 1em;
+    border-radius: 2px;
+}
+
+.strong {
+    transition: 0.3s;
+}
+
+.strong:hover {
+    color: #B3001B;
+}
+
 @media screen and (max-width: 414px) {
 	.add {
         margin-left: auto;
@@ -213,6 +227,8 @@ input[type="radio"] {
 
                                     if (isset($_SESSION['nom'])) {
                                         echo '<button type="submit" class="add add_defecte" >Afegir a la cistella</button>';
+                                    } else {
+                                        echo '<p class="no_afegir"><strong><a class="strong" href="index.php?accio=registreLogin">Inicia la sessió o registrat</a></strong> per afegir productes a la cistella';
                                     }
                                 }
 
@@ -254,6 +270,11 @@ input[type="radio"] {
                 
                 // VUE
                 echo '<div class="info_compra" id="info_compra"></div>';
+            }
+        } else {
+            
+            if ($data_prod[0]['descompte'] == 0) {
+                echo '<p class="no_afegir"><strong><a class="strong" href="index.php?accio=registreLogin">Inicia la sessió o registrat</a></strong> per afegir productes a la cistella';
             }
         }
         
