@@ -26,6 +26,18 @@
                 if (gettype($producte) == 'array') {
 
                     $subtotal += $producte['preu'];
+
+                    // Actualitzem el numero de productes venuts del negoci en qüestió (el producte està associat a un negoci)
+                    $prod_id = $producte['id'];
+
+                    $cons_idNegoci = "SELECT p.negoci_id FROM producte p WHERE p.id = ".$prod_id."";
+                    $res_idNegoci = $bd->query($cons_idNegoci);
+                    $data_idNegoci = $res_idNegoci->fetch_all(MYSQLI_ASSOC);
+                    
+                    $id_negoci = $data_idNegoci[0]['negoci_id'];
+
+                    $act_prods = "UPDATE negoci SET productes_venuts=productes_venuts + 1 WHERE id=".$id_negoci."";
+                    $bd->query($act_prods);
                 }
             }
             
@@ -52,6 +64,16 @@
             
             $cons_subc = "INSERT INTO subcomanda(quantitat, subtotal, producte_id, comanda_id, descompte_aplicat, subtotal_final) VALUES ('$quantitat', '$subtotal', '$prod_id', '$comanda_id', '$descompte_aplicat', $subtotal_final)";
             $bd->query($cons_subc);
+
+            // Actualitzem el numero de productes venuts del negoci en qüestió (el producte està associat a un negoci)
+            $cons_idNegoci = "SELECT p.negoci_id FROM producte p WHERE p.id = ".$prod_id."";
+            $res_idNegoci = $bd->query($cons_idNegoci);
+            $data_idNegoci = $res_idNegoci->fetch_all(MYSQLI_ASSOC);
+            
+            $id_negoci = $data_idNegoci[0]['negoci_id'];
+
+            $act_prods = "UPDATE negoci SET productes_venuts=productes_venuts + 1 WHERE id=".$id_negoci."";
+            $bd->query($act_prods);
         }
 
     }

@@ -242,6 +242,44 @@ h4 {
 
     </div>
 
+    <?php
+
+        $usuari_id = $_SESSION['usuari_id'];
+
+        // Consulta de productes catalogats
+        $cons_prods = "SELECT p.id FROM producte p WHERE p.negoci_id = u.id and u.id = $usuari_id";
+        $res_prods = $bd->query($cons_prods);
+        if ($res_prods) {
+            $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
+            $num_prods = count($data_prods);
+        } else {
+            $num_prods = 0;
+        }
+
+        // Consulta de promocions actives
+        $cons_promos = "SELECT p.id FROM promocio p, usuari u WHERE p.negoci_id = u.id and u.id = $usuari_id and p.data_fi > CURDATE()";
+        $res_promos = $bd->query($cons_promos);
+        if ($res_promos) {
+            $data_promos = $res_promos->fetch_all(MYSQLI_ASSOC);
+            $num_promos = count($data_promos);
+        } else {
+            $num_promos = 0;
+        }
+        
+        // Consulta de productes venuts
+        $cons_venuts = "SELECT n.productes_venuts FROM negoci n, usuari u WHERE n.usuari_id = u.id and u.id = ".$_SESSION['usuari_id']."";
+        $res_venuts = $bd->query($cons_venuts);
+        $data_venuts = $res_venuts->fetch_all(MYSQLI_ASSOC);
+        $num_venuts = $data_venuts[0]['productes_venuts'];
+        
+        if ($num_venuts == 1) {
+            $txt_venuts = ' Producte venut';
+        } else {
+            $txt_venuts = ' Productes venuts';
+        }
+
+    ?>
+
     <div id="rightFlex">
 
         <div id="contingut">
@@ -251,11 +289,11 @@ h4 {
 
                 <div class="resum_flex d-flex pt-5">
                     <div class="productes">
-                        <h4><?php echo 'X'; ?> productes catalogats</h4>
-                        <h4><?php echo 'X'; ?> promocions actives</h4>
+                        <h4><?php echo $num_prods; ?> Productes catalogats</h4>
+                        <h4><?php echo $num_promos; ?> Promocions actives</h4>
                     </div>
                     <div class="beneficis">
-                        <h4><?php echo 'X'; ?> productes venuts</h4>
+                        <h4><?php echo $num_venuts . $txt_venuts ?></h4>
                         <h4><?php echo 'X'; ?>€ de benefici obtingut</h4>
                     </div>
                 </div>

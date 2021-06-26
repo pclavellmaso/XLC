@@ -92,7 +92,7 @@ img {
     $res_promo = $bd->query($cons_promo);
     $data_promo = $res_promo->fetch_all(MYSQLI_ASSOC);
 
-    $cons_subpromo = "SELECT * FROM subpromocio sp, producte p WHERE sp.producte_id = p.id and sp.promocio_id = ".$data_promo[0]['id']."";
+    $cons_subpromo = "SELECT sp.id, sp.producte_id, sp.promocio_id FROM subpromocio sp, producte p WHERE sp.producte_id = p.id and sp.promocio_id = ".$data_promo[0]['id']."";
     $res_subpromo = $bd->query($cons_subpromo);
     $data_subpromo = $res_subpromo->fetch_all(MYSQLI_ASSOC);
 
@@ -110,29 +110,37 @@ img {
             echo '<div class="your-class container-fluid">';
 
                 $id_prods = array();
+                
                 for ($i = 0; $i < count($data_subpromo); $i++) {
+
+                    // Agafem les dades de cada subpromocio (producte)
+                    $cons_infoProd = "SELECT * FROM producte p WHERE p.id = ".$data_subpromo[0]['producte_id']."";
+                    $res_infoProd = $bd->query($cons_infoProd);
+                    $data_infoProd = $res_infoProd->fetch_all(MYSQLI_ASSOC);
 
                     echo '<div class="prodFlex row">
 
                         <div class="background d-flex">
 
                         <div class="col-12 col-md-2">
-                            <img src="/XLC/vista/img/'.$data_subpromo[$i]["imatge"].'" alt="">
+                            <img src="/XLC/vista/img/'.$data_infoProd[0]["imatge"].'" alt="">
                         </div>
 
                         <div class="col-12 col-md-10 m-3">
-                            <p>'.$data_subpromo[$i]["nom"].'</p>
-                            <p>'.$data_subpromo[$i]["preu"].'</p>
+                            <p>'.$data_infoProd[0]["nom"].'</p>
+                            <p>'.$data_infoProd[0]["preu"].'</p>
                         </div>
 
                         </div>
                         
                     </div>';
+
+                    array_push($id_prods, $data_subpromo[$i]['producte_id']);
                 }
-
-                array_push($id_prods, $data_subpromo[$i]['id']);
+                $promo_articles = count($id_prods);
                 $id_prods = implode(",", $id_prods);
-
+                
+                
             echo '</div>';
 
         ?>
@@ -145,6 +153,8 @@ img {
         <input type="text" name ="descompte" value="<?php echo $data_promo[0]['descompte_add']; ?>" hidden>
         <input type="text" name ="promocio" value="promocio" hidden>
         <input type="text" name ="promo_id" value="<?php echo $data_promo[0]['id']; ?>" hidden>
+        <input type="text" name ="promo_qty" value="1" hidden>
+        <input type="text" name ="promo_articles" value="<?php echo $promo_articles; ?>" hidden>
         <button type="submit" class="add">Afegir a la cistella</button>
     </form>
 

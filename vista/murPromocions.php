@@ -197,13 +197,9 @@ div.slick-slide:nth-child(3) {
 
 <?php
 
-    
-
-    $cons_promos = "SELECT distinct p.id, n.nom, p.descompte_add, p.data_fi  FROM promocio p, usuari u, negoci n";
+    $cons_promos = "SELECT distinct p.id, n.nom, p.descompte_add, p.data_fi  FROM promocio p, usuari u, negoci n WHERE n.id = p.negoci_id";
     $res_promos = $bd->query($cons_promos);
     $data_promos = $res_promos->fetch_all(MYSQLI_ASSOC);
-
-
 
 ?>
 

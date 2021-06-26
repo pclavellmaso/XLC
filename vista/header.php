@@ -298,6 +298,10 @@ h1 h2 {
     margin: auto;
 }
 
+.menu_usuari {
+    display: flex;
+}
+
 @media (max-width: 414px) {
     
     .cistella_icon, .usuari {
@@ -333,23 +337,25 @@ h1 h2 {
 
                     <?php 
 
-                        //si hi ha una sessió iniciada
+                        // Si hi ha una sessió iniciada
                         if (isset($_SESSION['nom'])) {
                             
-                            echo '<div class="">';
-
                                 if ($_SESSION['tipus_usuari'] == 'client') {
-                                    echo '<div class="cistella">
-                                        <img class="cistella_icon" src="/XLC/vista/img/cistella.png" alt="">
-                                        <div class="cistella_info">'.$_SESSION["cistella"]["qty"].'</div>
+                                    
+                                    echo '<div class="menu_usuari">
+                                    
+                                        <div class="cistella">
+                                            <img class="cistella_icon" src="/XLC/vista/img/cistella.png" alt="">
+                                            <div class="cistella_info">'.$_SESSION["cistella"]["qty"].'</div>
+                                        </div>
+                                        <div class="usuari">'.ucfirst($_SESSION['nom'][0]).'</div>
                                     </div>';
+
                                 } else {
                                     echo '<div class="">
                                         <div class="usuari">'.ucfirst($_SESSION['nom'][0]).'</div>
                                     </div>';
                                 }
-
-                            echo '</div>';
 
                         } else {
 

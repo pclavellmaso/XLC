@@ -25,16 +25,19 @@ input {
 .editaBtn {
     background: #EFA243;
     border: none;
+    border-radius: 2px;
     cursor: pointer;
     color: white;
     padding: 0.7em;
     min-width: 20%;
-    font-size: 1.3em;
+    font-size: 1em;
 }
 
 .guarda {
     background: #B3001B;
     border: none;
+    border-radius: 2px;
+    margin-top: 1em;
     cursor: pointer;
     color: white;
     padding: 1em;
@@ -45,12 +48,14 @@ input {
 }
 
 h2 {
-    font-size: 1.4em;
+    font-size: 1.5em;
+    text-align: left;
+    margin-bottom: 1em!important;
 }
 
 h4 {
-    font-size: 1.2em;
-    margin-top: 1.5em;
+    font-size: 1em;
+    margin-bottom: 0.5em!important;
 }
 
 .dades_wrap {
@@ -61,11 +66,11 @@ h4 {
 
 .edita {
     display: none;
-    margin-left: 5em;
+    width: 45%;
 }
 
-.edit_secc {
-    margin-left: 1.3em;
+.edit_right {
+    margin-left: 1.5em;
 }
 
 /**/
@@ -82,13 +87,32 @@ input {
 }
 
 .btns {
-    margin-top: 5em;
+    margin-top: 1em;
 }
 
 .sep {
     height: 100%;
     border-left: 1px solid black;
     width: 1px;
+}
+
+.consulta {
+    border: 1px solid brown;
+    width: 45%;
+    padding: 1em;
+}
+
+.dadesUsuari {
+    margin-bottom: 2em;
+}
+
+#form_edita {
+    border: 1px solid brown;
+    padding: 1em;
+}
+
+#guarda {
+    font-size: 1em!important;
 }
 
 </style>
@@ -109,7 +133,7 @@ input {
 
 ?>
 
-<h2><p>Consulta o modifica les teves dades</p></h2>
+<h2>Consulta o modifica les teves dades</h2>
 
 <div class="content_wrap">
 
@@ -119,14 +143,14 @@ input {
 
             <div class="dades">
                 
-                <h4>Nom d'usuari</h4>
-                <p class="inputNom"><?php echo $info[0]["nom"]; ?></p>
+                <h4><strong>Nom d'usuari</strong></h4>
+                <p class="dadesUsuari"><?php echo $info[0]["nom"]; ?></p>
 
-                <h4>Correu electrònic</h4>
-                <p class="inputCorreu"><?php echo $info[0]['correu']; ?></p>
+                <h4><strong>Correu electrònic</strong></h4>
+                <p class="dadesUsuari"><?php echo $info[0]['correu']; ?></p>
 
-                <h4>Contrasenya</h4>
-                <p class="inputPass">***********</p><br>
+                <h4><strong>Contrasenya</strong></h4>
+                <p class="dadesUsuari">***********</p>
 
             </div>
 
@@ -137,33 +161,38 @@ input {
             <form id="form_edita" class="act_dades" action="/XLC/index.php?accio=act_dadesPersonals" method="post">
 
                 <div class="edit_secc">
-                    <h4>Nom d'usuari</h4>
-                    <input class="inputNom" type="text" name="nom" value="<?php echo $info[0]["nom"]; ?>">
+                    <h4><strong>Nom d'usuari</strong></h4>
+                    <input class="dadesUsuari" type="text" name="nom" value="<?php echo $info[0]["nom"]; ?>">
 
-                    <h4>Correu electrònic</h4>
-                    <input class="inputCorreu" type="text" name="correu" value="<?php echo $info[0]['correu']; ?>">
+                    <h4><strong>Correu electrònic</strong></h4>
+                    <input class="dadesUsuari" type="text" name="correu" value="<?php echo $info[0]['correu']; ?>">
                 </div>
                 
-                <div class="edit_secc">
-                    <h4>Contrasenya actual</h4>
-                    <input class="inputPass" type="text" name="passAct" value="" placeholder="***********">
+                <div class="edit_right">
+                    <h4><strong>Contrasenya actual</strong></h4>
+                    <input class="dadesUsuari" type="text" name="passAct" value="" placeholder="***********">
 
-                    <h4>Contrasenya nova</h4>
-                    <input class="inputPass1" id="pass1_id" type="text" name="pass1" value="">
+                    <h4><strong>Contrasenya nova</strong></h4>
+                    <input class="dadesUsuari" id="pass1_id" type="text" name="pass1" value="">
 
-                    <h4>Repeteix la contrasenya nova</h4>
-                    <input class="inputPass2" type="text" name="pass2" value="">
+                    <h4><strong>Repeteix la contrasenya nova</strong></h4>
+                    <input class="dadesUsuari" type="text" name="pass2" value="">
                 </div>
+
+                
 
             </form>
 
+            <button type="submit" class="guarda" form="form_edita"><span id="guarda">Guarda els canvis</span></button>
+
         </div>
+
+        
 
     </div>
 
     <div class="btns">
         <button class="editaBtn"><span id="edita">Edita</span></button>
-        <button type="submit" class="guarda" form="form_edita"><span id="guarda">Guarda els canvis</span></button>
     </div>
 
 </div>
@@ -177,8 +206,8 @@ input {
 
         jQuery(".editaBtn").click(function(){
 
-            jQuery(".edita").toggle('slide', {direction: 'right'}, 1000)
-            jQuery(".guarda").toggle('slide', {direction: 'right'}, 500)
+            jQuery(".edita").fadeToggle(250)
+            jQuery(".guarda").fadeToggle(250)
             
             state = (state == 'Edita') ? 'Cancela' : 'Edita'
             jQuery("#edita").html(state)
