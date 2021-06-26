@@ -41,38 +41,43 @@ h2 {
 
 .prodPromoFlex {
     display: flex;
-    padding: 5px;
-    border-radius: 15px;
-    margin-bottom: 15px;
+    margin-bottom: 1em;
     align-items: center;
+    width: 100%;
 }
 
 .promo_titol {
-    font-size: 17px;
+    font-size: 1em;
     font-weight: bold;
     margin-bottom: 10px;
 }
 
-.promoFlex {
-    border-radius: 15px;
-    padding: 10px;
+.promocio_title {
+    width: 40%;
+}
+
+.promo_wrap {
     display: flex;
-    padding-left: 15px;
     align-items: center;
+    padding: 1em;
+    background: rgba(0, 0, 0, 0.1);
+    width: 100%;
+    flex-direction: column;
+}
+
+.promo_wrap_title {
+    width: 100%;
+    display: flex;
 }
 
 .promo_prods {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding: 10px;
-    border-radius: 15px;
 }
 
 .promo_content {
     display: flex;
-    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-    border-radius: 15px;
     width: 100%;
 }
 
@@ -92,7 +97,7 @@ h2 {
 }
 
 .promo_prods {
-    flex: 0 0 60%;
+    width: 100%;
 }
 
 .prod_dreta {
@@ -113,16 +118,9 @@ h2 {
     height: 100%;
 }
 
-.prod_esq {
-    height: 100px;
-    overflow: hidden;
-    border: ;
-    border-radius: 15px;
-}
-
 .foto {
     width: 100px;
-    border-radius: 5px;
+    border-radius: 2px;
     position: relative;
 }
 
@@ -220,7 +218,7 @@ h2 {
     width: 30%;
 }
 
-.col_qty, .prod_qty {
+.col_qty, .prod_qty, .promo_qty {
     width: 15%;
 }
 
@@ -276,6 +274,10 @@ h2 {
     display:flex;
     flex-wrap: wrap;
     width: 40%;
+}
+
+.noms {
+    width: 69%;
 }
 
 @media screen and (max-width: 768px) {
@@ -400,80 +402,85 @@ h2 {
                         // Si és una promoció amb diversos productes
                         if (isset($prod['qty_promo'])) {
                             
-                            echo '<p class="promo_titol">Promoció</p>
+                            echo '<div class="promo_wrap">';
+                            
+                            $promo_articles = $prod['promo_articles'];
 
-                            <div class="promoFlex">
+                                echo '<div class="promo_wrap_title">
 
-                                <form class="form_qty" action="index.php?accio=afegir_cistella" method="post">
+                                    <div class="promocio_title"><p class="promo_titol">Promoció</p></div>
+
+                                    <div class="promo_qty"><form action="index.php?accio=afegir_cistella" method="post">
+
+                                        <input type="text" name="mod_article" value="mod_promo" hidden>
+                                        <input type="text" name="index_promo" value="'.$index_prod.'" hidden>
+                                        <input type="text" name="id_promo" value="'.$prod['id'].'" hidden>
+                                        <input type="text" name="promo_articles" value="'.$promo_articles.'" hidden>
                                         
-                                    <input type="text" name="mod_article" value="mod_promo" hidden>
-                                    <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                                    <input type="text" name="index_prod" value="'.$index_prod.'" hidden>
-                                    <button class="qty_mod" name="dec_promo" type="submit"><i data-feather="minus-circle"></i></button>
-                                    <p class="qty">'.$prod['qty_promo'].'</p>
-                                    <button class="qty_mod" name="inc_promo" type="submit"><i data-feather="plus-circle"></i></button>
-                                
-                                </form>
-                                
-                                <div class="promo_content">
-                                    <div class="promo_prods">';
-                                        $preu_total = 0;
-                                        foreach($prod as $element) {
-                                            
-                                            if (gettype($element) == 'array') {
-                                                
-                                                $neg_id = $element['negoci_id'];
-                                                // Agafem el nom del negoci per mostrar-lo
-                                                $cons_negoci = "SELECT n.nom FROM negoci n WHERE n.id = ".$neg_id."";
-                                                $res_negoci = $bd->query($cons_negoci);
-                                                $nom_negoci = $res_negoci->fetch_all(MYSQLI_ASSOC);
+                                        <button class="qty_mod" name="dec_promo" type="submit"><div><i data-feather="minus-circle"></div></i></button>
+                                        <p class="qty">'.$prod['qty_promo'].'</p>
+                                        <button class="qty_mod" name="inc_promo" type="submit"><i data-feather="plus-circle"></i></button>
+                                    
+                                    </form></div>
 
-                                                echo '<div class="prodPromoFlex">
+                                    <div class="prod_preu"></div>
 
-                                                    <div class="prod_esq">
-                                                        <img class="foto" src="/XLC/vista/img/'.$element['imatge'].'" alt="">
-                                                    </div>
-                            
-                                                    <div class="prodPromo_dreta">
+                                    <div class="prod_desc">'.$prod['descompte'].'%</div>';
 
-                                                        <div class="noms">
-                                                            <p class="nom_prod">'.ucfirst($element['nom']).'</p>
-                                                            <p class="nom_neg">'.ucfirst($nom_negoci[0]['nom']).'</p>
-                                                        </div>
-                                                        <div class="preu_desc">
-                                                            <p class="preu" style="font-size: 18px;">'.$element['preu'].' €</p>
-                                                        </div>
-                            
-                                                    </div>
-                    
-                                                </div>';
-                                                $preu_total += $element['preu'];
-                                            }
-                                            
+                                    $preuNoDescPromo = 0;
+                                    foreach($prod as $element) {
+                                        if (gettype($element) == 'array') {
+                                            $preuNoDescPromo += $element['preu'];
                                         }
-                                    echo '</div>';
+                                    }
+                                    // Tenim en compte la quantitat de promocions
+                                    $preuNoDescPromo *= $prod['qty_promo'];
+                                    $preuDescPromo *= $prod['qty_promo'];
 
-                                    $preu_final = $preu_total - ($preu_total * ($prod['descompte']/100));
+                                    $preuDescPromo = $preuNoDescPromo - ($preuNoDescPromo * ($prod['descompte']/100));
 
+                                    echo '<div class="prod_preuFinal"><span style="text-decoration: line-through;">'.$preuNoDescPromo.' € </span>'.$preuDescPromo.' €</div>
 
-                                    echo '<div class="promo_info_wrap">
-                                        <div class="promo_info">
-                                            <p class="promo_data">Finalitza el '.$prods[$index_prod]['data_fi'].'</p>
-                                            <span class="promo_descompte">Descompte pack del <span class="descompte">'.$prod['descompte'].'%</span></span>
-                                            <p class="promo_preu preu">'.$preu_total.' €</p>
-                                            <p class="promo_subtotal preu">'.$preu_final.' €</p>
-                                        </div>
+                                </div>';
 
-                                    </div>';
+                                $preu_total = 0;
+                                foreach($prod as $element) {
+                                    
+                                    if (gettype($element) == 'array') {
+                                        
+                                        $neg_id = $element['negoci_id'];
+                                        // Agafem el nom del negoci per mostrar-lo
+                                        $cons_negoci = "SELECT n.nom FROM negoci n WHERE n.id = ".$neg_id."";
+                                        $res_negoci = $bd->query($cons_negoci);
+                                        $nom_negoci = $res_negoci->fetch_all(MYSQLI_ASSOC);
 
-                                    $subtotal += $preu_final;
+                                        echo '<div class="prodPromoFlex">
 
-                                echo '</div>
-                                
-                            </div>';     
+                                            <a href="index.php?accio=pagina_producte&id='.$element['id'].'" class="img_nom">
+                                                <div class="prod_img">
+                                                    <img class="foto" src="/XLC/vista/img/'.$element['imatge'].'" alt="">
+                                                </div>
+                                                <div class="prod_noms">
+                                                    <p class="nom_prod">'.ucfirst($element['nom']).'</p>
+                                                    <p class="nom_neg">'.ucfirst($nom_negoci[0]['nom']).'</p>
+                                                </div>
+                                            </a>
+                                            
+                                            <p class="prod_qty">
+                                            </p>
+
+                                            <p class="prod_preu">'.$element['preu'].' €</p>
+                                            
+                                        </div>';
+                                    }
+                                } 
+                                    
+                            echo '</div>';
+
+                            $subtotal += $preuDescPromo;
                         
                         // Si es un producte
-                        }else {
+                        } else {
                             
                             $neg_id = $prod['negoci_id'];
                             // Agafem el nom del negoci per mostrar-lo
