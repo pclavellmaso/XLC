@@ -31,7 +31,7 @@
             <div class="dreta_flex">
                 
                 <p><strong>Pots consultar el codi font a</strong></p>
-                <a href="#">Github</a>
+                <a href="https://github.com/pclavellmaso/XLC.git">Github</a>
 
             </div>
         </div>
