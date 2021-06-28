@@ -124,7 +124,6 @@ form {
 }
 
 .qty_producte {
-    vertical-align: super;
     margin: 0px 0.5em;
 }
 
@@ -139,6 +138,10 @@ form {
 
 .preu_descompte {
     margin-top: auto;
+    padding: 1em;
+    background: #EFA243;
+    width: 45%;
+    border-radius: 2px;
 }
 
 input[type="radio"] {
@@ -164,6 +167,26 @@ input[type="radio"] {
     color: #B3001B;
 }
 
+.compra_dreta {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.form_qty {
+    margin-bottom: 1em;
+}
+
+label {
+    margin-left: 1em;
+}
+
+.close {
+    background: transparent;
+    border: none;
+    float: right;
+}
+
 @media screen and (max-width: 414px) {
 	.add {
         margin-left: auto;
@@ -171,6 +194,23 @@ input[type="radio"] {
     }
     .prodFlex_abaix {
         display: block;
+    }
+    form {
+        flex-direction: column;
+    }
+    label {
+        margin-left: 1em;
+    }
+    .descs_add {
+        display: flex;
+        padding: 0.5em 0;
+    }
+    .preu_descompte {
+        width: 100%;
+        margin: 1em 0;
+    }
+    .compra_dreta {
+        margin-top: 2em;
     }
 }
 
@@ -183,6 +223,16 @@ input[type="radio"] {
     $cons_prod = "SELECT p.id, p.nom, p.descripcio, p.preu, p.imatge, p.descompte, c.nom_categoria, n.nom as nom_negoci, n.poblacio FROM producte p, categoria c, negoci n WHERE p.id = '$id' and c.id = p.categoria_id and n.id = p.negoci_id";
     $res_prod = $bd->query($cons_prod);
     $data_prod = $res_prod->fetch_all(MYSQLI_ASSOC);
+
+    if (isset($_SESSION['inc_cistella'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Producte afegit a la cistella.</strong> Consulta la pàgina de la cistella per a més detalls
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['inc_cistella']);
+    }
 
 ?>
 
@@ -228,7 +278,7 @@ input[type="radio"] {
                                     if (isset($_SESSION['nom'])) {
                                         echo '<button type="submit" class="add add_defecte" >Afegir a la cistella</button>';
                                     } else {
-                                        echo '<p class="no_afegir"><strong><a class="strong" href="index.php?accio=registreLogin">Inicia la sessió o registrat</a></strong> per afegir productes a la cistella';
+                                        echo '<p class="no_afegir"><strong><a class="strong" href="index.php?accio=registreLogin">Inicia la sessió o registra\'t</a></strong> per afegir productes a la cistella';
                                     }
                                 }
 
@@ -351,7 +401,7 @@ input[type="radio"] {
         <form action="index.php?accio=afegir_cistella" method="post">
             <div class="compra_esq">
         
-                <p>Disposes de <?php echo $data_punts[0]['punts']; ?> punts</p>
+                <p><strong>Disposes de <?php echo $data_punts[0]['punts']; ?> punts</strong></p>
                 <p>Aquest producte compte amb els següents descomptes:</p>
 
                 <div class="descomptes_disponibles"> 
@@ -362,7 +412,7 @@ input[type="radio"] {
                     <div v-for="(descompte, index) in array_descomptes" class="descs_add">
                         <input v-on:click="aplicarDesc(descompte)" v-bind:id="index" class="descompte" type="radio" name="punts_aplicats" v-model="descompte * 10" :disabled="punts_disponibles < descompte * 10">
                         <input class="desc_add" name="desc_add" type="text" v-model="descompte" hidden>
-                        <label v-bind:for="index">Aplicar un {{ descompte }} % de descompte ({{descompte * 10}} Punts)</label>
+                        <label v-bind:for="index">Aplicar un <strong>{{ descompte }} %</strong> de descompte (<strong>{{descompte * 10}} Punts</strong>)</label>
                     </div>
                 </div>
 
@@ -370,15 +420,17 @@ input[type="radio"] {
 
             <div class="compra_dreta">
                             
-                <p>Per a cada unitat extra acumules 50 punts</p>
+                <p><strong>Per a cada unitat extra acumules 50 punts</strong></p>
 
-                <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
-                <span class="qty_producte">{{ qty }} unitats</span>
-                <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
-                <span class="punts_extra">Punts extra: {{ punts_extra }}</span>
-                <span class="punts_aplicats">Punts aplicats: {{ punts_aplicats }}</span>
+                <div class="form_qty">
+                    <span v-on:click="decrement()"><i data-feather="minus-circle" class="minus"></i></span>
+                    <span class="qty_producte">{{ qty }} unitats</span>
+                    <span v-on:click="increment()"><i data-feather="plus-circle" class="plus"></i></span>
+                </div>
+                <span class="punts_extra">Punts extra: <strong>{{ punts_extra }}</strong></span>
+                <span class="punts_aplicats">Punts aplicats: <strong>{{ punts_aplicats }}</strong></span>
 
-                <p class="preu_descompte">Preu final amb descompte aplicat {{(preu_descompte - (preu_descompte * (descompte / 100)))}} €</p>
+                <span class="preu_descompte"><strong>Preu final amb descompte aplicat {{(preu_descompte - (preu_descompte * (descompte / 100)))}} €</strong></span>
 
                     <input type="text" name="id_prod" v-model="data_prod['id']" hidden>
                     <input type="hidden" name="prod_qty_add" v-model="qty">
@@ -397,6 +449,13 @@ input[type="radio"] {
     app.mount("#info_compra")
 
     
+    setTimeout(function() {
+        jQuery(".alert").hide(200);
+    }, 5000)
+
+    jQuery(".close").click(function() {
+        jQuery(".alert").hide(200);
+    })
     
 
     feather.replace()

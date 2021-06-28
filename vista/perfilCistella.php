@@ -125,7 +125,7 @@ h2 {
 }
 
 .nom_prod {
-    font-size: 20px;
+    font-size: 1em;
     font-weight: bold;
 }
 
@@ -194,7 +194,7 @@ h2 {
 .prod_noms {
     display: inline-block;
     vertical-align: top;
-    width: 69%;
+    width: 45%;
 }
 .prod_preuFinal {
     text-align: right;
@@ -215,15 +215,15 @@ h2 {
 .prod_img {
     display: flex;
     margin-right: 0.2em;
-    width: 30%;
 }
 
 .col_qty, .prod_qty, .promo_qty {
-    width: 15%;
+    width: auto;
 }
 
 .col_preu, .prod_preu {
     width: 10%;
+    margin-left: 1em;
 }
 
 .col_descAdd, .prod_desc {
@@ -232,7 +232,7 @@ h2 {
 
 .prod_preuFinal, .col_subtotal {
     text-align: right;
-    width: 10%;
+    width: 12%;
 }
 
 .resum_compra {
@@ -242,6 +242,7 @@ h2 {
     margin-left: 5em;
     padding: 1em;
     display: flex;
+    height: max-content;
     flex-direction: column;
 }
 
@@ -266,8 +267,11 @@ h2 {
     margin-bottom: 0em;
 }
 
-.resum_compra {
-    height: 60vh;
+.img_nomPromo {
+    display:flex;
+    flex-wrap: wrap;
+    width: 50%;
+    width: 46%;
 }
 
 .img_nom {
@@ -358,6 +362,19 @@ h2 {
     }
 }
 
+@media screen and (max-width: 768px) {
+    .foto, .img_nom, .prod_noms {
+        width: 100%;
+    }
+    .prodFlex {
+        flex-direction: column;
+    }
+    .img_nom {
+        flex-wrap: nowrap;
+    }
+     
+}
+
 </style>
 
 
@@ -390,7 +407,7 @@ h2 {
 
                 if (!isset($_SESSION['cistella']['prods'])) {
 
-                    echo '</p>Afegeix algun ítem a la cistella!</p>';
+                    echo '<h2 style="margin: 1em 0; padding: 0!important;">Afegeix algun ítem a la cistella!</h2>';
                 }else {
                 
                     $prods = $_SESSION['cistella']['prods'];
@@ -456,7 +473,7 @@ h2 {
 
                                         echo '<div class="prodPromoFlex">
 
-                                            <a href="index.php?accio=pagina_producte&id='.$element['id'].'" class="img_nom">
+                                            <a href="index.php?accio=pagina_producte&id='.$element['id'].'" class="img_nomPromo">
                                                 <div class="prod_img">
                                                     <img class="foto" src="/XLC/vista/img/'.$element['imatge'].'" alt="">
                                                 </div>
@@ -572,10 +589,14 @@ h2 {
                     }
                 }   
             ?>
+            <?php
 
-            <form action="index.php?accio=buida_cistella" method="post">
-                <button class="clean" type="submit">NETEJA</button>
-            </form>
+                if (isset($_SESSION['cistella']['prods'])) {
+                    echo '<form action="index.php?accio=buida_cistella" method="post">
+                        <button class="clean" type="submit">NETEJA</button>
+                    </form>';
+                }
+            ?>
 
         </div><!-- listFlex -->
         
@@ -599,12 +620,14 @@ h2 {
                         $punts_extres_totals += $prod['punts_extra'];
                         $punts_aplicats_totals += $prod['punts_aplicats'];
                     }
+                    // En tot cas, sempre es guanyen els punts associats a: preu final comanda * 2
+                    $punts_compra = ($punts_extres_totals + ($subtotal * 2)) - $punts_aplicats_totals;
                 }
 
                 if ($punts_compra <= 0) {
                     $info_punts = '<span>no aconsegueixes punts extres.</span>';
                 } else {
-                    $info_punts = '<span>pots aconseguir <span style="font-weight: bold;">'.$punts_compra.'</span> punts extra.</span>';
+                    $info_punts = '<span>pots aconseguir <span style="font-weight: bold;">'.round($punts_compra).'</span> punts extra.</span>';
                 }
                 
 
@@ -615,6 +638,7 @@ h2 {
             <p><?php echo $punts_aplicats_totals; ?> Punts aplicats totals</p>
             <hr>
             <span>Amb aquesta cistella <?php echo $info_punts; ?>
+            <hr>
 
         </div>
         
@@ -644,27 +668,12 @@ h2 {
        <br>
        <br>
        <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
-       <br>
     </div>
 
 </div>
 
 <script>
-
     feather.replace()
-
 </script>
 
 <?php include("footer.php"); ?>

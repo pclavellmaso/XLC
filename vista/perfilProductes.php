@@ -68,7 +68,7 @@ input[type=number] {
 .edit_wrap {
     width: 100%;
     height: 100%;
-    background: #dfdfdf;
+    background: #FDFDFD;
     position: absolute;
     opacity: 0;
     transition: 0.4s;
@@ -131,9 +131,47 @@ a {
     font-size: 1.3em;
 }
 
+.afegirProd {
+    border: none;
+    color: white;
+    padding: 1em;
+    font-size: 1em;
+    border-radius: 2px;
+    background: #EFA243;
+    margin-right: auto;
+    cursor: pointer;
+    margin-top: 1em;
+}
+
+select, .afegirProd {
+    margin-left: 1em;
+}
+
+.formFlex {
+    margin-top: 2em;
+    display: flex;
+}
+
+.camp_prod {
+    margin: 1em 0;
+    padding: 1em;
+}
+
+.formTitle {
+    margin: 2em 0;
+    text-align: left;
+}
+
+.newImg {
+    width: 100%!important;
+    height: auto!important;
+}
+
+.newImgWrap {
+    width: 25em;
+}
+
 </style>
-
-
 
 <div>
 
@@ -141,14 +179,14 @@ a {
 
         $id = $_SESSION['usuari_id'];
 
-        $consulta = "SELECT distinct p.id, p.nom, c.nom_categoria, p.stock, p.imatge FROM producte p, categoria c, negoci n, usuari u WHERE p.categoria_id = c.id and p.negoci_id = n.usuari_id and n.usuari_id = ".$id."";
+        $consulta = "SELECT distinct p.id, p.nom, c.nom_categoria, p.stock, p.imatge FROM producte p, categoria c, negoci n, usuari u WHERE p.categoria_id = c.id and p.negoci_id = n.id and n.usuari_id = ".$id."";
 
         $res = $bd->query($consulta);
         $prods = $res->fetch_all(MYSQLI_ASSOC);
     ?>
 
-    
-    <!-- Fer grid nice -->
+    <h1 style="margin-bottom: 1em;">Catàleg actualitzat dels teus productes</h1>
+
     <div class="listFlex">
 
         <?php for ($i = 0; $i < count($prods); $i++) { ?>
@@ -177,68 +215,107 @@ a {
     <button class="btn_desplega"><h3>Afegir nou producte al catàleg</h3></button>
 
     <div class="afegirProducte">
-    
-        <form method='post' action='index.php?accio=afegir_producte'>
-            
-            <div class='camp_prod'>
-                <label>Nom del producte</label>
-                <input type='text' name='nom'>
-            </div>
-            
-            <div class='camp_prod'>
-                <label>Descripció del producte</label>
-                <input type='text' name='descripcio'>
-            </div>
-            
-            <div class='camp_prod'>
-                <label>Preu</label>
-                <input type='text' name='preu'>
-            </div>
-            
-            <div class='camp_prod'>
-                <label>Stock disponible</label>
-                <input type='text' name='stock'>
-            </div>
-            
-            <?php
-                $query = "SELECT c.id, c.nom_categoria FROM categoria c";
-                $result = $bd->query($query);
-                $categories = $result->fetch_all(MYSQLI_ASSOC);
-            ?>
 
-            <div value='categoria'>Categoria</div>
-            <select name="categoria">
-                <?php for($i=0; $i < count($categories); ++$i) { ?>
-                <option value="<?php echo $categories[$i]['id']; ?>"><?php echo $categories[$i]['nom_categoria']; ?></option>
-                <?php } ?>
-            </select>
-            
-            <div class='camp_prod'>
-                <label>Descompte</label>
-                <input type='number' min="0" max="100" name='descompte' value="0">
-            </div>
-            
-            <div class='camp_prod'>
-                <label>Selecciona una imatge</label>
-                <input type='file' name='imatge'>
-            </div>
-            
-            <div class=''>
-                <button type='submit' class='' name='afegir_producte'>Afegir</button>
-            </div>
-            
-        </form>
+        <div class="form_wrap">
+
+            <h2 class="formTitle">Afegeix un nou producte</h2>
+        
+            <form id="ifFormProd" class="formFlex" method='post' action='index.php?accio=afegir_producte'>    
+                
+                <div>
+                
+                    <div class='camp_prod'>
+                        <input type='text' name='nom' placeholder="Nom del producte" required>
+                    </div>
+                    
+                    <div class='camp_prod'>
+                        <textarea style="margin-bottom: 1em;" rows="5" cols="25" name="descripcio">Descripció del producte</textarea>
+                    </div>
+                    
+                    <div class='camp_prod'>
+                        <input type='text' name='preu' placeholder="Preu" required>
+                    </div>
+                    
+                    <div class='camp_prod'>
+                        <input type='text' name='stock' placeholder="Stock disponible" required>
+                    </div>
+                    
+                    <?php
+                        $query = "SELECT c.id, c.nom_categoria FROM categoria c";
+                        $result = $bd->query($query);
+                        $categories = $result->fetch_all(MYSQLI_ASSOC);
+                    ?>
+
+                    <div class='camp_prod'>
+                        <p>Descompte</p>
+                        <input type='number' min="0" max="100" name='descompte' value="0" placeholder="Descompte" required>
+                    </div>
+
+                    <select name="categoria">
+                        <?php for($i=0; $i < count($categories); ++$i) { ?>
+                        <option value="<?php echo $categories[$i]['id']; ?>"><?php echo $categories[$i]['nom_categoria']; ?></option>
+                        <?php } ?>
+                    </select>
+
+                </div>
+                
+                <div>
+                    <div class='camp_prod'>
+                        <p>Selecciona una imatge</p>
+                        <input type='file' name='imatge' onchange="readURL(this);" required>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="newImgWrap">
+                        <img class="newImg" style="opacity: 0;" id="imatgeProd" src="#">
+                    </div>
+                </div>
+                
+            </form>
+
+            <button type='submit' form="ifFormProd" class='afegirProd' name='afegir_producte'>Afegir</button>
+
+        </div>
         
     </div>
 
 </div>
 
 <script>
+ 
+    function readURL(input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#imatgeProd')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            jQuery("#imatgeProd").css('opacity', '1')
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
 
     jQuery(document).ready(function(){
 
         jQuery(".btn_desplega").click(function(){
-            jQuery(".afegirProducte").toggle(450);
+
+            let $this = jQuery(this);
+            $this.toggleClass('See');
+            
+            if($this.hasClass('See')){
+                $this.html('<h3>Cancela</h3>');			
+            } else {
+                $this.html('<h3>Afegir nou producte al catàleg</h3>');
+            }
+
+            jQuery(".afegirProducte").fadeToggle(450);
         });
 
     });

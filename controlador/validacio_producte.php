@@ -8,7 +8,12 @@
     $descompte = mysqli_real_escape_string($bd, $_POST['descompte']);
     $imatge = mysqli_real_escape_string($bd, $_POST['imatge']);
     $categoria_id = mysqli_real_escape_string($bd, $_POST['categoria']);
-    $negoci_id = $_SESSION['usuari_id'];
+    
+    $cons_negId = "SELECT n.id FROM negoci n WHERE n.usuari_id = ".$_SESSION['usuari_id']."";
+    $res_negId = $bd->query($cons_negId);
+    $data_negId = $res_negId->fetch_all(MYSQLI_ASSOC);
+    
+    $negoci_id = $data_negId[0]['id'];
     
     // Es prepara la consulta
     $consulta = "INSERT INTO producte (nom, descripcio, preu, stock, descompte, imatge, categoria_id, negoci_id) VALUES('$nom', '$descripcio', '$preu', '$stock', '$descompte', '$imatge', '$categoria_id', '$negoci_id')";
@@ -17,9 +22,9 @@
     $res = $bd->query($consulta);
     //$boolea = $cons->execute();
     if ($res) {
-        $_SESSION['insert'] = 'yes'; 
+        $_SESSION['insert'] = '';
     }
-    
+
     header('location: index.php?accio=perfil');
      
 ?>

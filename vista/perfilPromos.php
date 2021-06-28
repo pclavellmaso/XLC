@@ -8,19 +8,15 @@
 
 .llistaFlex {
     flex: 0 0 60%;
-    height: 70vh;
     overflow-y: auto;
     padding-right: 30px;
     background: rgba(0, 0, 0, 0.1);
     padding: 1em;
+    height: 80vh;
 }
 
 h3 {
     font-size: 1em;
-}
-
-h2 {
-    font-size: 1.3em;
 }
 
 /* width */
@@ -73,15 +69,10 @@ h2 {
     display: inline-block;
 }
 
-.flex {
-    margin: auto;
-}
-
 .flex_img {
     border-radius: 5px;
-    background: #b5b0b0;
-    width: 10%;
-    clip-path: circle(2em at center);
+    background: transparent;
+    width: 20%;
     display: flex;
     margin-left: 20px;
 }
@@ -129,6 +120,7 @@ img {
     cursor: pointer;
     padding: 1em;
     width: 100%;
+    margin-top: 1em;
 }
 
 .btn_crear:enabled {
@@ -150,6 +142,7 @@ img {
     flex: 0 40%;
     display: flex;
     flex-direction: column;
+    height: max-content;
 }
 
 .crear_promo {
@@ -192,7 +185,7 @@ img {
     width: 100%;
     background: #B3001B;
     border: none;
-    border-radius: 1px;
+    border-radius: 2px;
     color: white;
     padding: 0.5em;
 }
@@ -211,6 +204,9 @@ h6 {
     margin-top: 3em;
 }
 
+.promo_form {
+    padding: 4em 0;
+}
 
 </style>
 
@@ -220,7 +216,7 @@ h6 {
     $usuari_id = $_SESSION['usuari_id'];
 
     // Consulta dels productes (catàleg) del negoci loguejat
-    $cons_prods = "SELECT * FROM producte WHERE negoci_id = '$usuari_id'";
+    $cons_prods = "SELECT p.id, p.nom, p.descripcio, p.preu, p.descompte, p.stock, p.imatge FROM producte p, negoci n WHERE p.negoci_id = n.id and n.usuari_id = '$usuari_id'";
     $res_prods = $bd->query($cons_prods);
     $data_prods = $res_prods->fetch_all(MYSQLI_ASSOC);
 
@@ -235,7 +231,7 @@ h6 {
 
         echo '<div>
 
-            <h2>Promocions Actives</h2>';
+            <h1 style="text-align: left;">Promocions Actives</h1>';
 
             foreach ($data_promos as $indexPromo => $promocio) {
                 
@@ -247,12 +243,12 @@ h6 {
                 echo '<div class="promo_wrap">
 
                     <div class="esq">
-                        <span>Vàlida desde el '.$promocio['data_inici'].' fins al </span>
-                        <span>'.$promocio['data_fi'].'</span>
-                        <p>Descompte del '.$promocio['descompte_add'].'% aplicat</p>
+                        <span>Vàlida desde el <strong>'.$promocio['data_inici'].'</strong> fins al </span>
+                        <span><strong>'.$promocio['data_fi'].'</strong></span>
+                        <p>Descompte del <strong>'.$promocio['descompte_add'].'%</strong> aplicat</p>
                     </div>
                     <div class="dreta">
-                        <p>Inclou els següents productes: </p>';
+                        <p><strong>Inclou els següents productes:</strong> </p>';
 
                         foreach ($data_subpromo as $indexSubPromo => $subPromo) {
 
@@ -278,7 +274,9 @@ h6 {
                 </div><hr>';
             }
         echo '</div>
-        
+        <div id="contingut2">
+            <div id="app">
+        </div>
         </div><!-- #contingut -->';
 
     // Si no hi ha promocions actives
@@ -309,7 +307,7 @@ h6 {
             return {
                 data_prods: <?php echo json_encode($data_prods); ?>,
                 llista: [],
-                crear_promo: false,
+                mostrar_form: false,
                 ids: [],
                 btn_text: 'Crear nova promoció'
             }
@@ -334,7 +332,7 @@ h6 {
                 }
             },
             mostra: function() {
-                this.crear_promo = !this.crear_promo
+                this.mostrar_form = !this.mostrar_form
                 this.btn_text = (this.btn_text == "Crear nova promoció") ? "Cancela" : "Crear nova promoció"
             }
         },
@@ -342,11 +340,11 @@ h6 {
         template: `
             <button v-on:click="mostra()" class="mostra_btn">{{ btn_text }}</button>
 
-            <div v-if="crear_promo">
+            <div class="promo_form" v-if="mostrar_form">
                 <div class="header">
-                    <h2>Catàleg actualitzat dels teus productes</h2>
+                    <h1>Catàleg actualitzat dels teus productes</h1>
                     <br>
-                    <p>1 Selecciona els productes que vulguis incloure en la promoció</p>
+                    <p>1 Selecciona els productes que vulguis incloure en la promoció (Mínim: 2)</p>
                     <p>2 Omple les dades del formulari</p>
                     <p>3 Crear Promoció!</p>
                     <br>

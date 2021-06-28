@@ -3,10 +3,7 @@
 <style>
 
     .footer_flex {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 30px;
+        border-top: 1px solid lightgray;
     }
 
     .esq_flex .dreta_flex {
@@ -18,25 +15,29 @@
 </style>
     </div><!--tancament del div 'content' del header (tanca tota la pàgina)-->
 
-    <div class="session">
-        <?php
-            echo 'Log Session: ';
-            print_r($_SESSION);
-        ?>
-    </div>
+    <div class="footer_flex">
 
-    <div class="footer_flex bg-light">
+        <div style="padding: 2em; display: flex; justify-content: space-around;">
+            <div class="esq_flex">
+                
+                <p><strong>Projecte inspirat en</strong></p>
+                
+                <p><a href="#">Etsy</a></p>
+                <p><a href="#">Bolozon</a></p>
+                <p><a href="#">La Gastroteca</a></p>
+            
+            </div>
+            
+            <div class="dreta_flex">
+                
+                <p><strong>Pots consultar el codi font a</strong></p>
+                <a href="#">Github</a>
 
-        <div class="esq_flex">
-            <p>Hola</p>
-            <p>Ei</p>
-            <p>Adeu</p>
+            </div>
         </div>
-        
-        <div class="dreta_flex">
-            <p>Ep</p>
-            <p>Op</p>
-            <p>Ip</p>
+        <div style="display: flex; padding: 0.5em; justify-content: space-around; background: rgba(0, 0, 0, 0.1);">
+            <span>Xarxa Catalana Artesania 2021 &copy;</span>
+            <span>Pol Clavell Masó</span>
         </div>
 
     </div>

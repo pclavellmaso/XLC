@@ -24,9 +24,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Yanone+Kaffeesatz:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
     
-<link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Vidaloka&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Vidaloka&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prata&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Carter+One&display=swap" rel="stylesheet">
 
     <!-- JS -->
     <script src="/XLC/vista/js/header.js"></script>
@@ -64,7 +71,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Prata', serif;
+    font-family: 'Noto Sans JP', serif;
+}
+
+.pagina {
+	background: #FDFDFD;
 }
 
 a {
@@ -74,7 +85,7 @@ a {
 
 .capçalera_flex {
     display: flex;
-    background-color: #FAEADB;
+    background-color: #FDFDFD;
     padding: 10px 30px;
     position: fixed;
     top: 0px;
@@ -97,13 +108,9 @@ a {
     width: 60px;
 }
 
-.titol {
-    margin-left: 35px;
-    font-family: 'Vidaloka', sans-serif;
-}
-
 .titol_header {
-    font-family: 'Vidaloka', sans-serif;
+    font-family: 'Carter One', cursive;
+    font-size: 1.5em;
 }
 
 .cerca {
@@ -220,7 +227,7 @@ h1 h2 {
 
 .perfil:hover, .logout:hover {
     background-color: #B3001B;
-    color: FAEADB;
+    color: #FAEADB;
 }
 
 .dialeg_cistella {
@@ -242,7 +249,7 @@ h1 h2 {
 
 .cistella_prods:hover, .cistella_punts:hover {
     background-color: #EFA243;
-    color: FAEADB;
+    color: #FAEADB;
 }
 
 .perfil:hover>a {
@@ -256,7 +263,7 @@ h1 h2 {
 
 .content {
     padding: 0% 5%;
-    background: #F4F3EE;
+    background: #FDFDFD!important;
 }
 
 .cistella {
@@ -294,12 +301,19 @@ h1 h2 {
 }
 
 .navbar1, .navbar2 {
-    width: 90%;
+    width: 100%;
     margin: auto;
+    padding: 0 5%;
+    padding-top: 0.5em;
+    background: #FDFDFD;
 }
 
 .menu_usuari {
     display: flex;
+}
+
+.navbar-brand:hover {
+    color: black;
 }
 
 @media (max-width: 414px) {
@@ -320,17 +334,17 @@ h1 h2 {
 
 </style>
 
-<body class="bg-light">
+<body>
 
     <div class="pagina">
 
         <!-- <div class="capçalera_flex"> -->
-        <nav class="navbar1 navbar navbar-expand navbar-light bg-light mt-0">
+        <nav class="navbar1 navbar navbar-expand mt-0">
             <div class="container-fluid">
 
                 <a class="navbar-brand" href="index.php">
                     <img class="logo me-lg-2 w-25" src="/XLC/vista/img/logo.png" alt="logo"></img>
-                    <span class="d-none d-lg-inline titol_header">Xarxa Local de Comerços</span>
+                    <span class="d-none d-lg-inline titol_header">Xarxa Catalana Artesania</span>
                 </a>
 
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
@@ -376,7 +390,7 @@ h1 h2 {
 
             if ($_SESSION['tipus_usuari'] != 'negoci') {
 
-                echo '<nav class="navbar2 navbar navbar-expand-lg navbar-light bg-light mt-0">
+                echo '<nav class="navbar2 navbar navbar-expand-lg navbar-light mt-0">
                     <div class="container-fluid">
 
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -410,7 +424,7 @@ h1 h2 {
         ?>
         
 
-        <div class="content bg-light">
+        <div class="content">
 
             <div class="dialeg_usuari">
 

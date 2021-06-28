@@ -12,13 +12,13 @@ img {
 
 .add {
     border: none;
-    background: lightgray;
-    padding: 15px;
-    font-size: 18px;
-    border-radius: 3px;
-    margin-left: auto;
+    color: white;
+    padding: 1em;
+    font-size: 1em;
+    border-radius: 2px;
+    background: #EFA243;
+    margin-right: auto;
     cursor: pointer;
-    display: inline;
 }
 
 .altres {
@@ -51,6 +51,12 @@ img {
     padding: 0.5em;
 }
 
+.no_afegir {
+    background: #EFA243;
+    padding: 1em;
+    border-radius: 2px;
+}
+
 .slick-slider {
     display: flex!important;
 }
@@ -61,6 +67,14 @@ img {
     font-size: 35px;
     border-radius: 50%;
     padding: 3px;
+}
+
+.title_wrap {
+    margin-top: 2em;
+}
+
+.title_wrap > p {
+    margin: 0.5em;
 }
 
 @media (max-width: 767px) {
@@ -86,9 +100,9 @@ img {
 
 <?php
     
-    $id_promo = $_POST['id_promo'];
+    $id_promo = $_GET['id_promo'];
 
-    $cons_promo = "SELECT * FROM promocio p WHERE p.id = '$id_promo'";
+    $cons_promo = "SELECT * FROM promocio p WHERE p.id = ".$id_promo."";
     $res_promo = $bd->query($cons_promo);
     $data_promo = $res_promo->fetch_all(MYSQLI_ASSOC);
 
@@ -102,19 +116,22 @@ img {
 
     <div class="promoFlex">
 
-        <p>La promoció finalitza el <?php echo $data_promo[0]['data_fi']; ?></p>
-        <p>Té aplicat un descompte del <?php echo $data_promo[0]['descompte_add']; ?>%</p>
-
+        <div class="title_wrap">
+            <p><strong>La promoció finalitza el <?php echo $data_promo[0]['data_fi']; ?></strong></p>
+            <p><strong>Té aplicat un descompte del <?php echo $data_promo[0]['descompte_add']; ?>%</strong></p>
+        </div>
+        
         <?php
 
-            echo '<div class="your-class container-fluid">';
+            echo '<div class="your-class">';
 
                 $id_prods = array();
+                $subtotal_promo = 0;
                 
                 for ($i = 0; $i < count($data_subpromo); $i++) {
 
                     // Agafem les dades de cada subpromocio (producte)
-                    $cons_infoProd = "SELECT * FROM producte p WHERE p.id = ".$data_subpromo[0]['producte_id']."";
+                    $cons_infoProd = "SELECT * FROM producte p WHERE p.id = ".$data_subpromo[$i]['producte_id']."";
                     $res_infoProd = $bd->query($cons_infoProd);
                     $data_infoProd = $res_infoProd->fetch_all(MYSQLI_ASSOC);
 
@@ -127,8 +144,9 @@ img {
                         </div>
 
                         <div class="col-12 col-md-10 m-3">
-                            <p>'.$data_infoProd[0]["nom"].'</p>
-                            <p>'.$data_infoProd[0]["preu"].'</p>
+                            <h4>'.$data_infoProd[0]["nom"].'</h4>
+                            <p>'.$data_infoProd[0]["descripcio"].'</p>
+                            <p><strong>Preu producte: '.$data_infoProd[0]["preu"].'€</strong></p>
                         </div>
 
                         </div>
@@ -136,11 +154,11 @@ img {
                     </div>';
 
                     array_push($id_prods, $data_subpromo[$i]['producte_id']);
+                    $subtotal_promo += $data_infoProd[0]['preu'];
                 }
                 $promo_articles = count($id_prods);
                 $id_prods = implode(",", $id_prods);
-                
-                
+
             echo '</div>';
 
         ?>
@@ -155,7 +173,19 @@ img {
         <input type="text" name ="promo_id" value="<?php echo $data_promo[0]['id']; ?>" hidden>
         <input type="text" name ="promo_qty" value="1" hidden>
         <input type="text" name ="promo_articles" value="<?php echo $promo_articles; ?>" hidden>
-        <button type="submit" class="add">Afegir a la cistella</button>
+
+        <?php
+        
+            $preu_final = $subtotal_promo - (($data_promo[0]['descompte_add'] / 100) * $subtotal_promo);
+            echo '<p><strong>Preu promoció: '.round($preu_final).'€</strong></p>';
+
+            if (isset($_SESSION['nom'])) {
+                echo '<button type="submit" class="add">Afegir a la cistella</button>';
+            } else {
+                echo '<p class="no_afegir"><strong><a class="strong" href="index.php?accio=registreLogin">Inicia la sessió o registra\'t</a></strong> per afegir productes a la cistella';
+            }
+        ?>
+        
     </form>
 
     <div class="altres">Productes relacionats etc...</div>
@@ -178,28 +208,5 @@ img {
     });
 
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <?php include "footer.php";?>

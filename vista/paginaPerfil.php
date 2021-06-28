@@ -6,6 +6,11 @@
     box-sizing: border-box;
 }
 
+h4 {
+    font-size: 1em!important;
+    margin-bottom: 0.5em!important;
+}
+
 #contentFlex {
     width: 100%;
     display: flex;
@@ -14,7 +19,6 @@
 }
 
 #contingut {
-    background-color: #1716161c;
     border-radius: 2px;
     padding: 1em;
 }
@@ -49,7 +53,7 @@ label {
 	left: 0!important;
 	background-color: #f5f2ed !important;
 	position: fixed;
-	z-index: 1;
+	z-index: 2;
 	display:none;
 }
 
@@ -75,8 +79,7 @@ h5 {
 
 .info_p_wrap {
     display: flex;
-    padding-left: 1.5em;
-    padding-bottom: 1em;
+    padding: 2em;
     background: rgba(239, 162, 67, 0.4);
 }
 
@@ -92,9 +95,12 @@ h5 {
 }
 
 .mask {
-    clip-path: circle(3em at center);
+    clip-path: circle(2em at center);
     overflow: hidden;
-    width: 6em;
+    width: 4em;
+    height: 4em;
+    background: #B3001B;
+    display: flex;
 }
 
 .seccio {
@@ -121,7 +127,18 @@ h5 {
 }
 
 #select-label {
+    margin-left: 1em;
+    font-size: 1.1em;
+    vertical-align: text-top;
+}
+
+.seccio > h4 {
+    font-weight: bold;
+}
+
+.label-wrap {
     cursor: pointer;
+    display: inline;
 }
 
 </style>
@@ -140,16 +157,6 @@ h5 {
             </button>
         </div>';
         unset($_SESSION['new_promo']);
-    }
-
-    if (isset($_SESSION['dades_mod'])) {
-        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
-            <strong>Dades actualitzades!</strong> ...
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true"><i data-feather="x"></i></span>
-            </button>
-        </div>';
-        unset($_SESSION['perfil_mod']);
     }
 
     if (isset($_SESSION['eliminar_promo'])) {
@@ -182,23 +189,42 @@ h5 {
         unset($_SESSION['eliminar_producte']);
     }
 
+    if(isset($_SESSION['pass_err'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error a l\'actualitzar la contrasenya</strong> Contrasenya actual invàlida
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['pass_err']);
+    } elseif (isset($_SESSION['dades_mod'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Dades actualitzades!</strong> ...
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['dades_mod']);
+    }
+
+    if (isset($_SESSION['dades_NegociMod'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Dades actualitzades!</strong> ...
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['dades_NegociMod']);
+    }
+
 ?>
 
 <div id="contentFlex">
 
     <div id="leftFlex">
 
-        <?php
-            
-            if(isset($_SESSION['pass_err']) && $_SESSION['pass_err'] == 'yes') {
-
-                echo '<p style="color: red;">Error a l\'actualitzar la contrasenya: Contrasenya actual invàlida</p>';
-            }
-        ?>
-
-        <div>
-            <span id="select-label" class="menu">MENÚ</span><br><br>
-            
+        <div class="label-wrap">
+            <i data-feather="menu"></i><span id="select-label" class="menu">MENÚ</span><br><br>
         </div>
 
         <div id="arteside">
@@ -211,7 +237,8 @@ h5 {
 
                 <div class="img_wrap">
                     <div class="mask">
-                        <img class="profile" src="vista/img/profile.jpg" alt="profile.jpg">
+                        <!--<img class="profile" src="vista/img/profile.jpg" alt="profile.jpg">-->
+                        <p style="margin: auto; color: white;"><?php echo ucfirst($_SESSION['nom'][0]); ?></p>
                     </div>
                 </div>
             </div>
@@ -220,33 +247,37 @@ h5 {
 
                 <div id="dades_personals" class="seccio">
                     <h4>Dades personals</h4>
-                    <h6>...</h6>
+                    <p>Consulta i/o edita les teves dades personals</p>
                 </div>
 
                 <?php if(isset($_SESSION['tipus_usuari']) and $_SESSION['tipus_usuari'] == 'negoci') { ?>
                 
-                    <h4 class="seccio" id="dades_negoci" class="menu_item">Dades negoci</h4>
+                    <div id="dades_negoci" class="seccio">
+                        <h4>Dades negoci</h4>
+                        <p>Consulta i/o edita les dades referents al negoci</p>
+                    </div>
                     </br>
+
                     <div id="consul_prods" class="seccio">
                         <h4>Catàleg de productes</h4>
-                        <h6>Consulta els productes atuals del catàleg, modifica o elimina els existents i afegeix-ne de nous</h6>
+                        <p>Consulta els productes atuals del catàleg, modifica o elimina els existents i afegeix-ne de nous</p>
                     </div>
                     
                     <div id="consul_proms" class="seccio">
-                        <h4>Promocions</h4>
-                        <h6>Consulta les promocions actives i creen de noves.</h6>
+                        <h4>Consultar promocions</h4>
+                        <p>Consulta les promocions actives i creen de noves.</p>
                     </div>
 
                 <?php }else { ?>
                     
                     <div id="compres" class="seccio">
                         <h4>Registre de compres</h4>
-                        <h6>...</h6>
+                        <p>Consulta el teu registre de compres realitzades i el corresponent guany o consum de punts en cadascuna</p>
                     </div>
                     </br>
                     <div id="punts" class="seccio">
                         <h4>Els meus punts</h4>
-                        <h6>...</h6>
+                        <p>Consulta els punts totals aconseguits i els actuals. Descobreix quins descomptes tens desbloquejats</p>
                     </div>
                 <?php } ?> 
 
@@ -275,7 +306,7 @@ h5 {
     jQuery(document).ready(function() {
 
 
-        jQuery('#select-label').on('click', function(e){
+        jQuery('.label-wrap').on('click', function(e){
             jQuery('#order').css("display", "block");
             jQuery('#arteside').toggle('slide', {direction: 'right'}, 500 );
             e.stopPropagation();
@@ -342,6 +373,8 @@ h5 {
         });
 
     });
+
+    feather.replace()
 
 </script>
 

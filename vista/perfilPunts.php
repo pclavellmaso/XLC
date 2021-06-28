@@ -14,10 +14,6 @@
     margin-bottom: 1em;
 }
 
-h2 {
-    font-size: 1.3em;
-}
-
 .wrap_slider {
     display: flex;
     flex-wrap: wrap;
@@ -74,6 +70,10 @@ a:hover {
     vertical-align: sub;
 }
 
+h3 {
+    margin-bottom: 1em;
+}
+
 </style>
 
 
@@ -120,9 +120,9 @@ a:hover {
                 }
 
                 if ($_SESSION['punts_usuari'] < 50) {
-                    $estat = '<h2>Actualment no arribes a desbloquejar cap descompte</h2>';
+                    $estat = '<div style="width: 100%;"><h3>Actualment no arribes a desbloquejar cap descompte</h3></div>';
                 } else {
-                    $estat = '<h2>Actualment pots desbloquejar descomptes de fins a un '.$desc_max.' %</h2>';
+                    $estat = '<div style="width: 100%;"><h3>Actualment pots desbloquejar descomptes de fins a un '.$desc_max.' %</h3></div>';
                 }
 
                 echo $estat;
@@ -131,7 +131,7 @@ a:hover {
                 for ($i = 0; $i < count($percentatge); $i++) {
                     
                     echo '<div class="desc_slider">
-                        <p class="percent_slider">'.$percentatge[$i].'%</p>';
+                        <p class="percent_slider"><strong>'.$percentatge[$i].'%</strong></p>';
                         
                         if ($info[0]['punts'] >= $punts_desbl[$i]) {
 
@@ -159,14 +159,14 @@ a:hover {
             
             <div class="wrap_progress">
                 <progress value="<?php echo $value; ?>" max=<?php echo $seguent; ?>></progress>
-                <p><?php echo $seguent - $info[0]['punts']; ?> punts per aconseguir el següent descompte</p>
+                <p><strong><?php echo $seguent - $info[0]['punts']; ?> punts</strong> per aconseguir el següent descompte</p>
             </div>
             
         </div>
         <hr>
 
         <div class="get_points">
-            <h2>Aconsegueix punts</h2>
+            <h3>Aconsegueix punts</h2>
 
             <a href=""><p>Visita la secció de Productes i Promocions</p></a>
             <a href=""><p>Confirma l'assistència a un esdeveniment</p></a>
@@ -174,7 +174,7 @@ a:hover {
         </div>
         
         <div class="use_points">
-            <h2>Treu profit als punts</h2>
+            <h3>Treu profit als punts</h2>
             
             <a href=""><p>Aconsegueix descomptes per a entrades d'esdeveniments (Consulta el calendari d'esdeveniments)</p></a>
             <a href=""><p>Sigues el primer en veure els descomptes nous</p></a>

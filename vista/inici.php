@@ -15,6 +15,12 @@
     margin: auto;
 }
 
+.close {
+    background: transparent;
+    border: none;
+    float: right;
+}
+
 .imgflex {
     display: flex;
     width: 100%;
@@ -29,8 +35,7 @@
 }
 
 .titol1 {
-    margin-top: 50px;
-    margin-bottom: 70px;
+    margin: 1em 0;
 }
 
 .prod_abaix {
@@ -69,9 +74,21 @@
 </style>
 
 
+<?php
 
+    if (isset($_SESSION['compra'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Compra realitzada correctament.</strong> Consulta el registre de compres per a més detalls
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['compra']);
+    }
 
-<div class="wrap bg-light">
+?>
+
+<div class="wrap">
    
     <div class="container-fluid main-container">
 
@@ -85,7 +102,7 @@
 
                 echo '<h1 class="titol1">Descobreix productes artesanals arreu de Catalunya</h1>
         
-                <h2>Novetats</h2>
+                <h4>Novetats</h4>
                     
                 <div class="grid_seleccio row">';
 
@@ -142,7 +159,13 @@
 
 <script>
 
- 
+    setTimeout(function() {
+        jQuery(".alert").hide(200);
+    }, 5000)
+
+    jQuery(".close").click(function() {
+        jQuery(".alert").hide(200);
+    })
 
 </script>
 

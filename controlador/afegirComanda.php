@@ -93,7 +93,8 @@
 
     unset($_SESSION['cistella']['prods']);
     $_SESSION['cistella']['qty'] = 0;
-    
+
+    $_SESSION['compra'] = '';
     header('location: index.php')
     
 ?>

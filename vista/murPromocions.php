@@ -1,5 +1,3 @@
-<!--<link rel="stylesheet" href="murPromocions.css">-->
-
 <style>
 
 * {
@@ -12,183 +10,104 @@ p {
     color: black;
 }
 
-.slick-list.draggable {
-    height: 100px;
-}
-
-.your-class.slick-initialized.slick-slider {
-width: 150px;
-}
-
 .llistaFlex {
- margin-top: 100px;
+    margin-top: 1em;
 }
 
 .promoFlex {
+    background-color: rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    border-radius: 3px;
     display: flex;
-    padding: 20px;
-    width: 75%;
+    padding: 1em;
+    width: 100%;
+}
+
+.slick-slide.slick-current.slick-active {
+    border-radius: 2px;
+}
+
+.slick-slide {
+    display: none;
+    float: left;
+    height: auto!important;
+    min-height: 1px;
 }
 
 .left {
-width: 30%;
+    width: 20%;
+    padding: 1em;
 }
-
-.promoFlex {
-  display: flex;
-  padding: 20px;
-  width: 75%;
-  background-color: grey;
-  margin-top: 20px;
-  border-radius: 3px;
-}
-
-
-.left {
-  width: 30%;
-}
-
 
 .right {
-  width: 70%;
+    width: 80%;
+    padding: 1em;
+    margin-left: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
-
-
-.right_top {
-  display: flex;
-}
-
-.capçalera {
- padding-top: 60px;
- text-align: center;
-}
-
-.descripcio {
- margin-top: 45px;
- width: 50%;
- /*! text-align: center; */margin-left: auto;
- margin-right: auto;
-}
-
-
-
-.right_top > div:nth-child(1) > p:nth-child(1) {
-  margin: 0;
-}
-
-
-.right_top > div:nth-child(1) > p:nth-child(2) {
-  margin: 0;
-}
-
-
-.right_top > div:nth-child(2) {
-  margin-right: ;
-  margin-left: auto;
-}
-
-
-.right_bottom > div:nth-child(1) > p:nth-child(1) {
-  margin: 0;
-  margin-top: 20px;
-}
-
-
-.right_bottom > div:nth-child(1) > p:nth-child(2) {
-  margin: 0;
-}
-
 
 .right_bottom {
-  display: flex;
+    display: flex;
+    flex-direction: column;
 }
 
 
 .right_bottom > div:nth-child(2) {
-  margin-top: 20px;
-  margin-left: auto;
+    margin-top: 20px;
+    margin-left: auto;
+}
+
+.titol1 {
+    margin: 1em 0;
 }
 
 
 .llistaFlex {
-  display: flex;
-  flex: ;
-  flex-direction: column;
-  justify-content: ;
-  align-content: ;
-  align-items: center;
+    display: flex;
+    flex: ;
+    flex-direction: column;
+    justify-content: ;
+    align-content: ;
+    align-items: center;
 }
 
-
-.slick-prev.slick-arrow {
-  display: inline;
+.veureMes_btn {
+    color: white;
+    padding: 1em;
+    font-size: 1em;
+    border-radius: 2px;
+    background: #EFA243;
+    margin-left: auto;
+    margin-top: auto;
+    transition: 0.4s;
 }
 
-.slick-list.draggable {
+.veureMes_btn:hover {
+    transform: scale(1.06);
+    color: white!important;
 }
 
-.slick-prev.slick-arrow {
-  display: inline-block;
+.content {
+    margin-bottom: 3em;
 }
 
-
-.slick-next {
-  display: inline-block;
+.close {
+    background: transparent;
+    border: none;
+    float: right;
 }
 
-
-.slick-track {
-  /* width: 125270000px; */
-  width: 100px;
-  display: inline;
+#cntdwn {
+    color: brown!important;
+    margin-left: 1em;
+    margin-bottom: 1em;
+    background: transparent!important;
 }
 
-
-div.slick-slide:nth-child(1) {
-  /* width: 17895700px; */
-  width: 100px;
-}
-
-
-div.slick-slide:nth-child(2) {
-  /* width: 17895700px; */
-  width: 100px;
-}
-
-
-div.slick-slide:nth-child(7) {
-  /* width: 17895700px; */
-  width: 100px;
-}
-
-
-div.slick-slide:nth-child(6) {
-  /* width: 17895700px; */
-  width: 100px;
-}
-
-
-div.slick-slide:nth-child(5) {
-  /* width: 17895700px; */
-  width: 100px;
-}
-
-
-div.slick-slide:nth-child(4) {
-  /* width: 17895700px; */
-  width: 100px;
-}
-
-
-div.slick-slide:nth-child(3) {
-  /* width: 17895700px; */
-  width: 100px;
-}
-
-
-.slick-slider {
-  /* display: block; */
-  display: inline;
+.timer {
+    display: inline;
 }
 
 </style>
@@ -197,31 +116,27 @@ div.slick-slide:nth-child(3) {
 
 <?php
 
-    $cons_promos = "SELECT distinct p.id, n.nom, p.descompte_add, p.data_fi  FROM promocio p, usuari u, negoci n WHERE n.id = p.negoci_id";
+    $cons_promos = "SELECT distinct p.id, n.nom, p.descompte_add, p.data_fi FROM promocio p, negoci n, usuari u WHERE p.negoci_id = n.usuari_id";
     $res_promos = $bd->query($cons_promos);
     $data_promos = $res_promos->fetch_all(MYSQLI_ASSOC);
+
+    if (isset($_SESSION['inc_cistella'])) {
+        echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Promoció afegida a la cistella.</strong> Consulta la pàgina de la cistella per a més detalls
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true"><i data-feather="x"></i></span>
+            </button>
+        </div>';
+        unset($_SESSION['inc_cistella']);
+    }
 
 ?>
 
 <div class="contingut">
-
-    <div class=capçalera>
-
-        <div class="titol_promos">
-            <h1>MUR DE PROMOCIONS</h1>
-        </div>
-
-        <div class="descripcio">
-            <h4>"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-                laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-                voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </h4>
-        </div>
-
-    </div>
-
+  
+    <h1 class="titol1">Mur de promocions</h1>
+    <h4>En aquest espai trobaràs les promocions actives dels comerços adherits</h4>
+        
     <div class="llistaFlex">
 
         <?php for ($i = 0; $i < count($data_promos); $i++) { ?>
@@ -239,16 +154,12 @@ div.slick-slide:nth-child(3) {
 
                 <div class="left">
 
-                    <div class="carousel">
+                    <div class="your-class">
 
-                        <div class="your-class">
+                        <?php for ($k = 0; $k < count($data_subpromo); $k++) { ?>
 
-                            <?php for ($k = 0; $k < count($data_subpromo); $k++) { ?>
-
-                                <img src="/XLC/vista/img/<?php echo $data_subpromo[$k]['imatge']; ?>" alt="">
-                            <?php } ?>
-
-                        </div>
+                            <img src="/XLC/vista/img/<?php echo $data_subpromo[$k]['imatge']; ?>" alt="">
+                        <?php } ?>
 
                     </div>
 
@@ -256,63 +167,56 @@ div.slick-slide:nth-child(3) {
 
                 <div class="right">
 
-                    <div class="right_top">
+                    <div>
+                        <h3><?php echo $data_promos[$i]['nom']; ?></h3>
+                    </div>
 
-                        <div>
-                            <p><?php echo $data_promos[$i]['nom']; ?></p>
+                    <?php
+
+                        $prods = '';
+                        $preu = 0;
+                        for ($k = 0; $k < count($data_subpromo); $k++) {
+
+                            $prods .= ucfirst($data_subpromo[$k]['nom']) . ' | ';
+                            $preu += $data_subpromo[$k]['preu'];
+                        }
+
+                        // Descompte aplicat al preu total dels productes, no individualment, pensarho un xic
+                        $preu_desc = $preu - ($preu * ($data_promos[$i]['descompte_add'] / 100));
+                    ?>
+
+                    <div>
+                        <h5 style="display: inline;">Inclou:</h5>
+                        <p><?php echo $prods; ?></p>
+
+                        <h5>Finalitza el:</h5>
+                        <p class="data_fi" data-time="<?php echo $data_promos[$i]['data_fi']; ?>" style="display: inline;"><?php echo $data_promos[$i]['data_fi']; ?></p>
 
                             <?php
-
-                                $prods = '';
-                                $preu = 0;
-                                for ($k = 0; $k < count($data_subpromo); $k++) {
-
-                                    $prods .= $data_subpromo[$k]['nom'] . ', ';
-                                    $preu += $data_subpromo[$k]['preu'];
-                                }
-
-                                // Descompte aplicat al preu total dels productes, no individualment, pensarho un xic
-                                $preu_desc = $preu - ($preu * ($data_promos[$i]['descompte_add'] / 100));
+                                $descompte = $data_promos[$i]['descompte_add'];
+                                $id_promo = $data_promos[$i]['id'];
                             ?>
 
-                            <p>Inclou: <?php echo $prods; ?></p>
-
-                        </div>
-
-                        <div>
-                            COR
-                        </div>
-
-                    </div>
-
-                    <div class="right_bottom">
-
-                        <div>
-                            <p>Finalitza el <?php echo $data_promos[$i]['data_fi']; ?></p>
-
-                                <?php
-                                    $descompte = $data_promos[$i]['descompte_add'];
-                                ?>
-
-                            <p>Preu amb descompte (<?php echo $data_promos[$i]['descompte_add']; ?>) : <?php echo $preu_desc; ?> € | Preu antic: <?php echo $preu; ?> €</p>
-                        </div>
-
-                        <form action="index.php?accio=pagina_promo" method="post">
-                            
-                            <input type="text" name="id_promo" value="<?php echo $data_promos[$i]['id']; ?>" hidden>
-                            <button type="submit">Veure més</button>
+                        <h5 style="margin-top: 1em;">Preu original:</h5>
+                        <p style="text-decoration: line-through;"><?php echo $preu; ?> €</p>
                         
-                        </form>
-
                     </div>
+
+                    <div style="display: flex; justify-content: space-between;">
+                        <div>
+                            <h5>Preu amb descompte aplicat del <?php echo $data_promos[$i]['descompte_add']; ?> %: </h5>
+                            <p style="font-size: 1.5em;"><?php echo $preu_desc; ?> €</p>
+                        </div>
+                        <div style="margin-top: auto;">
+                            <a class="veureMes_btn" href="index.php?accio=pagina_promo&id_promo=<?php echo $id_promo; ?>">Veure més</a>
+                        </div>
+                    </div>                 
 
                 </div>
 
             </div>
 
         <?php } ?>
-
-        
 
     </div>
 
@@ -323,8 +227,19 @@ div.slick-slide:nth-child(3) {
 <script>
 
     $(document).ready(function(){
+
         $('.your-class').slick();
+
+        setTimeout(function() {
+            jQuery(".alert").hide(200);
+        }, 5000)
+
+        jQuery(".close").click(function() {
+            jQuery(".alert").hide(200);
+        })
+        
     });
-	
 
 </script>
+
+

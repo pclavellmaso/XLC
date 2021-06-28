@@ -28,49 +28,43 @@ input {
     border-radius: 2px;
     cursor: pointer;
     color: white;
-    padding: 0.7em;
+    padding: 1em;
     min-width: 20%;
     font-size: 1em;
 }
 
 .guarda {
     background: #B3001B;
+    font-size: 1em!important;
     border: none;
     border-radius: 2px;
-    margin-top: 1em;
     cursor: pointer;
     color: white;
     padding: 1em;
     min-width: 20%;
-    font-weight: bold;
     float: right;
     display: none;
 }
 
 h2 {
-    font-size: 1.5em;
     text-align: left;
     margin-bottom: 1em!important;
 }
 
-h4 {
-    font-size: 1em;
-    margin-bottom: 0.5em!important;
-}
-
 .dades_wrap {
     display: flex;
-    justify-content: space-between;
-    height: 250px;
+    justify-content: flex-start;
 }
 
 .edita {
     display: none;
-    width: 45%;
+    margin-left: 2em;
+    border: 1px solid brown;
+    padding: 1em;
 }
 
 .edit_right {
-    margin-left: 1.5em;
+    margin-left: 5em;
 }
 
 /**/
@@ -104,15 +98,6 @@ input {
 
 .dadesUsuari {
     margin-bottom: 2em;
-}
-
-#form_edita {
-    border: 1px solid brown;
-    padding: 1em;
-}
-
-#guarda {
-    font-size: 1em!important;
 }
 
 </style>
@@ -153,7 +138,7 @@ input {
                 <p class="dadesUsuari">***********</p>
 
             </div>
-
+            <button class="editaBtn"><span id="edita">Edita</span></button>
         </div>
 
         <div class="edita">
@@ -179,20 +164,10 @@ input {
                     <input class="dadesUsuari" type="text" name="pass2" value="">
                 </div>
 
-                
-
             </form>
 
             <button type="submit" class="guarda" form="form_edita"><span id="guarda">Guarda els canvis</span></button>
-
         </div>
-
-        
-
-    </div>
-
-    <div class="btns">
-        <button class="editaBtn"><span id="edita">Edita</span></button>
     </div>
 
 </div>

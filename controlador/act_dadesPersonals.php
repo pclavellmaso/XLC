@@ -1,12 +1,10 @@
 <?php
  
-    //EN TEORIA tenim la connexió a la bd feta passant per l'index.php
     if(isset($_SESSION['tipus_usuari'])) {
             
         $nomUsuari = $_SESSION['nom'];
         $correuUsuari = $_SESSION['usuari_correu'];
     }
-
 
     // Agafem les dades del formulari
     $nom = mysqli_real_escape_string($bd, $_POST['nom']);
@@ -34,8 +32,6 @@
             $_SESSION['pass_err'] = 'yes';
             header('location: /XLC/index.php?accio=perfil');
         }
-
-        
     }
 
     $bd->query($consulta);

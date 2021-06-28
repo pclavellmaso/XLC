@@ -50,6 +50,10 @@ switch ($accio) {
         include('controlador/act_dadesPersonals.php');
         break;
 
+    case 'act_dadesNegoci':
+        include('controlador/act_dadesNegoci.php');
+        break;
+    
     case 'perfil_cistella':
         include('vista/perfilCistella.php');
         break;

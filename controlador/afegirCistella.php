@@ -35,7 +35,7 @@
                     $_SESSION['cistella']['qty'] -= $_POST['promo_articles'];
                 }
             }
-
+            
             header('location: index.php?accio=perfil_cistella');
             exit();
 
@@ -67,7 +67,7 @@
                     $_SESSION['cistella']['qty'] -= 1;
                 }
             }
-
+            
             header('location: index.php?accio=perfil_cistella');
             exit();
         }
@@ -116,6 +116,7 @@
             // Incrementem el nombre d'elements de la cistella 
             $_SESSION['cistella']['qty'] += $_POST['promo_articles'];
 
+            $_SESSION['inc_cistella'] = '';
             header('location: index.php?accio=mur_promos');
             exit();
 
@@ -151,6 +152,7 @@
                         // Increment numero d'articles de la cistella
                         $_SESSION['cistella']['qty'] += $qty;
 
+                        $_SESSION['inc_cistella'] = '';
                         header('location: index.php?accio=pagina_producte&id='.$_POST['id_prod'].'');
                         exit();
                     }
@@ -180,6 +182,7 @@
             $_SESSION['cistella']['qty'] += $qty;
             
             // "Actualitzem la pàgina" (amb el id del mateix producte)
+            $_SESSION['inc_cistella'] = '';
             header('location: index.php?accio=pagina_producte&id='.$_POST['id_prod'].'');
             exit();
         }
